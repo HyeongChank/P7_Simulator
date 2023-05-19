@@ -5,6 +5,7 @@ from DA import test2
 from DA import congestAnal
 from DA import main
 from DA import retraining
+from DA import predict_LSTM
 import requests
 from flask_cors import CORS
 import pandas as pd
@@ -24,7 +25,7 @@ def congestion():
     else:
         return 'error'    
 
-# @app.route('./api/updatedata', methods =['GET'])
+# @app.route('./api/predictlstm', methods =['GET'])
 # def update_data():
 #     response = requests.get()
 #     retraining.add_data(response)
