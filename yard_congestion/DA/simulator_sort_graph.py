@@ -76,13 +76,13 @@ header = data[0]
 data_rows = data[1:]
 in_time_out = []
 waiting_time = []
-truck_v = []
+truck_wait_time = []
 
 for row in data_rows:
  
     in_time_out.append(int(row[2]))
     waiting_time.append(int(row[4]))
-    truck_v.append(int(row[6]))
+    truck_wait_time.append(int(row[6]))
 
 sinegraph = plt.figure()
 sine = plt.axes()
@@ -90,7 +90,7 @@ sine.set_xlim(0, max(in_time_out))
 sine.set_ylim(0, 20)
 
 x = np.array(in_time_out)
-y = np.array(truck_v)
+y = np.array(truck_wait_time)
 
 line, = sine.plot([],[])
 
