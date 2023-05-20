@@ -19,18 +19,6 @@ async function fetchData() {
 
 fetchData();
 
-// 나머지 코드
-
-// var trucksData = [
-//     {number: 1, code: 'out', entryTime: 1000, visible: true},
-//     {number: 2, code: 'in', entryTime: 2000, visible: true},
-//     {number: 3, code: 'out', entryTime: 3000, visible: true},
-//     {number: 4, code: 'in_out',entryTime: 4000, visible: true},
-//     {number: 5, code: 'in_out',entryTime: 5000, visible: true}
-// ];
-
-
-
 var trucks = [];
 
 function createEntry(){
