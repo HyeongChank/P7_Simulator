@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Display from './Display';
 
 const FetchTruckData2 = () => {
     const [data, setData] = useState([]);
@@ -17,21 +18,12 @@ const FetchTruckData2 = () => {
             });
     }, []);
 
-    return (
-        <div>
-            {data.map((item, index) =>{
-                return(
-                <div key={index}>
-                <p>{item.number}</p>
-                <p>{item.code}</p>
-                <p>{item.entryTime}</p>
-                <p>{item.visible}</p>
-                </div>
-                )
-            })}
- 
-        </div>
-    );
+    return <Display truckData={data}/>;
+    // return(
+    //     <div>
+    //         hi
+    //     </div>
+    // )
 }
 
 export default FetchTruckData2;

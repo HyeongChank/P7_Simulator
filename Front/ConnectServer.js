@@ -2,22 +2,37 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-var trucksData;
+const fs = require('fs');
+const csv = require('csv-parser');
 
-async function fetchData() {
-  try {
-    const response = await fetch('http://localhost:8080/api/truckData');
-    const data = await response.json();
+let data = [];
+
+fs.createReadStream('.../sorted_truck_simulation_result.csv')
+  .pipe(csv())
+  .on('data', (row) => {
+    data.push(row);
+  })
+  .on('end', () => {
     console.log(data);
-    trucksData = data;
-    // fetch가 완료되면 여기에 이어서 로직을 추가하면 됩니다.
-    // 예를 들면, 그림을 그리는 함수를 호출하는 등의 작업이 이어질 수 있습니다.
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
+    console.log('CSV 파일 읽기 완료.');
+  });
 
-fetchData();
+// var trucksData;
+
+// async function fetchData() {
+//   try {
+//     const response = await fetch('http://localhost:8080/api/truckData');
+//     const data = await response.json();
+//     console.log(data);
+//     trucksData = data;
+//     // fetch가 완료되면 여기에 이어서 로직을 추가하면 됩니다.
+//     // 예를 들면, 그림을 그리는 함수를 호출하는 등의 작업이 이어질 수 있습니다.
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }
+
+// fetchData();
 
 var trucks = [];
 

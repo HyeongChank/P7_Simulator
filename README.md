@@ -21,7 +21,7 @@
 - Arima.py = > 시간 입력 시 해당 시간의 야드 내 트럭 대수 분석
 
 ## Todo
-- 
+- react로 구현하고 있음. truckcreate 부분 확실히 체크할 것
 
 ## 세부내용
 - main.py 실행 : 'http://10.125.121.220:5001/api/congest2'

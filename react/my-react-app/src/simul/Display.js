@@ -1,312 +1,346 @@
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
+import React, { useState, useEffect, useRef } from 'react';
 
-var trucksData = [
-    {number: 1, code: 'out', entryTime: 1000, visible: true},
-    {number: 2, code: 'in', entryTime: 2000, visible: true},
-    {number: 3, code: 'out', entryTime: 3000, visible: true},
-    {number: 4, code: 'in_out',entryTime: 4000, visible: true},
-    {number: 5, code: 'in_out',entryTime: 5000, visible: true}
-];
+function Display(){
 
+    const [trucksData, setTrucksData] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:8080/api/truckData')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => setTrucksData(data))
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation: ', error);
+            });
+    }, []);   
 
-
-var trucks = [];
-
-function createEntry(){
-    return {
-        x : 0,
-        y : canvas.height - 500,
-        width : 20,
-        height : 50
+    const canvasRef = useRef(null);
+    const [trucks, setTrucks] = useState([]);
+    const drawEntry = (Entry, ctx) => { 
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(Entry.x, Entry.y, Entry.width, Entry.height);
+        ctx.fillStyle = 'black'; 
+        ctx.font = '20px Arial'; 
+        ctx.fillText('Entry gate', Entry.x, Entry.y);
     }
-}
-var Entry = createEntry();
-drawEntry(Entry);
-
-function drawEntry(Entry){
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(Entry.x, Entry.y, Entry.width, Entry.height);
-    ctx.fillStyle = 'black'; 
-    ctx.font = '20px Arial'; 
-    ctx.fillText('Entry gate', Entry.x, Entry.y); 
-}
-
-function createExit(){
-    return {
-        x : 780,
-        y : canvas.height - 500,
-        width : 20,
-        height : 50
+    const drawExit = (Exit, ctx) => {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(Exit.x, Exit.y, Exit.width, Exit.height);
+        ctx.fillStyle = 'black'; 
+        ctx.font = '20px Arial'; 
+        ctx.fillText('Exit gate', Exit.x, Exit.y); 
     }
-}
-var Exit = createExit();
-drawExit(Exit);
-
-function drawExit(Exit){
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(Exit.x, Exit.y, Exit.width, Exit.height);
-    ctx.fillStyle = 'black'; 
-    ctx.font = '20px Arial'; 
-    ctx.fillText('Exit gate', Exit.x, Exit.y); 
-}
-
-function createPort(){
-    return {
-        x: 0,
-        y: canvas.height -150,
-        width: 800,
-        height: 150
+    const drawPort = (port, ctx) => {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(port.x, port.y, port.width, port.height);
+        ctx.fillStyle = 'black'; 
+        ctx.font = '20px Arial'; 
+        ctx.fillText('Port', port.x, port.y); 
     }
-}
-var port = createPort();
-drawPort(port);
-function drawPort(port){
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(port.x, port.y, port.width, port.height);
-
-    ctx.fillStyle = 'black'; // 텍스트 색상을 지정합니다. 여기서는 흰색으로 지정했습니다.
-    ctx.font = '20px Arial'; // 텍스트의 크기와 폰트를 지정합니다.
-    ctx.fillText('Text', port.x, port.y); // 'Text' 문자열을 thing의 위치에 그립니다.    
-}
-
-function createTruck(number, code, visible) {
-    return {
-        number: number,
-        name: 'truck' + number,
-        x: 0,
-        y: canvas.height - 500,
-        width: 80,
-        height: 50,
-        speed: 2,
-        delay: 0,
-        state:0,
-        work_code: code,
-        visible : visible
-    };
-}
-
-function drawTruck(truck) {
-    if(truck.visible){
-        ctx.fillStyle = 'orange';
-        ctx.fillRect(truck.x, truck.y, truck.width, truck.height, truck.delay, truck.state);
-        ctx.fillStyle = 'black';
-        ctx.fillText(truck.name, truck.x, truck.y);
+    const drawIn_Container = (in_container, ctx) => {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
+        ctx.fillStyle = 'black'; 
+        ctx.font = '20px Arial'; 
+        ctx.fillText('unload_work', in_container.x, in_container.y); 
     }
-
-}
-
-
-function createIn_Container(){
-    return {
-        x : 350,
-        y : canvas.height - 500,
-        width : 100,
-        height : 50
+    const drawOut_Container = (out_container, ctx) => {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(out_container.x, out_container.y, out_container.width, out_container.height);
+        ctx.fillStyle = 'black'; 
+        ctx.font = '20px Arial'; 
+        ctx.fillText('load_work', out_container.x, out_container.y); 
     }
-}
-var in_container = createIn_Container();
-drawIn_Container(in_container);
-
-function drawIn_Container(in_container){
-    ctx.fillStyle = 'red';
-    ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
-    ctx.fillStyle = 'black'; 
-    ctx.font = '20px Arial'; 
-    ctx.fillText('unload_work', in_container.x, in_container.y); 
-}
-
-function createOut_Container(){
-    return {
-        x : 350,
-        y : canvas.height - 350,
-        width : 100,
-        height : 50
-    }
-}
-var out_container = createOut_Container();
-drawOut_Container(out_container);
-
-function drawOut_Container(out_container){
-    ctx.fillStyle = 'red';
-    ctx.fillRect(out_container.x, out_container.y, out_container.width, out_container.height);
-    ctx.fillStyle = 'black'; 
-    ctx.font = '20px Arial'; 
-    ctx.fillText('load_work', out_container.x, out_container.y); 
-}
-
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawEntry(Entry);
-    drawExit(Exit);
-    drawPort(port);
-    drawIn_Container(in_container)
-    drawOut_Container(out_container)
-
-    for (var i = 0; i < trucks.length; i++) {
-        var truck = trucks[i];
-        if(truck.work_code === 'in'){
-            if (truck.state ===0){
-                if (truck.x < 400 - truck.width) {
-                    truck.x += truck.speed;
     
-                }
-                else{
-                    truck.state =1;
-                }
-            }
-            else if (truck.state === 1){
-                truck.delay += 1;
-                // 5초 설정
-                if(truck.delay>300){
-                    truck.x +=80;
-                    truck.state=2;
-                }
-            }
-            else if (truck.state ===2){
-                if(truck.x < canvas.width - truck.width){
-                    truck.x += truck.speed;
-                }
-                else{
-                    truck.visible = false;
-                }
+    const createTruck = (number, code, visible) => {
+        const canvas = canvasRef.current;
+        const truck = {
+            number: number,
+            name: 'truck' + number,
+            x: 0,
+            y: canvas.height - 500,
+            width: 80,
+            height: 50,
+            speed: 2,
+            delay: 0,
+            state: 0,
+            work_code: code,
+            visible : visible
+        };
+        setTrucks(trucks => [...trucks, truck]);
+    }
+
+    const drawTruck = (truck, ctx) => {
+        if (truck.visible) {
+            ctx.fillStyle = 'orange';
+            ctx.fillRect(truck.x, truck.y, truck.width, truck.height);
+            ctx.fillStyle = 'black';
+            ctx.fillText(truck.name, truck.x, truck.y);
+        }
+    }
+    
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (canvas === null) {  // canvas가 null인지 확인합니다.
+            return;
+        }
+        const ctx = canvas.getContext('2d');
         
-            }
+        if (ctx === null) {  // ctx가 null인지 확인합니다.
+            return;
         }
 
-        if(truck.work_code === 'out'){
-            if (truck.state ===0){
-                if (truck.x < 200 - truck.width) {
-                    truck.x += truck.speed;
-                }
-                else{
-                    truck.state =5;
-                }
-            }
-            else if (truck.state ===5){
-                if(truck.y < 300- truck.height){
-                    truck.y += truck.speed;
-                }
-                else{
-                    truck.state =6;
-                }
-            }
-            else if ( truck.state ===6){
-                if (truck.x < 400 - truck.width) {
-                    truck.x += truck.speed;
-    
-                }
-                else{
-                    truck.state = 1;
-                }
-            }
-            else if (truck.state === 1){
-                truck.delay += 1;
-                // 5초 설정
-                if(truck.delay>300){
-                    truck.x +=80;
-                    truck.state=4;
-                }
-            }
-            else if (truck.state ===4){
-                if(truck.x<680-truck.width){
-                    truck.x += truck.speed;
-                }
-                else{
-                    truck.state = 3;
-                }
-            }
-            else if(truck.state ===3){
-                if(truck.y>150-truck.height){
-                    truck.y-= truck.speed;
-                }
-                else{
-                    truck.state = 2;
-                }
-            }
-            else if (truck.state ===2){
-                if(truck.x < canvas.width - truck.width){
-                    truck.x += truck.speed;
-                }
-                else{
-                    truck.visible = false;
-                }
+
+        const createEntry = () => {
+            const canvas = canvasRef.current;
+            return {
+                x: 0,
+                y: canvas.height - 500,
+                width: 20,
+                height: 50,
             }
         }
+        const Entry = createEntry();
 
-        if(truck.work_code === 'in_out'){
-    
-            if (truck.state ===0){
-                if (truck.x < 400 - truck.width) {
-                    truck.x += truck.speed;
-                }
-                else{
-                    truck.state =1;
-                }
-            }
-            else if (truck.state ===5){
-                if(truck.y < 300- truck.height){
-                    truck.y += truck.speed;
-                }
-                else{
-                    truck.state =7;
-                }
-            }
-
-            else if (truck.state === 1){
-                truck.delay += 1;
-                // 5초 설정
-                if(truck.delay>300){
-                    truck.x +=80;
-                    truck.state=5;
-                }
-            }
-            else if (truck.state === 7){
-                truck.delay += 1;
-                // 5초 설정
-                if(truck.delay>600){
-                    truck.state=4;
-                }
-            }
-            else if (truck.state ===4){
-                if(truck.x<680-truck.width){
-                    truck.x += truck.speed;
-                }
-                else{
-                    truck.state = 3;
-                }
-            }
-            else if(truck.state ===3){
-                if(truck.y>150-truck.height){
-                    truck.y-= truck.speed;
-                }
-                else{
-                    truck.state = 2;
-                }
-            }
-            else if (truck.state ===2){
-                if(truck.x < canvas.width - truck.width){
-                    truck.x += truck.speed;
-                }
-                else{
-                    truck.visible = false;
-                }
+        const createExit =() => {
+            const canvas = canvasRef.current;
+            return {
+                x : 780,
+                y : canvas.height - 500,
+                width : 20,
+                height : 50
             }
         }
-        drawTruck(truck);
-    }
-    requestAnimationFrame(animate);
+        const Exit = createExit();
+
+        const createPort = () => {
+            const canvas = canvasRef.current;
+            return {
+                x: 0,
+                y: canvas.height -150,
+                width: 800,
+                height: 150
+            }
+        }
+        const port = createPort();
+
+        const createIn_Container = ()=> {
+            const canvas = canvasRef.current;
+            return {
+                x : 350,
+                y : canvas.height - 500,
+                width : 100,
+                height : 50
+            }
+        }
+        const in_container = createIn_Container();
+
+        const createOut_Container = () => {
+            const canvas = canvasRef.current;
+            return {
+                x : 350,
+                y : canvas.height - 350,
+                width : 100,
+                height : 50
+            }
+        }
+        const out_container = createOut_Container();
+
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.rect(0, 0, canvas.width, canvas.height);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+
+            drawEntry(Entry, ctx);
+            drawExit(Exit, ctx);
+            drawPort(port, ctx);
+            drawIn_Container(in_container, ctx);
+            drawOut_Container(out_container, ctx);
+            let updatedTrucks = trucks.map(truck => {
+                if (truck.work_code === 'in') {
+                    if (truck.state === 0) {
+                        if (truck.x < 400 - truck.width) {
+                            truck.x += truck.speed;
+                        }
+                        else {
+                            truck.state = 1;
+                        }
+                    }
+                    else if (truck.state === 1) {
+                        truck.delay += 1;
+                        // 5초 설정
+                        if (truck.delay > 300) {
+                            truck.x += 80;
+                            truck.state = 2;
+                        }
+                    }
+                    else if (truck.state === 2) {
+                        if (truck.x < canvas.width - truck.width) {
+                            truck.x += truck.speed;
+                        }
+                        else {
+                            truck.visible = false;
+                        }
+                    }
+                }
+
+                if(truck.work_code === 'out'){
+                    if (truck.state ===0){
+                        if (truck.x < 200 - truck.width) {
+                            truck.x += truck.speed;
+                        }
+                        else{
+                            truck.state =5;
+                        }
+                    }
+                    else if (truck.state ===5){
+                        if(truck.y < 300- truck.height){
+                            truck.y += truck.speed;
+                        }
+                        else{
+                            truck.state =6;
+                        }
+                    }
+                    else if ( truck.state ===6){
+                        if (truck.x < 400 - truck.width) {
+                            truck.x += truck.speed;
+            
+                        }
+                        else{
+                            truck.state = 1;
+                        }
+                    }
+                    else if (truck.state === 1){
+                        truck.delay += 1;
+                        // 5초 설정
+                        if(truck.delay>300){
+                            truck.x +=80;
+                            truck.state=4;
+                        }
+                    }
+                    else if (truck.state ===4){
+                        if(truck.x<680-truck.width){
+                            truck.x += truck.speed;
+                        }
+                        else{
+                            truck.state = 3;
+                        }
+                    }
+                    else if(truck.state ===3){
+                        if(truck.y>150-truck.height){
+                            truck.y-= truck.speed;
+                        }
+                        else{
+                            truck.state = 2;
+                        }
+                    }
+                    else if (truck.state ===2){
+                        if(truck.x < canvas.width - truck.width){
+                            truck.x += truck.speed;
+                        }
+                        else{
+                            truck.visible = false;
+                        }
+                    }
+                }
+
+                if(truck.work_code === 'in_out'){
+            
+                    if (truck.state ===0){
+                        if (truck.x < 400 - truck.width) {
+                            truck.x += truck.speed;
+                        }
+                        else{
+                            truck.state =1;
+                        }
+                    }
+                    else if (truck.state ===5){
+                        if(truck.y < 300- truck.height){
+                            truck.y += truck.speed;
+                        }
+                        else{
+                            truck.state =7;
+                        }
+                    }
+
+                    else if (truck.state === 1){
+                        truck.delay += 1;
+                        // 5초 설정 250번의 호출(20밀리세컨드 기준)
+                        if(truck.delay>250){
+                            truck.x +=80;
+                            truck.state=5;
+                        }
+                    }
+                    else if (truck.state === 7){
+                        truck.delay += 1;
+                        // 5초 설정
+                        if(truck.delay>500){
+                            truck.state=4;
+                        }
+                    }
+                    else if (truck.state ===4){
+                        if(truck.x<680-truck.width){
+                            truck.x += truck.speed;
+                        }
+                        else{
+                            truck.state = 3;
+                        }
+                    }
+                    else if(truck.state ===3){
+                        if(truck.y>150-truck.height){
+                            truck.y-= truck.speed;
+                        }
+                        else{
+                            truck.state = 2;
+                        }
+                    }
+                    else if (truck.state ===2){
+                        if(truck.x < canvas.width - truck.width){
+                            truck.x += truck.speed;
+                        }
+                        else{
+                            truck.visible = false;
+                        }
+                    }
+                }
+                return truck;
+            });
+        setTrucks(updatedTrucks);
+        
+        trucks.forEach(truck => drawTruck(truck, ctx));
+        // requestAnimationFrame(animate);
+        }
+        // 호출 사이의 간격 0.02초
+        const intervalId = setInterval(animate, 20); // 20 milliseconds between each frame
+
+        return () => {
+            clearInterval(intervalId); // Clean up on unmount
+        }
+    }, [trucks]);
+
+    const handleClick = () => {
+        trucksData.forEach((truckData, i) => {
+            setTimeout(() => {
+                createTruck(truckData.number, truckData.code, truckData.visible);
+            }, truckData.entryTime);
+        });
+    };
+
+    return (
+        <div>
+            <canvas ref={canvasRef} width={800} height={600}  />
+            <button onClick={handleClick}>Start</button>
+        </div>
+    );
 }
 
-var startButton = document.getElementById('startButton');
-startButton.addEventListener('click', function() {
-    for (var i = 0; i < trucksData.length; i++) {
-        (function(i) {
-            setTimeout(function() {
-                trucks.push(createTruck(trucksData[i].number, trucksData[i].code, trucksData[i].visible));
-            }, trucksData[i].entryTime);
-        })(i);
-    }
-    animate();
-});
+export default Display
+
