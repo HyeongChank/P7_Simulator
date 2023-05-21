@@ -47,5 +47,10 @@ public class Simulator {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	@Override
+	public String toString() {
+		return "Simulator [number=" + number + ", code=" + code + ", entryTime=" + entryTime + ", visible=" + visible
+				+ "]";
+	}
 
 }

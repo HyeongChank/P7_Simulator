@@ -72,7 +72,7 @@ function Display(){
         };
         setTrucks(trucks => [...trucks, truck]);
     }
-
+   
     const drawTruck = (truck, ctx) => {
         if (truck.visible) {
             ctx.fillStyle = 'orange';
@@ -93,8 +93,7 @@ function Display(){
         if (ctx === null) {  // ctx가 null인지 확인합니다.
             return;
         }
-
-
+        
         const createEntry = () => {
             const canvas = canvasRef.current;
             return {
