@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.simul.domain.Simulator;
+import com.simul.service.SimulService;
 
 
 @RestController
 @RequestMapping("/api/truckData")
 public class SimulController {
 
-
+//	@Autowired
+//	SimulService ssv;
 	@GetMapping
     public List<Simulator> getTruckData() {
 		Simulator sm1 = new Simulator((long) 1, "out", 1000, true);
@@ -39,5 +41,11 @@ public class SimulController {
 		ls.add(sm8);
 		System.out.println(ls);
         return	ls; 
-    }	
+    }
+//	@GetMapping
+//	public List<Simulator> truck_csv_data() {
+//		List<Simulator>sm = ssv.get_truck_data();
+//		return sm;
+//
+//	}	
 }
