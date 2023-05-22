@@ -55,7 +55,7 @@ function Display(){
         ctx.fillText('load_work', out_container.x, out_container.y); 
     }
     
-    const createTruck = (number, code, arrive_load_spot, start_load_work, complete_load_work, unload_wait_time=0, load_wait_time=0, visible) => {
+    const createTruck = (number, code, entryTime, arrive_load_spot, start_load_work, complete_load_work, unload_wait_time=0, load_wait_time=0, visible) => {
         const canvas = canvasRef.current;
         const truck = {
             number: number,
@@ -68,6 +68,7 @@ function Display(){
             delay: 0,
             state: 0,
             work_code: code,
+            entryTime: entryTime,
             arrive_load_spot : arrive_load_spot,
             start_load_work : start_load_work,
             complete_load_work : complete_load_work,
@@ -176,7 +177,7 @@ function Display(){
                 if (truck.work_code === 'in') {
                     if (truck.state === 0) {
                         if (truck.x < 400 - truck.width) {
-                            truck.x += truck.speed;
+                            truck.x += (truck.speed*(truck.arrive_load_spot-truck.entryTime)/(400 - truck.width));
                         }
                         else {
                             truck.state = 1;
@@ -338,7 +339,7 @@ function Display(){
     const handleClick = () => {
         trucksData.forEach((truckData, i) => {
             setTimeout(() => {
-                createTruck(truckData.number, truckData.code, truckData.arrive_load_spot, truckData.start_load_work, truckData.complete_load_work, truckData.unload_wait_time, truckData.load_wait_time, truckData.visible);
+                createTruck(truckData.number, truckData.code, truckData.entryTime, truckData.arrive_load_spot, truckData.start_load_work, truckData.complete_load_work, truckData.unload_wait_time, truckData.load_wait_time, truckData.visible);
             }, truckData.entryTime);
         });
     };
