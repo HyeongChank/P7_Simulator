@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-function Display(){
+function Test22(){
 
     const [trucksData, setTrucksData] = useState([]);
     useEffect(() => {
@@ -55,7 +55,7 @@ function Display(){
         ctx.fillText('load_work', out_container.x, out_container.y); 
     }
     
-    const createTruck = (number, code, arrive_load_spot, start_load_work, complete_load_work, unload_wait_time=0, load_wait_time=0, visible) => {
+    const createTruck = (number, code, unload_wait_time=0, load_wait_time=0, visible) => {
         const canvas = canvasRef.current;
         const truck = {
             number: number,
@@ -68,10 +68,6 @@ function Display(){
             delay: 0,
             state: 0,
             work_code: code,
-            arrive_load_spot : arrive_load_spot,
-            start_load_work : start_load_work,
-            complete_load_work : complete_load_work,
-            work_wait_load_time : complete_load_work- arrive_load_spot,
             unload_wait_time: unload_wait_time,
             load_wait_time: load_wait_time,
             wait_time : unload_wait_time + load_wait_time,
@@ -185,7 +181,7 @@ function Display(){
                     else if (truck.state === 1) {
                         truck.delay += 1;
                         // 5초 설정
-                        if (truck.delay > truck.unload_wait_time*50) {
+                        if (truck.delay > truck.unload_wait_time) {
                             truck.x += 80;
                             truck.state = 2;
                         }
@@ -229,7 +225,7 @@ function Display(){
                     else if (truck.state === 1){
                         truck.delay += 1;
                         // 5초 설정
-                        if(truck.delay>truck.work_wait_load_time*50){
+                        if(truck.delay>truck.load_wait_time){
                             truck.x +=80;
                             truck.state=4;
                         }
@@ -283,7 +279,7 @@ function Display(){
                     else if (truck.state === 1){
                         truck.delay += 1;
                         // 5초 설정 250번의 호출(20밀리세컨드 기준)
-                        if(truck.delay>truck.unload_wait_time*50){
+                        if(truck.delay>truck.unload_wait_time){
                             truck.x +=80;
                             truck.state=5;
                         }
@@ -291,7 +287,7 @@ function Display(){
                     else if (truck.state === 7){
                         truck.delay += 1;
                         // 5초 설정
-                        if(truck.delay>truck.load_wait_time*50){
+                        if(truck.delay>truck.load_wait_time){
                             truck.state=4;
                         }
                     }
@@ -338,7 +334,7 @@ function Display(){
     const handleClick = () => {
         trucksData.forEach((truckData, i) => {
             setTimeout(() => {
-                createTruck(truckData.number, truckData.code, truckData.arrive_load_spot, truckData.start_load_work, truckData.complete_load_work, truckData.unload_wait_time, truckData.load_wait_time, truckData.visible);
+                createTruck(truckData.number, truckData.code, truckData.unload_wait_time, truckData.load_wait_time, truckData.visible);
             }, truckData.entryTime);
         });
     };
@@ -351,5 +347,5 @@ function Display(){
     );
 }
 
-export default Display
+export default Test22
 
