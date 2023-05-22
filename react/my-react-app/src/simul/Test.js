@@ -3,14 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 function Display(){
  
 
-     const canvasRef = useRef(null);
-    // const trucksData = [
-    //     {number: 1, code: 'in', entryTime: 1000, visible: true},
-    //     {number: 2, code: 'in_out', entryTime: 2000, visible: true},
-    //     {number: 3, code: 'in', entryTime: 3000, visible: true},
-    //     {number: 4, code: 'out',entryTime: 4000, visible: true},
-    //     {number: 5, code: 'in_out',entryTime: 5000, visible: true}
-    // ];
+    const canvasRef = useRef(null);
+    const trucksData = [
+        {number: 1, code: 'in', entryTime: 1000, visible: true},
+        {number: 2, code: 'in_out', entryTime: 2000, visible: true},
+        {number: 3, code: 'in', entryTime: 3000, visible: true},
+        {number: 4, code: 'out',entryTime: 4000, visible: true},
+        {number: 5, code: 'in_out',entryTime: 5000, visible: true}
+    ];
 
     const [trucks, setTrucks] = useState([]);
 
