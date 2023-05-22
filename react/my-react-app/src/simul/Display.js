@@ -55,7 +55,7 @@ function Display(){
         ctx.fillText('load_work', out_container.x, out_container.y); 
     }
     
-    const createTruck = (number, code, entryTime, arrive_load_spot, start_load_work, complete_load_work, unload_wait_time=0, load_wait_time=0, visible) => {
+    const createTruck = (number, code, entryTime, arrive_load_spot, start_load_work, complete_load_work, out_time, unload_wait_time=0, load_wait_time=0, visible) => {
         const canvas = canvasRef.current;
         const truck = {
             number: number,
@@ -70,8 +70,12 @@ function Display(){
             work_code: code,
             entryTime: entryTime,
             arrive_load_spot : arrive_load_spot,
+            entry_to_spot : arrive_load_spot - entryTime,
             start_load_work : start_load_work,
             complete_load_work : complete_load_work,
+            //work_wait_unload_time 만들어야 함
+            out_time : out_time,
+            //계산 제대로 안됨 계산은 다 서버에서 하고 넘어와야 할 듯함
             work_wait_load_time : complete_load_work- arrive_load_spot,
             unload_wait_time: unload_wait_time,
             load_wait_time: load_wait_time,
@@ -88,7 +92,7 @@ function Display(){
             ctx.fillStyle = 'black';
             ctx.fillText(truck.name, truck.x, truck.y-10);
             
-            ctx.fillText(`UWait Time: ${truck.unload_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+            ctx.fillText(`UWait Time: ${truck.load_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
         }
     }
     
@@ -177,7 +181,7 @@ function Display(){
                 if (truck.work_code === 'in') {
                     if (truck.state === 0) {
                         if (truck.x < 400 - truck.width) {
-                            truck.x += (truck.speed*(truck.arrive_load_spot-truck.entryTime)/(400 - truck.width));
+                            truck.x += truck.speed;
                         }
                         else {
                             truck.state = 1;
@@ -204,6 +208,8 @@ function Display(){
                 if(truck.work_code === 'out'){
                     if (truck.state ===0){
                         if (truck.x < 200 - truck.width) {
+                            //계산 잘못됨 다시 해보기
+                            //truck.x += (truck.speed*truck.entry_to_spot/(400 - truck.width));
                             truck.x += truck.speed;
                         }
                         else{
@@ -212,6 +218,7 @@ function Display(){
                     }
                     else if (truck.state ===5){
                         if(truck.y < 300- truck.height){
+                            //truck.y += (truck.speed*truck.entry_to_spot/(400 - truck.width));
                             truck.y += truck.speed;
                         }
                         else{
@@ -220,7 +227,9 @@ function Display(){
                     }
                     else if ( truck.state ===6){
                         if (truck.x < 400 - truck.width) {
-                            truck.x += truck.speed;
+                            //entry_to_spot 도 서버에서 계산해서 넘어와야 할 듯, 여기서 하니까 제대로 작동 안함
+                            truck.x += truck.speed*5/3.2;
+                            //truck.x += truck.speed;
             
                         }
                         else{
@@ -292,7 +301,7 @@ function Display(){
                     else if (truck.state === 7){
                         truck.delay += 1;
                         // 5초 설정
-                        if(truck.delay>truck.load_wait_time*50){
+                        if(truck.delay>truck.work_wait_load_time*50){
                             truck.state=4;
                         }
                     }
@@ -339,7 +348,7 @@ function Display(){
     const handleClick = () => {
         trucksData.forEach((truckData, i) => {
             setTimeout(() => {
-                createTruck(truckData.number, truckData.code, truckData.entryTime, truckData.arrive_load_spot, truckData.start_load_work, truckData.complete_load_work, truckData.unload_wait_time, truckData.load_wait_time, truckData.visible);
+                createTruck(truckData.number, truckData.code, truckData.entryTime, truckData.arrive_load_spot, truckData.start_load_work, truckData.complete_load_work, truckData.out_time, truckData.unload_wait_time, truckData.load_wait_time, truckData.visible);
             }, truckData.entryTime);
         });
     };
