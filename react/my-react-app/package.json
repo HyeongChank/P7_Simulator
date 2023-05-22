@@ -15,7 +15,7 @@
     "react-dom": "^18.2.0",
     "react-live-clock": "^6.1.13",
     "react-router-dom": "^6.11.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "regenerator-runtime": "^0.13.11",
     "stylus-loader": "^3.0.2",
     "web-vitals": "^2.1.4"

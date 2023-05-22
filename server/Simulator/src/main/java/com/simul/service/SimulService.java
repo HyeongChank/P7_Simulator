@@ -22,8 +22,8 @@ public class SimulService {
 	private List<Simulator> sm = new ArrayList<>();
 	
     public List<Simulator> readCsvFile() throws IOException {
-		String filePath = "C:/git clone/P7_simulation/P7_Simulator/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
-            	
+//		String filePath = "C:/git clone/P7_simulation/P7_Simulator/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+		String filePath = "D:/김형찬/Congest_project/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
 
         BufferedReader reader = null;
         boolean isFirstLine = true;

@@ -98,6 +98,7 @@ def commit_model(new_data):
         n_data = n_data.groupby('입차시간').mean().reset_index()  # 나머지 열의 평균값 계산
 
         print(n_data)
+        return n_data, congest_level
     
     # XGBoost 를 이용한 대기시간 예측 및 평가
     def make_model(n_data):
@@ -154,16 +155,7 @@ def commit_model(new_data):
     data = load()
     combined_data = add_data(data, new_data)
     n_data, congest_level = preprocessing(combined_data)
-    # new_pred = make_model(n_data)
-    # print(new_pred)
-    # print(congest_level)
-    # return new_pred, congest_level
-
-
-# model_file = "D:/김형찬/Congest_project/model/xgboost_model.pkl"
-# # commit_model 함수를 pickle로 저장
-# with open(model_file, 'wb') as f:
-#     pickle.dump(commit_model, f)
+    print(n_data, congest_level)
 
 if __name__=="__main__":
     new_data = {'작업 지시 시간': ['2021-02-07 13:05:37'], '작업 완료 시간': ['2021-02-07 13:28:52'], '대기차량': [25], '작업코드':['적하']}
