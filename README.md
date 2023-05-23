@@ -17,6 +17,7 @@
     - simulator_sort_graph.py : 데이터 전처리
     - [Server->Simulator](spring서버) : 데이터 전달(mysql db 저장)
     - [front->my-react-app](node.js) : 터미널 화면 출력(트럭 이동 간이 구현)
+    - [yard_congestion->app.py](flask서버) : 예측값 전달
     - 반입, 반출장 각각 5개 블록 총 10개 객체 설정해서 Queue
     
 - randomForest.py : 현재 대기차량, 혼잡도 입력 시 대기시간 예측(+오차 측정)
