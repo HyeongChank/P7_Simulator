@@ -244,7 +244,7 @@ print(f"반입 작업을 완료한 트럭 수: {len(unload_trucks_completed)}")
 print(f"반출 작업을 완료한 트럭 수: {len(load_trucks_completed)}")
 
 # 결과를 저장할 CSV 파일 이름
-csv_filename = "truck_simulation_results.csv"
+csv_filename = "data/truck_simulation_results.csv"
 
     # CSV 파일에 결과를 기록하는 함수
 def save_results_to_csv(filename, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed):

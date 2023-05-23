@@ -148,7 +148,7 @@ def update(num, x, y1,y11,y2,y22, line1,line11, line2, line22):
     return line1, line2
 termani = animation.FuncAnimation(terminalgraph, update, frames = len(x) +1, fargs=(x,y1,y11,y2,y22, line1,line11, line2, line22),
                                   interval = 100, repeat = False)
-animation_filename = "test_animation.gif"
+animation_filename = "images/test_animation.gif"
 termani.save(animation_filename, writer="pillow")
 print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
 #plt.show()

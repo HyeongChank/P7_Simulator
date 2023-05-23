@@ -131,6 +131,6 @@ def update(frame):
 ani = FuncAnimation(fig, update, frames=range(240), init_func=init, blit=True)
 
 # 애니메이션 저장
-animation_filename = "truck_simulation_animation.gif"
+animation_filename = "images/truck_simulation_animation.gif"
 ani.save(animation_filename, writer="pillow")
 print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
