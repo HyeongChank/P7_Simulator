@@ -84,7 +84,7 @@ for row in sorted_data:
     sorted_data_with_In_yard_truck_volume.append(new_row)
 
 
-sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','Out_time','Work_time','block','unload_count','load_count','yard_truck_count'])
+sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','Out_time','Work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'in_yard_count'])
 print(sorted_data_with_In_yard_truck_volume)
 # 정렬된 데이터를 CSV 파일로 저장
 sorted_file_path = './sorted_truck_simulation_results.csv'
@@ -120,7 +120,6 @@ for row in data_rows:
     # print(row(5))
     # print(int(row(4)))
     # waiting_time.append(wait_time_all)
-    In_yard_truck_volume_entry_time.append(int(row[14]))
 
 terminalgraph = plt.figure()
 term = plt.axes()
@@ -132,23 +131,22 @@ y1 = np.array(unload_waiting_time)
 y11 = np.array(unload_waiting_count)
 y2 = np.array(load_waiting_time)
 y22 = np.array(load_waiting_count)
-y3 = np.array(In_yard_truck_volume_entry_time)
+
 line1, = term.plot([],[], label='반입 대기시간')
 line11, = term.plot([],[], label='반입 대기차량 수')
 line2, = term.plot([],[], label='반출 대기시간')
 line22, = term.plot([],[], label='반출 대기차량 수')
-line3, = term.plot([],[], label='터미널 내 총 트럭대수')
+
 term.legend()
 
-def update(num, x, y1,y11,y2,y22,y3, line1,line11, line2, line22,line3):
+def update(num, x, y1,y11,y2,y22, line1,line11, line2, line22):
     line1.set_data(x[:num], y1[:num])
     line11.set_data(x[:num], y11[:num])
     line2.set_data(x[:num], y2[:num])
     line22.set_data(x[:num], y22[:num])
-    line3.set_data(x[:num], y3[:num])
 
-    return line1, line2, line3
-termani = animation.FuncAnimation(terminalgraph, update, frames = len(x) +1, fargs=(x,y1,y11,y2,y22,y3, line1,line11, line2, line22,line3),
+    return line1, line2
+termani = animation.FuncAnimation(terminalgraph, update, frames = len(x) +1, fargs=(x,y1,y11,y2,y22, line1,line11, line2, line22),
                                   interval = 100, repeat = False)
 animation_filename = "test_animation.gif"
 termani.save(animation_filename, writer="pillow")

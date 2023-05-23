@@ -6,6 +6,7 @@ from DA import congestAnal
 from DA import main
 from DA import retraining
 from DA import predict_LSTM
+from DA import Queue_LSTM
 import requests
 from flask_cors import CORS
 import pandas as pd
@@ -25,6 +26,17 @@ def congestion():
     else:
         return 'error'    
 
+@app.route('/api/predict', methods=['GET', 'POST'])
+def prediction():
+    if request.method == 'POST':
+        # new_data = request.get_json()
+        # print('json 전달 받은 데이터', new_data)
+        # new_data_df = pd.DataFrame(new_data)
+
+        predicted_data_unload, predicted_data_load = Queue_LSTM.postdata()
+        return jsonify({'predicted_data_unload': predicted_data_unload}, {'predicted_data_load': predicted_data_load})
+    else:
+        return 'error'    
 # @app.route('./api/predictlstm', methods =['GET'])
 # def update_data():
 #     response = requests.get()

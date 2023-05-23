@@ -177,18 +177,18 @@ def commit_model(new_data):
         # print('new_predictions', new_predictions)
         
         # 예측 결과 그래프로 출력
-        plt.figure(figsize=(12, 6))
+        # plt.figure(figsize=(12, 6))
 
-        plt.scatter(test_dates, y_pred, label='Predicted', color='blue')
-        plt.scatter(test_dates, data['대기시간new'].values[train_size+window_size:], label='Actual', color='red')
-        # plt.scatter(new_dates, new_y_pred, label='New Prediction', color='green')  # 새로운 데이터 예측 추가
-        plt.xlabel('입차시간')
-        plt.ylabel('대기시간(min)')
-        plt.title('Waiting Time Prediction')
-        plt.ylim(0, 30)  # y축 범위 설정
-        plt.legend()
-        plt.grid(True)
-        plt.show()
+        # plt.scatter(test_dates, y_pred, label='Predicted', color='blue')
+        # plt.scatter(test_dates, data['대기시간new'].values[train_size+window_size:], label='Actual', color='red')
+        # # plt.scatter(new_dates, new_y_pred, label='New Prediction', color='green')  # 새로운 데이터 예측 추가
+        # plt.xlabel('입차시간')
+        # plt.ylabel('대기시간(min)')
+        # plt.title('Waiting Time Prediction')
+        # plt.ylim(0, 30)  # y축 범위 설정
+        # plt.legend()
+        # plt.grid(True)
+        # plt.show()
         return predict_time
 
     # 새로운 데이터 포인트 생성

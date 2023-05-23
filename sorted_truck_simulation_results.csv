@@ -1,134 +1,201 @@
-number,code,entryTime,arrive_unload_spot,start_unload_work,complete_unload_work,arrive_load_spot,start_load_work,complete_load_work,Out_time,Work_time,block,unload_count,load_count,yard_truck_count
-1,out,5,0,0,0,10,10,15,18,13,B,0,0,0
-2,out,13,0,0,0,18,18,28,31,18,A,0,0,1
-3,in,16,21,21,32,0,0,0,37,21,A,0,0,2
-4,out,19,0,0,0,24,28,37,42,23,B,0,0,2
-5,in,25,30,32,50,0,0,0,53,28,A,0,0,3
-6,in,29,34,50,62,0,0,0,66,37,C,0,0,4
-7,in_out,37,42,62,83,88,97,106,109,72,A,1,1,4
-8,out,44,0,0,0,49,49,59,61,17,C,2,0,3
-9,in_out,49,54,83,103,108,108,117,121,72,A,1,0,4
-10,out,54,0,0,0,59,59,66,68,14,C,2,0,4
-11,out,59,0,0,0,64,66,80,84,25,B,1,0,5
-12,out,64,0,0,0,69,80,91,96,32,B,1,0,5
-13,in_out,71,76,103,122,127,136,147,151,80,B,1,0,4
-14,in,77,82,122,146,0,0,0,151,74,B,2,0,5
-15,out,82,0,0,0,87,91,97,100,18,A,2,0,6
-16,in,87,92,146,169,0,0,0,174,87,C,2,1,6
-17,in_out,94,99,169,188,193,205,220,224,130,B,3,0,7
-18,in_out,100,105,188,212,217,220,231,235,135,C,3,0,7
-19,in,106,111,212,227,0,0,0,230,124,C,4,0,7
-20,in_out,113,118,227,240,245,249,259,264,151,A,5,0,7
-21,out,117,0,0,0,122,122,136,138,21,A,6,0,8
-22,in_out,125,130,240,252,257,265,272,277,152,C,5,1,8
-23,out,128,0,0,0,133,147,152,157,29,A,6,1,9
-24,out,131,0,0,0,136,152,166,169,38,A,6,2,10
-25,out,137,0,0,0,142,166,177,182,45,A,6,2,11
-26,in,141,146,252,274,0,0,0,276,135,A,6,3,11
-27,in,145,150,274,287,0,0,0,292,147,B,6,2,12
-28,out,150,0,0,0,155,177,192,194,44,C,7,1,13
-29,in_out,155,160,287,311,316,316,329,333,178,C,7,0,12
-30,out,162,0,0,0,167,192,205,207,45,B,8,1,12
-31,in_out,167,172,311,334,339,342,352,357,190,C,7,0,13
-32,in,171,176,334,344,0,0,0,346,175,B,8,2,13
-33,in,174,179,344,355,0,0,0,360,186,C,9,1,14
-34,in,178,183,355,367,0,0,0,372,194,B,10,1,14
-35,in,183,188,367,389,0,0,0,391,208,B,11,1,14
-36,in,190,195,389,413,0,0,0,417,227,A,11,1,15
-37,in_out,194,199,413,436,441,442,450,454,260,A,12,0,16
-38,in,202,207,436,460,0,0,0,465,263,B,13,0,16
-39,in_out,209,214,460,478,483,493,506,511,302,C,13,0,16
-40,in_out,217,222,478,491,496,514,526,529,312,A,14,1,17
-41,out,225,0,0,0,230,231,244,246,21,A,14,0,17
-42,out,233,0,0,0,238,244,249,254,21,B,14,0,17
-43,in,239,244,491,502,0,0,0,506,267,A,13,1,17
-44,in_out,244,249,502,518,523,538,545,548,304,C,14,1,18
-45,out,252,0,0,0,257,259,265,270,18,A,14,0,18
-46,out,256,0,0,0,261,272,279,283,27,B,14,1,18
-47,in,262,267,518,541,0,0,0,546,284,C,14,1,19
-48,out,269,0,0,0,274,279,294,298,29,C,15,0,19
-49,in,275,280,541,563,0,0,0,567,292,B,14,0,19
-50,in,278,283,563,579,0,0,0,582,304,C,15,0,18
-51,in_out,281,286,579,602,607,607,618,623,342,B,16,0,19
-52,out,284,0,0,0,289,294,302,304,20,C,16,0,19
-53,in,291,296,602,612,0,0,0,617,326,B,16,0,20
-54,in,298,303,612,622,0,0,0,624,326,A,17,0,20
-55,in_out,306,311,622,638,643,648,655,659,353,A,18,0,19
-56,in_out,314,319,638,656,661,669,675,679,365,C,18,0,20
-57,out,322,0,0,0,327,329,342,345,23,C,19,0,21
-58,in_out,327,332,656,669,674,681,692,695,368,B,19,1,22
-59,in_out,332,337,669,680,685,697,707,711,379,A,19,1,23
-60,in_out,340,345,680,693,698,714,728,732,392,B,19,1,23
-61,in_out,343,348,693,706,711,741,756,761,418,B,20,2,24
-62,in_out,351,356,706,720,725,756,766,771,420,B,20,2,23
-63,in_out,357,362,720,743,748,776,790,795,438,B,21,2,24
-64,in,365,370,743,765,0,0,0,769,404,A,21,0,23
-65,in_out,371,376,765,782,787,811,819,821,450,B,22,2,24
-66,in,377,382,782,799,0,0,0,804,427,B,23,0,24
-67,in,383,388,799,823,0,0,0,828,445,B,24,0,25
-68,in_out,388,393,823,843,848,848,854,858,470,A,24,0,26
-69,in_out,394,399,843,865,870,873,882,885,491,A,25,0,26
-70,in_out,402,407,865,878,883,887,894,898,496,C,26,0,27
-71,in_out,409,414,878,898,903,907,916,920,511,B,26,0,28
-72,in,416,421,898,911,0,0,0,913,497,B,27,0,29
-73,in,423,428,911,936,0,0,0,939,516,C,28,0,29
-74,in,427,432,936,950,0,0,0,952,525,B,29,0,30
-75,out,431,0,0,0,436,436,442,444,13,B,30,0,31
-76,in_out,438,443,950,973,978,978,986,988,550,C,29,0,32
-77,out,441,0,0,0,446,450,463,468,27,C,30,0,33
-78,in_out,449,454,973,992,997,997,1003,1006,557,C,30,0,33
-79,out,452,0,0,0,457,463,471,473,21,C,31,0,34
-80,in_out,456,461,992,1009,1014,1028,1038,1042,586,B,30,0,34
-81,in_out,464,469,1009,1031,1036,1048,1060,1063,599,A,31,1,35
-82,in_out,468,473,1031,1047,1052,1073,1081,1085,617,C,32,1,35
-83,out,475,0,0,0,480,480,493,496,21,B,32,0,34
-84,in,479,484,1047,1062,0,0,0,1067,588,B,32,1,35
-85,out,482,0,0,0,487,506,514,517,35,C,33,1,36
-86,in,490,495,1062,1077,0,0,0,1082,592,B,32,1,37
-87,out,494,0,0,0,499,526,538,542,48,B,33,2,38
-88,in,498,503,1077,1099,0,0,0,1102,604,A,32,3,38
-89,in,502,507,1099,1114,0,0,0,1119,617,C,33,2,39
-90,in_out,510,515,1114,1132,1137,1137,1143,1148,638,A,34,0,39
-91,in_out,516,521,1132,1151,1156,1163,1173,1177,661,A,34,0,39
-92,out,523,0,0,0,528,545,558,561,38,C,35,1,39
-93,in_out,530,535,1151,1166,1171,1173,1184,1186,656,B,35,0,39
-94,in_out,538,543,1166,1187,1192,1192,1206,1211,673,A,35,0,40
-95,in,544,549,1187,1200,0,0,0,1205,661,A,36,0,40
-96,in,552,557,1200,1221,0,0,0,1224,672,C,37,0,39
-97,in,558,563,1221,1238,0,0,0,1241,683,C,38,0,40
-98,in,562,567,1238,1259,0,0,0,1263,701,C,38,0,40
-99,out,566,0,0,0,571,571,576,581,15,C,39,0,41
-100,in,573,578,1259,1270,0,0,0,1274,701,A,39,0,41
-101,in_out,579,584,1270,1294,1299,1299,1311,1314,735,C,39,0,42
-102,in,583,588,1294,1317,0,0,0,1319,736,A,40,0,41
-103,in,589,594,1317,1331,0,0,0,1334,745,A,41,0,42
-104,in,592,597,1331,1350,0,0,0,1354,762,C,42,0,43
-105,in_out,598,603,1350,1369,1374,1374,1384,1389,791,B,42,0,44
-106,in,605,610,1369,1390,0,0,0,1392,787,A,43,0,45
-107,in,612,617,1390,1406,0,0,0,1411,799,C,43,0,46
-111,out,634,0,0,0,639,639,648,652,18,A,45,0,44
-114,out,653,0,0,0,658,658,669,673,20,C,46,0,44
-117,out,668,0,0,0,673,675,681,686,18,A,47,0,44
-119,out,677,0,0,0,682,692,697,702,25,C,47,0,44
-122,out,690,0,0,0,695,707,714,717,27,A,48,1,43
-124,out,701,0,0,0,706,728,741,745,44,B,49,2,43
-130,out,735,0,0,0,740,766,776,781,46,C,52,2,40
-133,out,753,0,0,0,758,790,804,807,54,B,53,2,40
-138,out,781,0,0,0,786,804,811,814,33,C,55,1,38
-142,out,802,0,0,0,807,819,825,829,27,B,57,1,37
-145,out,820,0,0,0,825,825,832,835,15,B,58,0,35
-152,out,860,0,0,0,865,865,873,875,15,C,63,0,31
-153,out,868,0,0,0,873,882,887,892,24,C,62,1,32
-156,out,883,0,0,0,888,894,907,912,29,A,63,0,32
-160,out,910,0,0,0,915,916,921,924,14,A,64,0,30
-163,out,926,0,0,0,931,931,942,947,21,A,66,0,27
-167,out,953,0,0,0,958,958,964,968,15,C,67,0,25
-171,out,979,0,0,0,984,986,994,997,18,B,69,0,25
-176,out,1008,0,0,0,1013,1013,1028,1033,25,C,71,0,23
-180,out,1024,0,0,0,1029,1038,1048,1053,29,B,74,0,24
-182,out,1032,0,0,0,1037,1060,1073,1078,46,C,74,2,25
-184,out,1048,0,0,0,1053,1081,1086,1089,41,B,74,2,24
-186,out,1064,0,0,0,1069,1086,1096,1099,35,A,74,2,23
-191,out,1095,0,0,0,1100,1100,1107,1109,14,C,76,0,19
-193,out,1107,0,0,0,1112,1112,1126,1128,21,A,77,0,18
-200,out,1147,0,0,0,1152,1152,1163,1166,19,B,80,0,16
+number,code,entryTime,arrive_unload_spot,start_unload_work,complete_unload_work,arrive_load_spot,start_load_work,complete_load_work,Out_time,Work_time,op,unload_count,load_count,unload_block,load_block,in_yard_count
+1,in_out,1,6,6,22,27,27,43,47,46,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,0
+2,in_out,2,7,7,18,23,23,43,48,46,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,1
+3,out,5,0,0,0,10,10,26,29,24,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,2
+4,in,8,13,13,36,0,0,0,40,32,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,3
+5,in,11,16,36,60,0,0,0,62,51,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,4
+6,in,12,17,22,45,0,0,0,49,37,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,5
+7,in_out,13,18,45,69,74,74,93,96,83,in_out,1,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,6
+8,in_out,14,19,19,41,46,46,64,68,54,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,7
+9,in,15,20,20,31,0,0,0,33,18,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,8
+10,in_out,18,23,31,49,54,54,74,78,60,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,9
+11,in,21,26,41,53,0,0,0,58,37,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,10
+12,out,24,0,0,0,29,29,45,48,24,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,11
+13,out,26,0,0,0,31,31,50,55,29,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,12
+14,in,29,34,53,68,0,0,0,70,41,in,1,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,13
+15,in,31,36,68,86,0,0,0,90,59,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,13
+16,in,33,38,86,109,0,0,0,111,78,in,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,14
+17,in_out,35,40,69,86,91,110,129,133,98,in_out,1,1,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,14
+18,in_out,37,42,109,127,132,132,147,151,114,in_out,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,15
+19,in_out,39,44,60,85,90,93,108,112,73,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,16
+20,out,42,0,0,0,47,50,70,75,33,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,16
+21,out,44,0,0,0,49,49,68,70,26,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,17
+22,out,45,0,0,0,50,68,84,87,42,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,18
+23,in,46,51,86,96,0,0,0,99,53,in,1,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,19
+24,out,47,0,0,0,52,52,67,71,24,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,20
+25,in,50,55,55,74,0,0,0,79,29,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,17
+26,out,53,0,0,0,58,67,87,89,36,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,18
+27,out,55,0,0,0,60,74,91,94,39,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,19
+28,in,58,63,74,98,0,0,0,103,45,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,19
+29,in,61,66,96,119,0,0,0,124,63,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,19
+30,out,63,0,0,0,68,87,105,107,44,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,19
+31,out,66,0,0,0,71,84,99,102,36,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,20
+32,out,68,0,0,0,73,91,110,114,46,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,21
+33,in_out,69,74,74,98,103,103,122,127,58,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,21
+34,in,71,76,119,142,0,0,0,146,75,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,20
+35,out,72,0,0,0,77,77,97,102,30,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,20
+36,in,73,78,85,96,0,0,0,101,28,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,21
+37,in,74,79,96,108,0,0,0,112,38,in,1,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,22
+38,in,77,82,98,114,0,0,0,118,41,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,22
+39,out,78,0,0,0,83,99,118,120,42,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,23
+40,in_out,81,86,108,129,134,165,180,185,104,in_out,1,1,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,22
+41,in_out,83,88,129,151,156,166,185,188,105,in_out,2,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,23
+42,in,84,89,142,165,0,0,0,169,85,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,24
+43,out,87,0,0,0,92,105,121,125,38,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,25
+44,in_out,90,95,114,129,134,134,149,154,64,in_out,1,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,24
+45,in_out,92,97,129,149,154,198,214,217,125,in_out,2,2,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,24
+46,in,93,98,151,166,0,0,0,171,78,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,25
+47,in_out,96,101,101,119,124,145,165,168,72,in_out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,25
+48,in_out,97,102,166,188,193,217,233,237,140,in_out,3,1,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,25
+49,in,99,104,188,208,0,0,0,210,111,in,4,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,26
+50,out,102,0,0,0,107,121,136,138,36,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,25
+51,in,103,108,165,190,0,0,0,194,91,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,24
+52,in,105,110,119,144,0,0,0,146,41,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,24
+53,out,106,0,0,0,111,122,142,144,38,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,25
+54,out,107,0,0,0,112,118,133,138,31,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,26
+55,out,109,0,0,0,114,114,129,134,25,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,26
+56,in_out,112,117,190,200,205,249,264,268,156,in_out,3,2,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,26
+57,out,114,0,0,0,119,129,145,149,35,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,25
+58,in,116,121,144,161,0,0,0,166,50,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,25
+59,in_out,117,122,208,224,229,264,279,282,165,in_out,4,2,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,26
+60,in,119,124,200,223,0,0,0,226,107,in,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,26
+61,in,120,125,149,163,0,0,0,166,46,in,1,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,27
+62,in_out,123,128,128,152,157,214,233,237,114,in_out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,27
+63,out,126,0,0,0,131,136,152,154,28,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,26
+64,in,129,134,224,239,0,0,0,241,112,in,4,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,26
+65,out,131,0,0,0,136,142,160,162,31,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,27
+66,in,134,139,163,180,0,0,0,182,48,in,1,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,27
+67,in,137,142,180,203,0,0,0,206,69,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,27
+68,in_out,140,145,203,223,228,263,278,280,140,in_out,3,2,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,26
+69,in,141,146,223,241,0,0,0,243,102,in,4,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,27
+70,out,143,0,0,0,148,180,198,202,59,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,28
+71,out,146,0,0,0,151,151,166,169,23,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,28
+72,in,149,154,223,246,0,0,0,249,100,in,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,27
+73,in_out,152,157,241,256,261,315,334,337,185,in_out,4,3,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,26
+74,in,153,158,256,279,0,0,0,281,128,in,5,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,27
+75,out,154,0,0,0,159,185,201,204,50,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,28
+76,out,156,0,0,0,161,161,176,181,25,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,27
+77,out,159,0,0,0,164,201,220,224,65,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,28
+78,in_out,160,165,165,188,193,193,212,215,55,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,29
+79,out,162,0,0,0,167,176,192,194,32,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,30
+80,in,165,170,279,291,0,0,0,294,129,in,5,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,30
+81,in_out,167,172,172,196,201,248,263,266,99,in_out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,29
+82,in_out,170,175,246,259,264,271,291,295,125,in_out,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,27
+83,in_out,172,177,196,216,221,238,255,258,86,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,27
+84,in,174,179,216,238,0,0,0,243,69,in,1,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,28
+85,out,177,0,0,0,182,233,248,252,75,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,29
+86,out,178,0,0,0,183,183,201,203,25,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,30
+87,in_out,179,184,188,208,213,220,238,243,64,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,31
+88,out,181,0,0,0,186,201,217,222,41,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,32
+89,in_out,182,187,238,261,266,330,348,350,168,in_out,2,3,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,32
+90,in,185,190,259,276,0,0,0,279,94,in,4,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,32
+91,in_out,186,191,291,311,316,369,387,390,204,in_out,5,3,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,32
+92,in,187,192,239,253,0,0,0,258,71,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,33
+93,in_out,190,195,261,272,277,308,323,326,136,in_out,3,1,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,33
+94,in,193,198,311,322,0,0,0,325,132,in,6,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,34
+95,in_out,196,201,208,232,237,237,256,258,62,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,33
+96,out,197,0,0,0,202,233,249,251,54,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,34
+97,in,200,205,322,347,0,0,0,350,150,in,6,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,35
+98,in_out,203,208,253,267,272,334,353,355,152,in_out,3,3,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,35
+99,in_out,205,210,272,291,296,370,389,391,186,in_out,3,4,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,34
+100,out,208,0,0,0,213,213,231,236,28,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,34
+101,in,211,216,347,363,0,0,0,368,157,in,7,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,34
+102,in,214,219,363,386,0,0,0,390,176,in,8,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,35
+103,out,217,0,0,0,222,231,251,256,39,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,35
+104,in_out,220,225,232,248,253,315,334,338,118,in_out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,35
+105,in,222,227,267,278,0,0,0,280,58,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,36
+106,in,225,230,291,303,0,0,0,308,83,in,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,35
+107,out,228,0,0,0,233,255,275,279,51,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,35
+108,out,230,0,0,0,235,275,295,300,70,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,36
+109,out,232,0,0,0,237,279,297,299,67,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,37
+110,out,235,0,0,0,240,251,270,273,38,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,38
+111,out,236,0,0,0,241,256,271,275,39,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,39
+112,out,237,0,0,0,242,278,295,297,60,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,39
+113,out,240,0,0,0,245,295,311,316,76,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,38
+114,in_out,242,247,248,267,272,291,310,312,70,in_out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,38
+115,out,243,0,0,0,248,295,315,318,75,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,39
+116,out,246,0,0,0,251,311,330,333,87,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,37
+117,in,248,253,303,315,0,0,0,318,70,in,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,38
+118,in_out,249,254,278,303,308,353,369,374,125,in_out,1,3,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,39
+119,in_out,250,255,267,288,293,323,338,340,90,in_out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,39
+120,out,252,0,0,0,257,297,315,319,67,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,39
+121,in_out,255,260,315,335,340,468,483,487,232,in_out,4,6,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,39
+122,in,256,261,276,293,0,0,0,298,42,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,40
+123,in,259,264,293,317,0,0,0,322,63,in,1,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,37
+124,in_out,260,265,317,338,343,389,409,414,154,in_out,2,2,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,38
+125,out,261,0,0,0,266,270,290,295,34,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,39
+126,in_out,264,269,288,308,313,389,409,411,147,in_out,0,4,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,40
+127,in_out,266,271,386,398,403,443,462,467,201,in_out,6,2,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,41
+128,out,267,0,0,0,272,348,364,366,99,out,0,4,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,41
+129,out,268,0,0,0,273,334,353,356,88,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,42
+130,out,270,0,0,0,275,290,308,310,40,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,42
+131,in_out,273,278,338,361,366,462,481,484,211,in_out,2,5,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,43
+132,in,274,279,398,423,0,0,0,426,152,in,7,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,43
+133,out,276,0,0,0,281,364,379,383,107,out,0,4,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,43
+134,out,279,0,0,0,284,379,394,398,119,out,0,5,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,44
+135,out,281,0,0,0,286,353,370,375,94,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,41
+136,out,282,0,0,0,287,394,409,414,132,out,0,6,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,41
+137,out,285,0,0,0,290,353,373,375,90,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,41
+138,in,287,292,308,333,0,0,0,335,48,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,42
+139,in,289,294,423,439,0,0,0,441,152,in,6,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,43
+140,in,292,297,303,315,0,0,0,319,27,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,44
+141,in,294,299,335,357,0,0,0,361,67,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,45
+142,in_out,295,300,439,454,459,551,570,572,277,in_out,7,5,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,45
+143,out,298,0,0,0,303,310,326,330,32,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,43
+144,out,300,0,0,0,305,326,341,344,44,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,42
+145,out,301,0,0,0,306,338,353,356,55,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,42
+146,in,303,308,315,332,0,0,0,336,33,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,43
+147,in,304,309,361,383,0,0,0,388,84,in,2,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,44
+148,out,307,0,0,0,312,409,427,429,122,out,0,5,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,45
+149,in_out,310,315,357,375,380,427,444,448,138,in_out,2,2,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,45
+150,in_out,313,318,375,387,392,499,519,521,208,in_out,2,5,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,44
+151,out,316,0,0,0,321,427,445,450,134,out,0,6,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,45
+152,in_out,319,324,383,398,403,535,552,557,238,in_out,2,7,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,43
+153,out,322,0,0,0,327,409,429,433,111,out,0,4,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,42
+154,out,323,0,0,0,328,429,449,452,129,out,0,5,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,42
+155,in_out,325,330,387,408,413,552,567,571,246,in_out,3,7,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,43
+156,out,326,0,0,0,331,341,356,358,32,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,43
+157,out,328,0,0,0,333,387,406,409,81,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,43
+158,out,329,0,0,0,334,449,468,470,141,out,0,6,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,44
+159,out,331,0,0,0,336,373,389,391,60,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,44
+160,in_out,333,338,398,418,423,497,515,520,187,in_out,3,4,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,45
+161,in_out,335,340,340,352,357,483,499,502,167,in_out,0,6,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,45
+162,in,338,343,408,428,0,0,0,430,92,in,3,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,43
+163,in,340,345,345,366,0,0,0,370,30,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,43
+164,in_out,343,348,352,364,369,392,412,414,71,in_out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,43
+165,in,344,349,366,390,0,0,0,394,50,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,44
+166,out,347,0,0,0,352,409,426,431,84,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,44
+167,in,349,354,364,383,0,0,0,387,38,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,45
+168,out,351,0,0,0,356,356,373,375,24,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,44
+169,out,353,0,0,0,358,445,462,467,114,out,0,5,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,45
+170,in_out,356,361,428,452,457,532,551,553,197,in_out,3,4,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,45
+171,out,357,0,0,0,362,373,392,395,38,out,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,44
+172,out,360,0,0,0,365,426,443,448,88,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,44
+173,in_out,363,368,454,464,469,469,485,487,124,in_out,4,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,44
+174,in_out,364,369,452,470,475,481,496,500,136,in_out,4,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,45
+175,in,366,371,464,480,0,0,0,485,119,in,5,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,46
+176,in,367,372,480,501,0,0,0,503,136,in,6,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,46
+177,in,369,374,470,494,0,0,0,498,129,in,5,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,46
+178,out,370,0,0,0,375,412,427,429,59,out,0,1,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,47
+179,in,373,378,383,403,0,0,0,407,34,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,47
+180,in_out,375,380,494,516,521,521,539,543,168,in_out,5,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,47
+181,in_out,378,383,501,513,518,518,537,540,162,in_out,7,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,45
+182,out,379,0,0,0,384,481,497,501,122,out,0,5,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,46
+183,in,382,387,390,411,0,0,0,414,32,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94962C0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,47
+184,out,385,0,0,0,390,444,462,465,80,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,47
+185,in_out,388,393,513,531,536,539,557,559,171,in_out,7,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,47
+186,in,390,395,516,531,0,0,0,536,146,in,5,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,47
+187,in_out,393,398,531,549,554,567,585,590,197,in_out,6,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,44
+188,in_out,396,401,531,545,550,557,572,577,181,in_out,7,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,43
+189,out,398,0,0,0,403,519,535,538,140,out,0,6,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,44
+190,in,399,404,549,568,0,0,0,570,171,in,7,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,44
+191,in_out,400,405,568,583,588,588,606,609,209,in_out,8,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,45
+192,out,402,0,0,0,407,462,479,483,81,out,0,3,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94962F0>,46
+193,in_out,404,409,545,569,574,574,594,598,194,in_out,8,0,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,47
+194,in_out,406,411,583,602,607,607,623,627,221,in_out,8,0,<simpy.resources.resource.Resource object at 0x0000019BF88723B0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,48
+195,out,409,0,0,0,414,462,481,486,77,out,0,2,<simpy.resources.resource.Resource object at 0x0000019BF94954B0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,48
+196,in,412,417,417,429,0,0,0,433,21,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,47
+197,in_out,415,420,420,432,437,515,532,537,122,in_out,0,4,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF9496380>,44
+198,in,418,423,432,448,0,0,0,450,32,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94961A0>,45
+199,in,420,425,429,454,0,0,0,456,36,in,0,0,<simpy.resources.resource.Resource object at 0x0000019BF94955A0>,<simpy.resources.resource.Resource object at 0x0000019BF9496350>,46
+200,in_out,422,427,448,467,472,485,505,507,85,in_out,1,0,<simpy.resources.resource.Resource object at 0x0000019BF88723E0>,<simpy.resources.resource.Resource object at 0x0000019BF94963E0>,47
