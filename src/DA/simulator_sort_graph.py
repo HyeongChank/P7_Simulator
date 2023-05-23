@@ -13,7 +13,7 @@ font_name = font_manager.FontProperties(fname=font_path).get_name()
 rc('font', family=font_name)
 # Truck,Operation,entry_Time,arrive_unload_spot,start_unload_work,complete_unload_work,arrive_load_spot,start_load_work,complete_load_work,exit_Time,waiting_Time,block
 ## 데이터 정렬해서 다시 저장
-file_path = './truck_simulation_results.csv'
+file_path = 'data/truck_simulation_results.csv'
 with open(file_path, 'r') as file:
     reader = csv.reader(file)
     data = list(reader)
@@ -87,7 +87,7 @@ for row in sorted_data:
 sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','Out_time','Work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'in_yard_count'])
 print(sorted_data_with_In_yard_truck_volume)
 # 정렬된 데이터를 CSV 파일로 저장
-sorted_file_path = './sorted_truck_simulation_results.csv'
+sorted_file_path = 'data/sorted_truck_simulation_results.csv'
 with open(sorted_file_path, 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerows(sorted_data_with_In_yard_truck_volume)
@@ -96,7 +96,7 @@ print("데이터를 첫 번째 트럭 열을 기준으로 오름차순으로 정
 
 
 ## 애니메이션 구현 부분
-file_path = './sorted_truck_simulation_results.csv'
+file_path = 'data/sorted_truck_simulation_results.csv'
 with open(file_path, 'r') as file:
     reader = csv.reader(file)
     data = list(reader)

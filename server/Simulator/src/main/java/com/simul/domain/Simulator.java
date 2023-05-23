@@ -27,6 +27,15 @@ public class Simulator {
     private int unload_wait_time;
     private int load_wait_time;
     private int total_wait_time;
+    
+    private int entry_to_unload;
+    private int entry_to_load;
+    private int arrive_to_complete_unload;
+    private int arrive_to_complete_load;
+    private int complete_to_exit_unload;
+    private int complete_to_exit_load;
+    
+    private int unload_to_load;
     private boolean visible;
 
     public Simulator() {
@@ -36,7 +45,9 @@ public class Simulator {
 	public Simulator(Long number, String code, int entryTime, int arrive_unload_spot, int start_unload_work,
 			int complete_unload_work, int arrive_load_spot, int start_load_work, int complete_load_work, int out_time,
 			String block, int unload_count, int load_count, int yard_truck_count, int unload_wait_time,
-			int load_wait_time, int total_wait_time, boolean visible) {
+			int load_wait_time, int total_wait_time, int entry_to_unload, int entry_to_load,
+			int arrive_to_complete_unload, int arrive_to_complete_load, int complete_to_exit_unload,
+			int complete_to_exit_load, int unload_to_load, boolean visible) {
 		super();
 		this.number = number;
 		this.code = code;
@@ -55,6 +66,13 @@ public class Simulator {
 		this.unload_wait_time = unload_wait_time;
 		this.load_wait_time = load_wait_time;
 		this.total_wait_time = total_wait_time;
+		this.entry_to_unload = entry_to_unload;
+		this.entry_to_load = entry_to_load;
+		this.arrive_to_complete_unload = arrive_to_complete_unload;
+		this.arrive_to_complete_load = arrive_to_complete_load;
+		this.complete_to_exit_unload = complete_to_exit_unload;
+		this.complete_to_exit_load = complete_to_exit_load;
+		this.unload_to_load = unload_to_load;
 		this.visible = visible;
 	}
 
@@ -194,6 +212,62 @@ public class Simulator {
 		this.total_wait_time = total_wait_time;
 	}
 
+	public int getEntry_to_unload() {
+		return entry_to_unload;
+	}
+
+	public void setEntry_to_unload(int entry_to_unload) {
+		this.entry_to_unload = entry_to_unload;
+	}
+
+	public int getEntry_to_load() {
+		return entry_to_load;
+	}
+
+	public void setEntry_to_load(int entry_to_load) {
+		this.entry_to_load = entry_to_load;
+	}
+
+	public int getArrive_to_complete_unload() {
+		return arrive_to_complete_unload;
+	}
+
+	public void setArrive_to_complete_unload(int arrive_to_complete_unload) {
+		this.arrive_to_complete_unload = arrive_to_complete_unload;
+	}
+
+	public int getArrive_to_complete_load() {
+		return arrive_to_complete_load;
+	}
+
+	public void setArrive_to_complete_load(int arrive_to_complete_load) {
+		this.arrive_to_complete_load = arrive_to_complete_load;
+	}
+
+	public int getComplete_to_exit_unload() {
+		return complete_to_exit_unload;
+	}
+
+	public void setComplete_to_exit_unload(int complete_to_exit_unload) {
+		this.complete_to_exit_unload = complete_to_exit_unload;
+	}
+
+	public int getComplete_to_exit_load() {
+		return complete_to_exit_load;
+	}
+
+	public void setComplete_to_exit_load(int complete_to_exit_load) {
+		this.complete_to_exit_load = complete_to_exit_load;
+	}
+
+	public int getUnload_to_load() {
+		return unload_to_load;
+	}
+
+	public void setUnload_to_load(int unload_to_load) {
+		this.unload_to_load = unload_to_load;
+	}
+
 	public boolean isVisible() {
 		return visible;
 	}
@@ -210,8 +284,14 @@ public class Simulator {
 				+ start_load_work + ", complete_load_work=" + complete_load_work + ", out_time=" + out_time + ", block="
 				+ block + ", unload_count=" + unload_count + ", load_count=" + load_count + ", yard_truck_count="
 				+ yard_truck_count + ", unload_wait_time=" + unload_wait_time + ", load_wait_time=" + load_wait_time
-				+ ", total_wait_time=" + total_wait_time + ", visible=" + visible + "]";
+				+ ", total_wait_time=" + total_wait_time + ", entry_to_unload=" + entry_to_unload + ", entry_to_load="
+				+ entry_to_load + ", arrive_to_complete_unload=" + arrive_to_complete_unload
+				+ ", arrive_to_complete_load=" + arrive_to_complete_load + ", complete_to_exit_unload="
+				+ complete_to_exit_unload + ", complete_to_exit_load=" + complete_to_exit_load + ", unload_to_load="
+				+ unload_to_load + ", visible=" + visible + "]";
 	}
+
+
 
 	
 

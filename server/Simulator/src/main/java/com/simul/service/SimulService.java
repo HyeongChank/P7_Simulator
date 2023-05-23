@@ -20,7 +20,7 @@ public class SimulService {
 //	SimulController sc;
 	
     public List<Simulator> readCsvFile() throws IOException {
-		String filePath = "C:/git clone/P7_simulation/P7_Simulator/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+		String filePath = "C:/git clone/P7_simulation/P7_Simulator/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
 //		String filePath = "D:/김형찬/Congest_project/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
 		List<Simulator> sm = new ArrayList<>();
         BufferedReader reader = null;
@@ -51,26 +51,39 @@ public class SimulService {
                 String yard_truck_count_before = fields[14];
                 int yard_truck_count = Integer.parseInt(yard_truck_count_before);  
                 String start_unload_work_before = fields[4];
-                int start_unload_work = Integer.parseInt(start_unload_work_before);
+                int start_unload_work = Integer.parseInt(start_unload_work_before) *1000;
                 String arrive_unload_spot_before = fields[3];
-                int arrive_unload_spot = Integer.parseInt(arrive_unload_spot_before);
+                int arrive_unload_spot = Integer.parseInt(arrive_unload_spot_before)*1000;
                 int unload_wait_time = start_unload_work - arrive_unload_spot;
                 
                 String start_load_work_before = fields[7];
-                int start_load_work = Integer.parseInt(start_load_work_before);
+                int start_load_work = Integer.parseInt(start_load_work_before)*1000;
                 String arrive_load_spot_before = fields[6];
-                int arrive_load_spot = Integer.parseInt(arrive_load_spot_before);
+                int arrive_load_spot = Integer.parseInt(arrive_load_spot_before)*1000;
                 int load_wait_time = start_load_work - arrive_load_spot;
             	int total_wait_time = unload_wait_time + load_wait_time;
             	boolean visible = true;
             	String complete_unload_work_before = fields[5];
-            	int complete_unload_work = Integer.parseInt(complete_unload_work_before);
+            	int complete_unload_work = Integer.parseInt(complete_unload_work_before)*1000;
             	String complete_load_work_before = fields[8];
-            	int complete_load_work = Integer.parseInt(complete_load_work_before);
+            	int complete_load_work = Integer.parseInt(complete_load_work_before)*1000;
+            	
+            	int entry_to_unload = arrive_unload_spot - entryTime;
+            	int entry_to_load = arrive_load_spot - entryTime;
+            	int arrive_to_complete_unload = complete_unload_work - arrive_unload_spot;
+            	int arrive_to_complete_load = complete_load_work - arrive_load_spot;
+            	int complete_to_exit_unload = out_time - complete_unload_work;
+            	int complete_to_exit_load = out_time - complete_load_work;
+     	        int unload_to_load = complete_unload_work - complete_load_work;
+            	    
+            	    
+            	    
+            	    
             	Simulator smr = new Simulator(number, code, entryTime, arrive_unload_spot, start_unload_work, 
             			complete_unload_work, arrive_load_spot, start_load_work, complete_load_work, out_time,
             			block, unload_count, load_count, yard_truck_count,unload_wait_time, load_wait_time,
-            			total_wait_time, visible);
+            			total_wait_time, entry_to_unload, entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
+            			complete_to_exit_unload, complete_to_exit_load, unload_to_load, visible);
             	sm.add(smr);
             	
             }

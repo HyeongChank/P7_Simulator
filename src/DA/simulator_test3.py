@@ -66,7 +66,7 @@ class Truck:
                 complete_unload_work_time = env.now
 
             # exit gate 까지 이동
-            out_before_wait_time = random.randint(2,5)
+            out_before_wait_time = 5
             yield env.timeout(out_before_wait_time)
             print(f"트럭 {self.name}이(가) 출차했습니다. 시간: {env.now}")
             out_yard_time = env.now
@@ -126,7 +126,7 @@ class Truck:
                 complete_load_work_time = env.now
 
             # exit gate 까지 이동
-            out_before_wait_time = random.randint(2,5)
+            out_before_wait_time = 5
             yield env.timeout(out_before_wait_time)
             print(f"트럭 {self.name}이(가) 출차했습니다. 시간: {env.now}")
             out_yard_time = env.now
@@ -168,7 +168,7 @@ class Truck:
                 complete_load_work_time = env.now
 
             # exit gate 이동
-            out_before_wait_time = random.randint(2,5)
+            out_before_wait_time = 5
             yield env.timeout(out_before_wait_time)
             print(f"트럭 {self.name}이(가) 출차했습니다. 시간: {env.now}")
             out_yard_time = env.now

@@ -55,7 +55,12 @@ function Display(){
         ctx.fillText('load_work', out_container.x, out_container.y); 
     }
     
-    const createTruck = (number, code, entryTime, arrive_load_spot, start_load_work, complete_load_work, unload_wait_time=0, load_wait_time=0, visible) => {
+    const createTruck = (number, code, entryTime, arrive_unload_spot,
+        start_unload_work, complete_unload_work, arrive_load_spot,
+         start_load_work, complete_load_work, out_time,
+          unload_wait_time, load_wait_time, entry_to_unload,
+           entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
+          complete_to_exit_unload, complete_to_exit_load, unload_to_load, visible) => {
         const canvas = canvasRef.current;
         const truck = {
             number: number,
@@ -69,13 +74,26 @@ function Display(){
             state: 0,
             work_code: code,
             entryTime: entryTime,
+            arrive_unload_spot : arrive_unload_spot,
+            start_unload_work: start_unload_work,
+            complete_unload_work:complete_unload_work,
+
             arrive_load_spot : arrive_load_spot,
             start_load_work : start_load_work,
             complete_load_work : complete_load_work,
-            work_wait_load_time : complete_load_work- arrive_load_spot,
+            
+            entry_to_unload:entry_to_unload,
+            entry_to_load:entry_to_load,
+            arrive_to_complete_unload:arrive_to_complete_unload,
+            arrive_to_complete_load:arrive_to_complete_load,
+            complete_to_exit_unload:complete_to_exit_unload,
+            complete_to_exit_load:complete_to_exit_load,
+            unload_to_load:unload_to_load,
+            out_time : out_time,
+            //계산 제대로 안됨 계산은 다 서버에서 하고 넘어와야 할 듯함
+            
             unload_wait_time: unload_wait_time,
             load_wait_time: load_wait_time,
-            wait_time : unload_wait_time + load_wait_time,
             visible : visible
         };
         setTrucks(trucks => [...trucks, truck]);
@@ -88,7 +106,7 @@ function Display(){
             ctx.fillStyle = 'black';
             ctx.fillText(truck.name, truck.x, truck.y-10);
             
-            ctx.fillText(`UWait Time: ${truck.unload_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+            ctx.fillText(`UWait Time: ${truck.load_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
         }
     }
     
@@ -177,7 +195,7 @@ function Display(){
                 if (truck.work_code === 'in') {
                     if (truck.state === 0) {
                         if (truck.x < 400 - truck.width) {
-                            truck.x += (truck.speed*(truck.arrive_load_spot-truck.entryTime)/(400 - truck.width));
+                            truck.x += truck.speed*3.2/truck.entry_to_unload*1000;
                         }
                         else {
                             truck.state = 1;
@@ -186,14 +204,14 @@ function Display(){
                     else if (truck.state === 1) {
                         truck.delay += 1;
                         // 5초 설정
-                        if (truck.delay > truck.unload_wait_time*50) {
+                        if (truck.delay > truck.arrive_to_complete_unload*50/1000) {
                             truck.x += 80;
                             truck.state = 2;
                         }
                     }
                     else if (truck.state === 2) {
                         if (truck.x < canvas.width - truck.width) {
-                            truck.x += truck.speed;
+                            truck.x += truck.speed*3.2/truck.complete_to_exit_unload*1000;
                         }
                         else {
                             truck.visible = false;
@@ -204,7 +222,9 @@ function Display(){
                 if(truck.work_code === 'out'){
                     if (truck.state ===0){
                         if (truck.x < 200 - truck.width) {
-                            truck.x += truck.speed;
+                            //계산 잘못됨 다시 해보기
+                            //truck.x += (truck.speed*truck.entry_to_spot/(400 - truck.width));
+                            truck.x += truck.speed*4.7/truck.entry_to_load*1000;
                         }
                         else{
                             truck.state =5;
@@ -212,7 +232,8 @@ function Display(){
                     }
                     else if (truck.state ===5){
                         if(truck.y < 300- truck.height){
-                            truck.y += truck.speed;
+                            //truck.y += (truck.speed*truck.entry_to_spot/(400 - truck.width));
+                            truck.y +=  truck.speed*4.7/truck.entry_to_load*1000;
                         }
                         else{
                             truck.state =6;
@@ -220,7 +241,9 @@ function Display(){
                     }
                     else if ( truck.state ===6){
                         if (truck.x < 400 - truck.width) {
-                            truck.x += truck.speed;
+                            //entry_to_spot 도 서버에서 계산해서 넘어와야 할 듯, 여기서 하니까 제대로 작동 안함
+                            truck.x +=  truck.speed*4.7/truck.entry_to_load*1000;
+                            //truck.x += truck.speed;
             
                         }
                         else{
@@ -230,14 +253,14 @@ function Display(){
                     else if (truck.state === 1){
                         truck.delay += 1;
                         // 5초 설정
-                        if(truck.delay>truck.work_wait_load_time*50){
+                        if(truck.delay>truck.arrive_to_complete_load*50/1000){
                             truck.x +=80;
                             truck.state=4;
                         }
                     }
                     else if (truck.state ===4){
                         if(truck.x<680-truck.width){
-                            truck.x += truck.speed;
+                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 3;
@@ -245,7 +268,7 @@ function Display(){
                     }
                     else if(truck.state ===3){
                         if(truck.y>150-truck.height){
-                            truck.y-= truck.speed;
+                            truck.y-= truck.speed*4.7/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 2;
@@ -253,7 +276,7 @@ function Display(){
                     }
                     else if (truck.state ===2){
                         if(truck.x < canvas.width - truck.width){
-                            truck.x += truck.speed;
+                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.visible = false;
@@ -262,7 +285,7 @@ function Display(){
                 }
 
                 if(truck.work_code === 'in_out'){
-            
+                    // 속도 계산해야 함
                     if (truck.state ===0){
                         // 초당 100px 이동중
                         if (truck.x < 400 - truck.width) {
@@ -284,15 +307,16 @@ function Display(){
                     else if (truck.state === 1){
                         truck.delay += 1;
                         // 5초 설정 250번의 호출(20밀리세컨드 기준)
-                        if(truck.delay>truck.unload_wait_time*50){
+                        if(truck.delay>truck.arrive_to_complete_unload*50/1000){
                             truck.x +=80;
                             truck.state=5;
+                            truck.delay=0;
                         }
                     }
                     else if (truck.state === 7){
                         truck.delay += 1;
                         // 5초 설정
-                        if(truck.delay>truck.load_wait_time*50){
+                        if(truck.delay>truck.arrive_to_complete_load*50/1000){
                             truck.state=4;
                         }
                     }
@@ -339,7 +363,12 @@ function Display(){
     const handleClick = () => {
         trucksData.forEach((truckData, i) => {
             setTimeout(() => {
-                createTruck(truckData.number, truckData.code, truckData.entryTime, truckData.arrive_load_spot, truckData.start_load_work, truckData.complete_load_work, truckData.unload_wait_time, truckData.load_wait_time, truckData.visible);
+                createTruck(truckData.number, truckData.code, truckData.entryTime, truckData.arrive_unload_spot,
+                    truckData.start_unload_work, truckData.complete_unload_work, truckData.arrive_load_spot,
+                     truckData.start_load_work, truckData.complete_load_work, truckData.out_time,
+                      truckData.unload_wait_time, truckData.load_wait_time, truckData.entry_to_unload,
+                       truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
+                      truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,truckData.visible);
             }, truckData.entryTime);
         });
     };
