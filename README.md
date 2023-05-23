@@ -1,23 +1,22 @@
 ## 진행상황.
-- [yard_congestion-Queue_LSTM.py](05.23) : 반입장, 반출장별 Queue 대기시간 예측
+- [yard_congestion->Queue_LSTM.py](05.23) : 반입장, 반출장별 Queue 대기시간 예측
 
 - predict_LSTM.py : 향후 대기시간(5분 단위) 예측
     - 향후 예측시간(현재 기준 5분단위 개수) 입력 시 향후 대기시간s 출력
 
 - main.py : 혼잡도 분석 및 Congest_level 출력
     - 예측 입차시기 입력 / 예측 대기시간 및 혼잡도 출력
-    - 이에 따라 1.입차시기, 2.작업 코드를 입력해야 함
 
 - simulator 터미널 시뮬레이션 및 애니메이션 실행
     - 트럭 500대, 24시간 내 터미널 작업 시뮬레이션
     - 기능 : 입차, 배정 블록 이동, 작업(반입, 반출), 대기시간, 작업장별 대기차량 수, 출차
     - 목표
-        - 터미널 소요시간, 반입, 반출 작업장별 대기차량, 대기시간 산출(완료 5/22)
+        - 터미널 소요시간, 반입, 반출 작업장별 대기차량, 대기시간 데이터 생성(완료 5/22)
         - 애니메이션 실행(완료)
     - simulator_now_test.py : 시뮬레이션 데이터 생성
     - simulator_sort_graph.py : 데이터 전처리
-    - [Server-Simulator](spring서버) : 데이터 전달(mysql db 저장)
-    - [front-my-react-app](node.js) : 터미널 화면 출력(트럭 이동 간이 구현)
+    - [Server->Simulator](spring서버) : 데이터 전달(mysql db 저장)
+    - [front->my-react-app](node.js) : 터미널 화면 출력(트럭 이동 간이 구현)
     - 반입, 반출장 각각 5개 블록 총 10개 객체 설정해서 Queue
     
 - randomForest.py : 현재 대기차량, 혼잡도 입력 시 대기시간 예측(+오차 측정)
