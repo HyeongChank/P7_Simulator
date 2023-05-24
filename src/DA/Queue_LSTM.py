@@ -25,7 +25,7 @@ rc('font', family=font_name)
 
 def postdata():
     def load_data():
-        data = pd.read_csv("D:/김형찬/Congest_project/sorted_truck_simulation_results.csv", encoding='cp949')
+        data = pd.read_csv("D:/김형찬/Congest_project/data/sorted_truck_simulation_results.csv", encoding='cp949')
         print(data.head())
         return data
 
@@ -125,21 +125,38 @@ def postdata():
             print('Eval Loss:', eval_loss)
         #print(predicted_data_load)     
 
+        # 데이터
+        y_true_unload = y
+        y_pred_unload = predicted_data_unload
+
+        y_true_load = y_load
+        y_pred_load = predicted_data_load
+
+        # unload 데이터에 대한 그래프
+        plt.figure(figsize=(12, 6))
+        plt.plot(y_true_unload, label='Actual Unload Wait Time')
+        plt.plot(y_pred_unload, label='Predicted Unload Wait Time')
+        plt.title('Unload Wait Time: Actual vs Predicted')
+        plt.xlabel('Time')
+        plt.ylabel('Wait Time')
+        plt.legend()
+        plt.show()
+
         # 그래프로 예측 결과와 실제 데이터를 표현합니다.
         x_axis_previous = range(len(n_data)-30, len(n_data))  # 기존 데이터 중 마지막 30개의 인덱스
         x_axis_predicted = range(len(n_data), len(n_data) + 1)  # 이후 2개의 예측 데이터
         # 개수 오류 계속 났었음. ( x_axis_previous = previous_data 맞춰줘야 하고, x_axis_predicted = predicted_data 맞춰줘야 함)
-        plt.plot(x_axis_previous, previous_data, label='Previous_unload_spot')
-        plt.scatter(x_axis_predicted, predicted_data_unload, label='Predicted_unload', color='red')
-        plt.plot(x_axis_previous, previous_data_load, label='Previous_load_spot')
-        plt.scatter(x_axis_predicted, predicted_data_load, label='Predicted_load', color='green')    
-        plt.xlabel('Time')
-        plt.ylabel('Wait_Time')
-        plt.ylim(0, 300)  # y축 범위 설정
-        plt.legend()
-        graph_image_filename = "test_graph.png"
-        plt.savefig(graph_image_filename)
-        print(f"그래프를 '{graph_image_filename}' 파일로 저장했습니다.")
+        # plt.plot(x_axis_previous, previous_data, label='Previous_unload_spot')
+        # plt.scatter(x_axis_predicted, predicted_data_unload, label='Predicted_unload', color='red')
+        # plt.plot(x_axis_previous, previous_data_load, label='Previous_load_spot')
+        # plt.scatter(x_axis_predicted, predicted_data_load, label='Predicted_load', color='green')    
+        # plt.xlabel('Time')
+        # plt.ylabel('Wait_Time')   
+        # plt.ylim(0, 300)  # y축 범위 설정
+        # plt.legend()
+        # graph_image_filename = "test_graph.png"
+        # plt.savefig(graph_image_filename)
+        # print(f"그래프를 '{graph_image_filename}' 파일로 저장했습니다.")
         # plt.show()
         return predicted_data_unload, predicted_data_load
 
