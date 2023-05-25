@@ -20,8 +20,8 @@ public class SimulService {
 //	SimulController sc;
 	
     public List<Simulator> readCsvFile() throws IOException {
-		String filePath = "C:/git clone/P7_simulation/P7_Simulator/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
-//		String filePath = "D:/김형찬/Congest_project/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+//		String filePath = "C:/git clone/P7_simulation/P7_Simulator/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+		String filePath = "D:/김형찬/Congest_project/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
 		List<Simulator> sm = new ArrayList<>();
         BufferedReader reader = null;
         boolean isFirstLine = true;
@@ -74,7 +74,7 @@ public class SimulService {
             	int arrive_to_complete_load = complete_load_work - arrive_load_spot;
             	int complete_to_exit_unload = out_time - complete_unload_work;
             	int complete_to_exit_load = out_time - complete_load_work;
-     	        int unload_to_load = complete_unload_work - complete_load_work;
+     	        int unload_to_load = complete_load_work - arrive_unload_spot;
             	    
             	    
             	    

@@ -104,9 +104,21 @@ function Display(){
             ctx.fillStyle = 'orange';
             ctx.fillRect(truck.x, truck.y, truck.width, truck.height);
             ctx.fillStyle = 'black';
-            ctx.fillText(truck.name, truck.x, truck.y-10);
-            
-            ctx.fillText(`UWait Time: ${truck.load_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+            ctx.fillText(`${truck.name} : ${truck.work_code}`, truck.x, truck.y-10);
+            if(truck.work_code==='in'){
+                ctx.font = "15px Arial";
+                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+            }
+            else if(truck.work_code==='out'){
+                ctx.font = "15px Arial";
+                ctx.fillText(`load_wait_time: ${truck.load_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+            }
+            else{
+                ctx.font = "15px Arial";
+                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`load_wait_time: ${truck.load_wait_time}`, truck.x, truck.y - 50); // truck's unload wait time
+            }
+
         }
     }
     
@@ -289,7 +301,7 @@ function Display(){
                     if (truck.state ===0){
                         // 초당 100px 이동중
                         if (truck.x < 400 - truck.width) {
-                            truck.x += truck.speed;
+                            truck.x += truck.speed*3.2/truck.entry_to_unload*1000;
                         }
                         else{
                             truck.state =1;
@@ -297,7 +309,7 @@ function Display(){
                     }
                     else if (truck.state ===5){
                         if(truck.y < 300- truck.height){
-                            truck.y += truck.speed;
+                            truck.y += truck.speed*2.5/truck.unload_to_load*1000;
                         }
                         else{
                             truck.state =7;
@@ -322,7 +334,7 @@ function Display(){
                     }
                     else if (truck.state ===4){
                         if(truck.x<680-truck.width){
-                            truck.x += truck.speed;
+                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 3;
@@ -330,7 +342,7 @@ function Display(){
                     }
                     else if(truck.state ===3){
                         if(truck.y>150-truck.height){
-                            truck.y-= truck.speed;
+                            truck.y-=truck.speed*4.7/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 2;
@@ -338,7 +350,7 @@ function Display(){
                     }
                     else if (truck.state ===2){
                         if(truck.x < canvas.width - truck.width){
-                            truck.x += truck.speed;
+                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.visible = false;

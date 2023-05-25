@@ -196,7 +196,7 @@ def postdata():
         # 그래프 출력
         plt.figure(figsize=(14,5))
         plt.scatter(n_data['entryTime_group'], n_data['wait_time_unload_spot'], color='blue', label='Actual')
-        plt.scatter(n_data['entryTime_group'][train_size+window_size:], y_pred.flatten(), color='red', label='Predicted')  # <-- 여기가 변경된 부분입니다.
+        plt.scatter(n_data['entryTime_group'][train_size+window_size:], y_pred.flatten(), color='red', label='Predicted')  
         plt.title('Wait Time Prediction')
         plt.xlabel('Entry Time')
         plt.ylabel('Wait Time')

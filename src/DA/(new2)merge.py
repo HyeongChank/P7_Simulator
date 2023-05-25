@@ -12,19 +12,23 @@ rc('font', family=font_name)
 
 data = pd.read_excel("data/TBS_data.xlsx", sheet_name='야드크레이인_작업이력')
 scd_data = pd.read_excel("data/TBS_data.xlsx", sheet_name='반출입_예정컨테이너')
-scd_data = pd.read_excel("data/TBS_data.xlsx", sheet_name='반출입_예정컨테이너')
-print(scd_data)
-print(data)
-num_common_values = data['컨테이너번호'].isin(scd_data['컨테이너번호']).sum()
+container_before_data = pd.read_excel("data/TBS_data.xlsx", sheet_name='장치장_전')
+container_after_data = pd.read_excel("data/TBS_data.xlsx", sheet_name='장치장_후')
+
+# data, scd_data merge 전 확인
+num_common_values = data['컨테이너번호'].isin(scd_data['컨테이너번호']).sum() # 1696개
 print(num_common_values)
+
+# data, container_before_data, container_after_data merge
+ycb_common_values = data['컨테이너번호'].isin(container_after_data['컨테이너번호']).sum() # 6103개
+print('ycb_common_values', ycb_common_values)
+yard_con_common_df = pd.merge(data, container_after_data, on='컨테이너번호')
 
 ##################### 먼저 공통 값에 대한 merge ################
 common_df = pd.merge(data, scd_data, on='컨테이너번호')
 print('common_df',common_df)
-
 common_df['작업코드'] = common_df['작업코드'].replace({'VU': 1, 'VL': 2, 'GR': 3, 'GD': 4, 'TM':5,'TS':6})
-common_df['장비번호'] = common_df['장비번호'].replace({'Y02': 1})
-# common_df = common_df[-500:]
+common_df = common_df[-500:]
 
 #####################################################
 n_data = data[['작업코드','블록','야드트럭(번호)','장비번호', '작업생성시간','작업완료시간']]

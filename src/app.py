@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from DA import randomForest
+
 from DA import quarter
 from DA import test2
 from DA import congestAnal
@@ -7,6 +7,8 @@ from DA import main
 from DA import retraining
 from DA import predict_LSTM
 from DA import Queue_LSTM
+from complete import randomForest_predict
+import json
 import requests
 from flask_cors import CORS
 import pandas as pd
@@ -24,7 +26,7 @@ def congestion():
         
         return jsonify({'congest_level': congest_level.tolist()}, {'waiting_time': waitingTime.tolist()})
     else:
-        return 'error'    
+        return 'error'
 
 @app.route('/api/predict', methods=['GET', 'POST'])
 def prediction():
@@ -36,14 +38,23 @@ def prediction():
         predicted_data_unload, predicted_data_load = Queue_LSTM.postdata()
         return jsonify({'predicted_data_unload': predicted_data_unload}, {'predicted_data_load': predicted_data_load})
     else:
-        return 'error'    
-# @app.route('./api/predictlstm', methods =['GET'])
-# def update_data():
-#     response = requests.get()
-#     retraining.add_data(response)
+        return 'error'
     
-#     return jsonify(response.json())
 
+@app.route('/api/r_predict', methods=['GET', 'POST'])
+def r_prediction():
+    if request.method == 'POST':
+        # new_data = request.get_json()
+        # print('json 전달 받은 데이터', new_data)
+        # new_data_df = pd.DataFrame(new_data)
+        
+        grouped_df = randomForest_predict.operate()
+        grouped_df_json = grouped_df.to_json(date_format='iso', orient='records')
+        grouped_df_parsed = json.loads(grouped_df_json)
+        grouped_df_clean = json.dumps(grouped_df_parsed, ensure_ascii=False)
+        return jsonify({'grouped_df_json': grouped_df_clean})
+    else:
+        return 'error'
 
 if __name__ == '__main__':
     # host, port를 설정하고 여기로 요청을 하게 하면 됨
