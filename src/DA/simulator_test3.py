@@ -216,7 +216,7 @@ csv_filename = "data/truck_simulation_results.csv"
 def save_results_to_csv(filename, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed):
     with open(filename, "w", newline="") as file:
         writer = csv.writer(file)
-        writer.writerow(["Truck", "Operation", "entry_Time", "arrive_unload_spot", "start_unload_work", "complete_unload_work", "exit_Time", "waiting_Time", "block", "unload_spot_truck_count", "load_spot_truck_count"])  # 헤더 라인 작성
+        writer.writerow(["Truck", "Operation", "entry_Time", "arrive_unload_spot", "start_unload_work", "complete_unload_work", "arrive_load_spot", "start_load_work","complete_load_work", "exit_Time", "waiting_Time", "block", "unload_spot_truck_count", "load_spot_truck_count"])  # 헤더 라인 작성
 
         # 반입 작업 완료 트럭 기록
         for truck in unload_trucks_completed:

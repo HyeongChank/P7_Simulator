@@ -64,7 +64,8 @@ for row in sorted_data:
     # 현재 터미널 내 트럭 대수 = 총 트럭 - 출차 대수(본인 트럭 제외)
     In_yard_truck_volume = len(in_time_value1)-len(in_time_value2)
     # print(In_yard_truck_volume)
-
+    unload_count = row[12]
+    load_count = row[13]
     # ## 먼저 도착한 트럭에 대해서 조건 추가해야 함
     # # 반입장 대기 트럭 대수 구하기 = 작업완료 트럭수 - 반입장 도착 트럭수
     # arrive_unload_spot_data = list(filter(lambda x : x<int_arrive_unload_spot, arrive_unload_spot_list))

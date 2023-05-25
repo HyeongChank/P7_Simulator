@@ -26,7 +26,7 @@ def operate():
         data_cad_data_common_df = pd.merge(data, cad_data, on='컨테이너번호')
         data_cbd_data_common_df = pd.merge(data, cbd_data, on='컨테이너번호')
         print(data_cbd_data_common_df)
-
+        
         return data_cbd_data_common_df
 
     def preprocessing(common_df):
@@ -103,7 +103,7 @@ def operate():
         plt.xlabel('작업생성시간')
         plt.ylabel('예측값')
         plt.title('예측값 시간별 추이')
-        # plt.show()
+        plt.show()
         return grouped_df
 
 #############################################################################

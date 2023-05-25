@@ -74,7 +74,7 @@ public class SimulService {
             	int arrive_to_complete_load = complete_load_work - arrive_load_spot;
             	int complete_to_exit_unload = out_time - complete_unload_work;
             	int complete_to_exit_load = out_time - complete_load_work;
-     	        int unload_to_load = complete_load_work - arrive_unload_spot;
+     	        int unload_to_load = start_load_work - complete_unload_work;
             	    
             	    
             	    

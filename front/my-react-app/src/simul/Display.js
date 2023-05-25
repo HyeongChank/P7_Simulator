@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import './simul.css'
 function Display(){
 
     const [trucksData, setTrucksData] = useState([]);
@@ -54,10 +54,12 @@ function Display(){
         ctx.font = '20px Arial'; 
         ctx.fillText('load_work', out_container.x, out_container.y); 
     }
+
     
     const createTruck = (number, code, entryTime, arrive_unload_spot,
         start_unload_work, complete_unload_work, arrive_load_spot,
          start_load_work, complete_load_work, out_time,
+         unload_count, load_count,
           unload_wait_time, load_wait_time, entry_to_unload,
            entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
           complete_to_exit_unload, complete_to_exit_load, unload_to_load, visible) => {
@@ -81,7 +83,8 @@ function Display(){
             arrive_load_spot : arrive_load_spot,
             start_load_work : start_load_work,
             complete_load_work : complete_load_work,
-            
+            unload_count:unload_count,
+            load_count:load_count,
             entry_to_unload:entry_to_unload,
             entry_to_load:entry_to_load,
             arrive_to_complete_unload:arrive_to_complete_unload,
@@ -95,6 +98,8 @@ function Display(){
             unload_wait_time: unload_wait_time,
             load_wait_time: load_wait_time,
             visible : visible
+            // 입차한 트럭 대수, 작업 완료한 트럭 대수(대시보드 용 추가하기)
+
         };
         setTrucks(trucks => [...trucks, truck]);
     }
@@ -104,19 +109,20 @@ function Display(){
             ctx.fillStyle = 'orange';
             ctx.fillRect(truck.x, truck.y, truck.width, truck.height);
             ctx.fillStyle = 'black';
+            ctx.font = "15px Arial";
             ctx.fillText(`${truck.name} : ${truck.work_code}`, truck.x, truck.y-10);
             if(truck.work_code==='in'){
                 ctx.font = "15px Arial";
-                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
             }
             else if(truck.work_code==='out'){
                 ctx.font = "15px Arial";
-                ctx.fillText(`load_wait_time: ${truck.load_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`load_wait_time: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
             }
             else{
                 ctx.font = "15px Arial";
-                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time}`, truck.x, truck.y - 30); // truck's unload wait time
-                ctx.fillText(`load_wait_time: ${truck.load_wait_time}`, truck.x, truck.y - 50); // truck's unload wait time
+                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`load_wait_time: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 50); // truck's unload wait time
             }
 
         }
@@ -189,6 +195,7 @@ function Display(){
         }
         const out_container = createOut_Container();
 
+   
 
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -203,7 +210,22 @@ function Display(){
             drawPort(port, ctx);
             drawIn_Container(in_container, ctx);
             drawOut_Container(out_container, ctx);
+            
+            
+
             let updatedTrucks = trucks.map(truck => {
+
+                const unloadCountElement = document.getElementById('unload_count');
+                const loadCountElement = document.getElementById('load_count');
+                const unloadCompleteCountElement = document.getElementById('unload_complete');
+                const loadCompleteCountElement = document.getElementById('load_complete');
+                const unloadloadCompleteCountElement = document.getElementById('unload_load_complete');
+                unloadCountElement.textContent = `Unload Count: ${truck.unload_count}`;
+                loadCountElement.textContent = `Load Count: ${truck.load_count}`;
+                unloadCompleteCountElement.textContent = `Unload complete: ${truck.complete_unload_work}`;
+                loadCompleteCountElement.textContent = `load complete: ${truck.complete_load_work}`;
+                unloadloadCompleteCountElement.textContent = `Unload load complete: ${truck.complete_unload_load_work}`;
+
                 if (truck.work_code === 'in') {
                     if (truck.state === 0) {
                         if (truck.x < 400 - truck.width) {
@@ -309,7 +331,7 @@ function Display(){
                     }
                     else if (truck.state ===5){
                         if(truck.y < 300- truck.height){
-                            truck.y += truck.speed*2.5/truck.unload_to_load*1000;
+                            truck.y += (truck.speed*2.5/truck.unload_to_load)*1000;
                         }
                         else{
                             truck.state =7;
@@ -378,6 +400,7 @@ function Display(){
                 createTruck(truckData.number, truckData.code, truckData.entryTime, truckData.arrive_unload_spot,
                     truckData.start_unload_work, truckData.complete_unload_work, truckData.arrive_load_spot,
                      truckData.start_load_work, truckData.complete_load_work, truckData.out_time,
+                     truckData.unload_count, truckData.load_count,
                       truckData.unload_wait_time, truckData.load_wait_time, truckData.entry_to_unload,
                        truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
                       truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,truckData.visible);
@@ -389,6 +412,15 @@ function Display(){
         <div>
             <canvas ref={canvasRef} width={800} height={600}  />
             <button onClick={handleClick}>Start</button>
+            <div id='dashboard'>
+                <p id='unload_complete'>unload_complete : </p>
+                <p id='load_complete'>load_complete : </p>
+                <p id='unload_load_complete'>unload_load_complete : </p>
+                <p id='unload_count'>unload_waiting_truck_count : 0</p>
+                <p id='load_count'>load_waiting_truck_count : 0</p>
+             
+            </div>
+
         </div>
     );
 }
