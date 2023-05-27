@@ -36,6 +36,9 @@ public class Simulator {
     private int complete_to_exit_load;
     
     private int unload_to_load;
+    
+    private String unload_block;
+    private String load_block;
     private boolean visible;
 
     public Simulator() {
@@ -47,7 +50,7 @@ public class Simulator {
 			String block, int unload_count, int load_count, int yard_truck_count, int unload_wait_time,
 			int load_wait_time, int total_wait_time, int entry_to_unload, int entry_to_load,
 			int arrive_to_complete_unload, int arrive_to_complete_load, int complete_to_exit_unload,
-			int complete_to_exit_load, int unload_to_load, boolean visible) {
+			int complete_to_exit_load, int unload_to_load, String unload_block, String load_block, boolean visible) {
 		super();
 		this.number = number;
 		this.code = code;
@@ -73,6 +76,8 @@ public class Simulator {
 		this.complete_to_exit_unload = complete_to_exit_unload;
 		this.complete_to_exit_load = complete_to_exit_load;
 		this.unload_to_load = unload_to_load;
+		this.unload_block = unload_block;
+		this.load_block = load_block;
 		this.visible = visible;
 	}
 
@@ -268,6 +273,22 @@ public class Simulator {
 		this.unload_to_load = unload_to_load;
 	}
 
+	public String getUnload_block() {
+		return unload_block;
+	}
+
+	public void setUnload_block(String unload_block) {
+		this.unload_block = unload_block;
+	}
+
+	public String getLoad_block() {
+		return load_block;
+	}
+
+	public void setLoad_block(String load_block) {
+		this.load_block = load_block;
+	}
+
 	public boolean isVisible() {
 		return visible;
 	}
@@ -288,13 +309,9 @@ public class Simulator {
 				+ entry_to_load + ", arrive_to_complete_unload=" + arrive_to_complete_unload
 				+ ", arrive_to_complete_load=" + arrive_to_complete_load + ", complete_to_exit_unload="
 				+ complete_to_exit_unload + ", complete_to_exit_load=" + complete_to_exit_load + ", unload_to_load="
-				+ unload_to_load + ", visible=" + visible + "]";
+				+ unload_to_load + ", unload_block=" + unload_block + ", load_block=" + load_block + ", visible="
+				+ visible + "]";
 	}
 
-
-
 	
-
-		
-
 }

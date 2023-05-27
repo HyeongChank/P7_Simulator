@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './simul.css'
 function Display(){
-
+    const [mousePos, setMousePos] = useState({x:0, y:0});
     const [trucksData, setTrucksData] = useState([]);
     useEffect(() => {
         fetch('http://localhost:8080/api/truckData')
@@ -62,7 +62,8 @@ function Display(){
          unload_count, load_count,
           unload_wait_time, load_wait_time, entry_to_unload,
            entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
-          complete_to_exit_unload, complete_to_exit_load, unload_to_load, visible) => {
+          complete_to_exit_unload, complete_to_exit_load, unload_to_load,
+          unload_block, load_block, visible) => {
         const canvas = canvasRef.current;
         const truck = {
             number: number,
@@ -97,6 +98,8 @@ function Display(){
             
             unload_wait_time: unload_wait_time,
             load_wait_time: load_wait_time,
+            unload_block:unload_block,
+            load_block:load_block,
             visible : visible
             // 입차한 트럭 대수, 작업 완료한 트럭 대수(대시보드 용 추가하기)
 
@@ -111,23 +114,29 @@ function Display(){
             ctx.fillStyle = 'black';
             ctx.font = "15px Arial";
             ctx.fillText(`${truck.name} : ${truck.work_code}`, truck.x, truck.y-10);
-            if(truck.work_code==='in'){
+            if(truck.work_code==='in' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
                 ctx.font = "15px Arial";
-                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`반입 대기시간: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`반입장: ${truck.unload_block}`, truck.x, truck.y - 50); // truck's unload wait time
+             
             }
-            else if(truck.work_code==='out'){
+            else if(truck.work_code==='out' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
                 ctx.font = "15px Arial";
-                ctx.fillText(`load_wait_time: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`반출 대기시간: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`반출장: ${truck.load_block}`, truck.x, truck.y - 50); // truck's unload wait time
             }
-            else{
+            else if(truck.work_code==='in_out' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
                 ctx.font = "15px Arial";
-                ctx.fillText(`unload_wait_time: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
-                ctx.fillText(`load_wait_time: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 50); // truck's unload wait time
+                ctx.fillText(`반입 대기시간: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`반출 대기시간: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 50); // truck's unload wait time
+                ctx.fillText(`반입장: ${truck.unload_block} 반출장: ${truck.load_block}`, truck.x, truck.y - 70); // truck's unload wait time
+            
             }
 
         }
+        // onMouseOver = {handleMouseOver}
+        // onMouseOut = {handleMouseOut}
     }
-    
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -217,14 +226,12 @@ function Display(){
 
                 const unloadCountElement = document.getElementById('unload_count');
                 const loadCountElement = document.getElementById('load_count');
-                const unloadCompleteCountElement = document.getElementById('unload_complete');
-                const loadCompleteCountElement = document.getElementById('load_complete');
-                const unloadloadCompleteCountElement = document.getElementById('unload_load_complete');
-                unloadCountElement.textContent = `Unload Count: ${truck.unload_count}`;
-                loadCountElement.textContent = `Load Count: ${truck.load_count}`;
-                unloadCompleteCountElement.textContent = `Unload complete: ${truck.complete_unload_work}`;
-                loadCompleteCountElement.textContent = `load complete: ${truck.complete_load_work}`;
-                unloadloadCompleteCountElement.textContent = `Unload load complete: ${truck.complete_unload_load_work}`;
+                const unloadBlockElement = document.getElementById('unload_block');
+                const loadBlockElement = document.getElementById('load_block');
+                unloadCountElement.textContent = `${truck.unload_count}`;
+                loadCountElement.textContent = `${truck.load_count}`;
+                unloadBlockElement.textContent = `${truck.unload_block} : `;
+                loadBlockElement.textContent = `${truck.load_block} : `;
 
                 if (truck.work_code === 'in') {
                     if (truck.state === 0) {
@@ -403,21 +410,26 @@ function Display(){
                      truckData.unload_count, truckData.load_count,
                       truckData.unload_wait_time, truckData.load_wait_time, truckData.entry_to_unload,
                        truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
-                      truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,truckData.visible);
+                      truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,
+                      truckData.unload_block, truckData.load_block, truckData.visible);
             }, truckData.entryTime);
         });
     };
 
     return (
         <div>
-            <canvas ref={canvasRef} width={800} height={600}  />
+            <canvas ref={canvasRef} width={800} height={600}
+            onMouseMove={e=>{
+                var rect = e.target.getBoundingClientRect();
+                setMousePos({x:e.clientX - rect.left, y:e.clientY - rect.top});
+            }}  />
             <button onClick={handleClick}>Start</button>
             <div id='dashboard'>
-                <p id='unload_complete'>unload_complete : </p>
-                <p id='load_complete'>load_complete : </p>
-                <p id='unload_load_complete'>unload_load_complete : </p>
-                <p id='unload_count'>unload_waiting_truck_count : 0</p>
-                <p id='load_count'>load_waiting_truck_count : 0</p>
+                <span id='unload_block'>unload_block : </span>
+                <span id='unload_count'>unload_count</span>
+                <p></p>
+                <span id='load_block'>load_block : </span>
+                <span id='load_count'>load_count</span>
              
             </div>
 
