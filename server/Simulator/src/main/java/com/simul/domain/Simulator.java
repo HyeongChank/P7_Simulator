@@ -39,6 +39,8 @@ public class Simulator {
     
     private String unload_block;
     private String load_block;
+    private int entry_count;
+    private int exit_count;
     private boolean visible;
 
     public Simulator() {
@@ -50,7 +52,8 @@ public class Simulator {
 			String block, int unload_count, int load_count, int yard_truck_count, int unload_wait_time,
 			int load_wait_time, int total_wait_time, int entry_to_unload, int entry_to_load,
 			int arrive_to_complete_unload, int arrive_to_complete_load, int complete_to_exit_unload,
-			int complete_to_exit_load, int unload_to_load, String unload_block, String load_block, boolean visible) {
+			int complete_to_exit_load, int unload_to_load, String unload_block, String load_block, int entry_count,
+			int exit_count, boolean visible) {
 		super();
 		this.number = number;
 		this.code = code;
@@ -78,6 +81,8 @@ public class Simulator {
 		this.unload_to_load = unload_to_load;
 		this.unload_block = unload_block;
 		this.load_block = load_block;
+		this.entry_count = entry_count;
+		this.exit_count = exit_count;
 		this.visible = visible;
 	}
 
@@ -289,6 +294,22 @@ public class Simulator {
 		this.load_block = load_block;
 	}
 
+	public int getEntry_count() {
+		return entry_count;
+	}
+
+	public void setEntry_count(int entry_count) {
+		this.entry_count = entry_count;
+	}
+
+	public int getExit_count() {
+		return exit_count;
+	}
+
+	public void setExit_count(int exit_count) {
+		this.exit_count = exit_count;
+	}
+
 	public boolean isVisible() {
 		return visible;
 	}
@@ -309,8 +330,8 @@ public class Simulator {
 				+ entry_to_load + ", arrive_to_complete_unload=" + arrive_to_complete_unload
 				+ ", arrive_to_complete_load=" + arrive_to_complete_load + ", complete_to_exit_unload="
 				+ complete_to_exit_unload + ", complete_to_exit_load=" + complete_to_exit_load + ", unload_to_load="
-				+ unload_to_load + ", unload_block=" + unload_block + ", load_block=" + load_block + ", visible="
-				+ visible + "]";
+				+ unload_to_load + ", unload_block=" + unload_block + ", load_block=" + load_block + ", entry_count="
+				+ entry_count + ", exit_count=" + exit_count + ", visible=" + visible + "]";
 	}
 
 	

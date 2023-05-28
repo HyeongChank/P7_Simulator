@@ -3,6 +3,32 @@ import './simul.css'
 function Display(){
     const [mousePos, setMousePos] = useState({x:0, y:0});
     const [trucksData, setTrucksData] = useState([]);
+    const [blockA, setBlockA] = useState();
+    const [blockB, setBlockB] = useState();
+    const [blockC, setBlockC] = useState();
+    const [blockD, setBlockD] = useState();
+    const [blockE, setBlockE] = useState();
+    const [blockQ, setBlockQ] = useState();
+    const [blockW, setBlockW] = useState();
+    const [blockX, setBlockX] = useState();
+    const [blockY, setBlockY] = useState();
+    const [blockZ, setBlockZ] = useState();
+    const [blockuntotal, setBlockuntotal] = useState();
+    const [blocktotal, setBlocktotal] = useState();
+    const [blockAt, setBlockAt] = useState();
+    const [blockBt, setBlockBt] = useState();
+    const [blockCt, setBlockCt] = useState();
+    const [blockDt, setBlockDt] = useState();
+    const [blockEt, setBlockEt] = useState();
+    const [blockQt, setBlockQt] = useState();
+    const [blockWt, setBlockWt] = useState();
+    const [blockXt, setBlockXt] = useState();
+    const [blockYt, setBlockYt] = useState();
+    const [blockZt, setBlockZt] = useState();
+    const [entryt, setEntryt] = useState();
+    const [color, setColor] = useState();
+
+    const [outcount, setOutcount] = useState(0);
     useEffect(() => {
         fetch('http://localhost:8080/api/truckData')
             .then(response => {
@@ -54,7 +80,9 @@ function Display(){
         ctx.font = '20px Arial'; 
         ctx.fillText('load_work', out_container.x, out_container.y); 
     }
-
+    const out_count = () =>{
+        setOutcount(outcount +1)
+    }
     
     const createTruck = (number, code, entryTime, arrive_unload_spot,
         start_unload_work, complete_unload_work, arrive_load_spot,
@@ -63,8 +91,10 @@ function Display(){
           unload_wait_time, load_wait_time, entry_to_unload,
            entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
           complete_to_exit_unload, complete_to_exit_load, unload_to_load,
-          unload_block, load_block, visible) => {
+          unload_block, load_block, entry_count, exit_count, color, visible) => {
+        
         const canvas = canvasRef.current;
+       
         const truck = {
             number: number,
             name: 'truck' + number,
@@ -80,7 +110,7 @@ function Display(){
             arrive_unload_spot : arrive_unload_spot,
             start_unload_work: start_unload_work,
             complete_unload_work:complete_unload_work,
-
+            color:getRandomColor(),
             arrive_load_spot : arrive_load_spot,
             start_load_work : start_load_work,
             complete_load_work : complete_load_work,
@@ -100,16 +130,26 @@ function Display(){
             load_wait_time: load_wait_time,
             unload_block:unload_block,
             load_block:load_block,
-            visible : visible
-            // 입차한 트럭 대수, 작업 완료한 트럭 대수(대시보드 용 추가하기)
-
+            entry_count:entry_count,
+            exit_count:0,
+            visible : visible,
+ 
         };
+
         setTrucks(trucks => [...trucks, truck]);
     }
-   
+    function getRandomColor() {
+        const r = Math.floor(Math.random() * 256); // 랜덤한 빨간색 채널값
+        const g = Math.floor(Math.random() * 256); // 랜덤한 초록색 채널값
+        const b = Math.floor(Math.random() * 256); // 랜덤한 파란색 채널값
+        return `rgb(${r},${g},${b})`;
+
+    }
     const drawTruck = (truck, ctx) => {
+
+
         if (truck.visible) {
-            ctx.fillStyle = 'orange';
+            ctx.fillStyle = truck.color;
             ctx.fillRect(truck.x, truck.y, truck.width, truck.height);
             ctx.fillStyle = 'black';
             ctx.font = "15px Arial";
@@ -127,15 +167,11 @@ function Display(){
             }
             else if(truck.work_code==='in_out' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
                 ctx.font = "15px Arial";
-                ctx.fillText(`반입 대기시간: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
-                ctx.fillText(`반출 대기시간: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 50); // truck's unload wait time
+                ctx.fillText(`반출 대기시간: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
+                ctx.fillText(`반입 대기시간: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 50); // truck's unload wait time
                 ctx.fillText(`반입장: ${truck.unload_block} 반출장: ${truck.load_block}`, truck.x, truck.y - 70); // truck's unload wait time
-            
             }
-
         }
-        // onMouseOver = {handleMouseOver}
-        // onMouseOut = {handleMouseOut}
     }
 
     useEffect(() => {
@@ -204,8 +240,6 @@ function Display(){
         }
         const out_container = createOut_Container();
 
-   
-
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
@@ -220,20 +254,68 @@ function Display(){
             drawIn_Container(in_container, ctx);
             drawOut_Container(out_container, ctx);
             
-            
-
             let updatedTrucks = trucks.map(truck => {
-
+                setEntryt(truck.entryTime);
+                setBlockuntotal(blockA+blockB+blockC+blockD+blockE);
+                setBlocktotal(blockQ+blockW+blockX+blockY+blockZ);
                 const unloadCountElement = document.getElementById('unload_count');
                 const loadCountElement = document.getElementById('load_count');
                 const unloadBlockElement = document.getElementById('unload_block');
                 const loadBlockElement = document.getElementById('load_block');
+                const entryCountElement = document.getElementById('entry_count');
+                // const exitCountElement = document.getElementById('exit_count');
+                entryCountElement.textContent = `${truck.entry_count}`;
+                // exitCountElement.textContent = `${truck.exit_count}`;
                 unloadCountElement.textContent = `${truck.unload_count}`;
                 loadCountElement.textContent = `${truck.load_count}`;
                 unloadBlockElement.textContent = `${truck.unload_block} : `;
                 loadBlockElement.textContent = `${truck.load_block} : `;
 
+                if(truck.unload_block ==='A'){
+                    setBlockA(truck.unload_count);
+                    setBlockAt(truck.unload_wait_time/1000);
+                }
+                if(truck.unload_block ==='B'){
+                    setBlockB(truck.unload_count);
+                    setBlockBt(truck.unload_wait_time/1000);
+                }
+                if(truck.unload_block ==='C'){
+                    setBlockC(truck.unload_count);
+                    setBlockCt(truck.unload_wait_time/1000);
+                }
+                if(truck.unload_block ==='D'){
+                    setBlockD(truck.unload_count);
+                    setBlockDt(truck.unload_wait_time/1000);
+                }
+                if(truck.unload_block ==='E'){
+                    setBlockE(truck.unload_count);
+                    setBlockEt(truck.unload_wait_time/1000);
+                }
+
+                if(truck.load_block ==='Q'){
+                    setBlockQ(truck.load_count);
+                    setBlockQt(truck.load_wait_time/1000);
+                }
+                if(truck.load_block ==='W'){
+                    setBlockW(truck.load_count);
+                    setBlockWt(truck.load_wait_time/1000);
+                }
+                if(truck.load_block ==='X'){
+                    setBlockX(truck.load_count);
+                    setBlockXt(truck.load_wait_time/1000);
+                }
+                if(truck.load_block ==='Y'){
+                    setBlockY(truck.load_count);
+                    setBlockYt(truck.load_wait_time/1000);
+                }
+                if(truck.load_block ==='Z'){
+                    setBlockZ(truck.load_count);
+                    setBlockZt(truck.load_wait_time/1000);
+                }
+
+
                 if (truck.work_code === 'in') {
+ 
                     if (truck.state === 0) {
                         if (truck.x < 400 - truck.width) {
                             truck.x += truck.speed*3.2/truck.entry_to_unload*1000;
@@ -256,8 +338,12 @@ function Display(){
                         }
                         else {
                             truck.visible = false;
+                            truck.exit_count +=1;
+                            out_count();
+                            truck.state = 99;
                         }
                     }
+                    
                 }
 
                 if(truck.work_code === 'out'){
@@ -321,6 +407,9 @@ function Display(){
                         }
                         else{
                             truck.visible = false;
+                            truck.exit_count +=1;
+                            out_count();
+                            truck.state = 99;
                         }
                     }
                 }
@@ -338,7 +427,7 @@ function Display(){
                     }
                     else if (truck.state ===5){
                         if(truck.y < 300- truck.height){
-                            truck.y += (truck.speed*2.5/truck.unload_to_load)*1000;
+                            truck.y += (truck.speed*1.5/truck.unload_to_load)*1000;
                         }
                         else{
                             truck.state =7;
@@ -383,6 +472,9 @@ function Display(){
                         }
                         else{
                             truck.visible = false;
+                            truck.exit_count +=1;
+                            out_count();
+                            truck.state = 99;
                         }
                     }
                 }
@@ -411,26 +503,55 @@ function Display(){
                       truckData.unload_wait_time, truckData.load_wait_time, truckData.entry_to_unload,
                        truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
                       truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,
-                      truckData.unload_block, truckData.load_block, truckData.visible);
+                      truckData.unload_block, truckData.load_block, truckData.entry_count, truckData.exit_count, color, truckData.visible);
             }, truckData.entryTime);
         });
     };
 
     return (
         <div>
+            <h1>컨테이너 야드 상황</h1>
             <canvas ref={canvasRef} width={800} height={600}
             onMouseMove={e=>{
                 var rect = e.target.getBoundingClientRect();
                 setMousePos({x:e.clientX - rect.left, y:e.clientY - rect.top});
             }}  />
             <button onClick={handleClick}>Start</button>
+            <div id='dashb'>
             <div id='dashboard'>
-                <span id='unload_block'>unload_block : </span>
-                <span id='unload_count'>unload_count</span>
-                <p></p>
-                <span id='load_block'>load_block : </span>
-                <span id='load_count'>load_count</span>
+                <div id= 'entry_exit_ds'>
+                    <p>입차(대) : <span id='entry_count'> 0</span></p>
+                    <p>입차시간(초) : {entryt/1000}</p>
+                    <span>출차(대) : </span>
+                    <span id='exit_count'>{outcount}</span>
+                    {/* <span id='exit_count'>출차 : 0</span> */}
+                </div>
+                <div id='unload5'>
+                    <p className='unloadP'>반입장 대기차량 : <span>{blockuntotal}</span></p>
+                    
+                    
+                    <span id='unload_block'>unload_block : </span>
+                    <span id='unload_count'>unload_count</span>
+                    <p id='unload'>blockA : {blockA}대, {blockAt}</p>
+                    <p id='unload'>blockB : {blockB}대, {blockBt}</p>
+                    <p id='unload'>blockC : {blockC}대, {blockCt}</p>
+                    <p id='unload'>blockD : {blockD}대, {blockDt}</p>
+                    <p id='unload'>blockE : {blockE}대, {blockEt}</p>
+                </div>
+                <div id='load5'>
+                    <p className='loadP'>반출장 대기차량 : <span>{blocktotal}</span></p>
+                    <span id='load_block'>load_block : </span>
+                    <span id='load_count'>load_count</span>
+                    <p id='load'>blockQ : {blockQ}대, {blockQt}</p>
+                    <p id='load'>blockW : {blockW}대, {blockWt}</p>
+                    <p id='load'>blockX : {blockX}대, {blockXt}</p>
+                    <p id='load'>blockY : {blockY}대, {blockYt}</p>
+                    <p id='load'>blockZ : {blockZ}대, {blockZt}</p>
+                </div>
+        
+
              
+            </div>
             </div>
 
         </div>

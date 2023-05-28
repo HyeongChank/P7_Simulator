@@ -27,6 +27,7 @@ out_times_list = [int(row[9]) for row in sorted_data]
 
 in_times_list = [int(row[2]) for row in sorted_data]
 
+# 블록 구분(반입, 반출장)
 index_times_list = [int(row[0]) for row in sorted_data]
 unload_block_list = [row[14] for row in sorted_data]
 unload_block_list_unique = list(set(unload_block_list))
@@ -38,17 +39,7 @@ load_block_list = [row[15] for row in sorted_data]
 load_block_list_unique = list(set(load_block_list))
 load_block_dict = dict(zip(load_block_list_unique, ['Q','W','X','Y','Z']))
 load_block_list = [load_block_dict[val] for val in load_block_list]
-# arrive_unload_spot_list = [int(row[3]) for row in sorted_data]
-# complete_unload_work_list = [int(row[4]) for row in sorted_data]
-# arrive_load_spot_list = [int(row[5]) for row in sorted_data]
-# complete_load_work_list = [int(row[6]) for row in sorted_data]
 
-# # forth_out_times_list = [str(out_time).zfill(4) for out_time in out_times_list]
-# # forth_in_times_list = [str(in_time).zfill(4) for in_time in in_times_list]
-# #forth_index_times_list = [str(index_time).zfill(4) for index_time in index_times_list]
-
-# # print(forth_out_times_list)
-# # print(forth_in_times_list)
 sorted_data_with_In_yard_truck_volume = []
 
 for row in sorted_data:
@@ -82,7 +73,7 @@ for row in sorted_data:
     sorted_data_with_In_yard_truck_volume.append(new_row)
 
 
-sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','Out_time','Work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'in_yard_count'])
+sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','Out_time','Work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'entry_count', 'exit_count','in_yard_count'])
 # print(sorted_data_with_In_yard_truck_volume)
 # 정렬된 데이터를 CSV 파일로 저장
 sorted_file_path = 'data/sorted_truck_simulation_results.csv'
@@ -106,19 +97,20 @@ unload_waiting_count = []
 load_waiting_time = []
 load_waiting_count = []
 In_yard_truck_volume_entry_time = []
-
+spot_wait_time = 0
 for row in data_rows:
- 
+    # 별도 계산 값들
     in_time_out.append(int(row[2]))
     unload_waiting_time.append(int(row[5])-int(row[4]))
     load_waiting_time.append(int(row[8])-int(row[7]))
     unload_waiting_count.append(int(row[12]))
     load_waiting_count.append(int(row[13]))
+    spot_wait_time += int(row[18])
     # wait_time_all = int(row[5])-int(row[4])
     # print(row(5))
     # print(int(row(4)))
     # waiting_time.append(wait_time_all)
-
+print('총 대기시간', spot_wait_time)
 terminalgraph = plt.figure()
 term = plt.axes()
 term.set_xlim(0, max(in_time_out))

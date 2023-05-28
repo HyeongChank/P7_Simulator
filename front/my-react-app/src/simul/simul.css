@@ -1,3 +1,43 @@
+#dashb{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+}
 #dashboard{
+    background-color: rgba(0, 0, 0, 0.178);
     border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#entry_exit_ds{
+    width: 250px;
+    height: 300px;
+    background-color: rgba(255, 255, 0, 0.322);
+}
+#unload5{
+    width: 250px;
+    height: 300px;
+    border-left: 1px solid black;
+    background-color: rgba(255, 255, 0, 0.322);
+    
+}
+.unloadP{
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+    font-weight: bold;
+}
+#load5{
+    width: 250px;
+    height: 300px;
+    border-left: 1px solid black;
+    background-color: rgba(255, 255, 0, 0.322);
+}
+.loadP{
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+    font-weight: bold;
 }
