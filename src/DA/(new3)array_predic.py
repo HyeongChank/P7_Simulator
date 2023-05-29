@@ -89,11 +89,11 @@ def make_df(common_df):
     #     pickle.dump(commit_model, f)
 
 
-    ## 상관관계 히트맵 그리기
-    # correlation_matrix = common_df[['작업코드','항차_x','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호', '작업생성시간','작업완료시간', '풀(F)공(M)', '수출/수입','작업+대기시간']].corr()
+    # 상관관계 히트맵 그리기
+    correlation_matrix = common_df[['작업코드','항차_x','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호', '작업생성시간','작업완료시간', '풀(F)공(M)', '수출/수입','작업+대기시간']].corr()
 
-    # sns.heatmap(correlation_matrix, annot=True)
-    # plt.show()
+    sns.heatmap(correlation_matrix, annot=True)
+    #plt.show()
     
 
 if __name__=='__main__':
