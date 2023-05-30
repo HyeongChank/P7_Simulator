@@ -47,15 +47,6 @@ for row in sorted_data:
     index_time = row[0]
     int_in_time = int(in_time)
     int_index_time = int(index_time)
-    # arrive_unload_spot = row[3]
-    # int_arrive_unload_spot = int(arrive_unload_spot)
-    # complete_unload_work = row[4]
-    # arrive_load_spot = row[5]
-    # complete_load_work = row[6]
-    # int_complete_unload_work = int(complete_unload_work)
-    # int_arrive_load_spot = int(arrive_load_spot)
-    # int_complete_load_work = int(complete_load_work)
-
  
     # 현재 트럭보다 먼저 들어온 트럭 대수 구하기
     in_time_value1 = list(filter(lambda y : y<int_index_time, index_times_list))
@@ -73,7 +64,7 @@ for row in sorted_data:
     sorted_data_with_In_yard_truck_volume.append(new_row)
 
 
-sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','Out_time','Work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'entry_count', 'exit_count','in_yard_count'])
+sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','Out_time','Work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'entry_count', 'exit_count', 'spot_wait_time','unload_progress_truck_count', 'load_progress_truck_count','in_yard_count'])
 # print(sorted_data_with_In_yard_truck_volume)
 # 정렬된 데이터를 CSV 파일로 저장
 sorted_file_path = 'data/sorted_truck_simulation_results.csv'

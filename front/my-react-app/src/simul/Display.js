@@ -28,6 +28,17 @@ function Display(){
     const [entryt, setEntryt] = useState();
     const [color, setColor] = useState();
 
+    const [blockAp, setBlockAp] = useState();
+    const [blockBp, setBlockBp] = useState();
+    const [blockCp, setBlockCp] = useState();
+    const [blockDp, setBlockDp] = useState();
+    const [blockEp, setBlockEp] = useState();
+    const [blockQp, setBlockQp] = useState();
+    const [blockWp, setBlockWp] = useState();
+    const [blockXp, setBlockXp] = useState();
+    const [blockYp, setBlockYp] = useState();
+    const [blockZp, setBlockZp] = useState();
+
     const [outcount, setOutcount] = useState(0);
     useEffect(() => {
         fetch('http://localhost:8080/api/truckData')
@@ -91,7 +102,8 @@ function Display(){
           unload_wait_time, load_wait_time, entry_to_unload,
            entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
           complete_to_exit_unload, complete_to_exit_load, unload_to_load,
-          unload_block, load_block, entry_count, exit_count, color, visible) => {
+          unload_block, load_block, entry_count, exit_count, color,
+          unload_progress_truck_count, load_progress_truck_count, visible) => {
         
         const canvas = canvasRef.current;
        
@@ -100,7 +112,7 @@ function Display(){
             name: 'truck' + number,
             x: 0,
             y: canvas.height - 500,
-            width: 80,
+            width: 50,
             height: 50,
             speed: 2,
             delay: 0,
@@ -132,6 +144,8 @@ function Display(){
             load_block:load_block,
             entry_count:entry_count,
             exit_count:0,
+            unload_progress_truck_count:unload_progress_truck_count,
+            load_progress_truck_count:load_progress_truck_count,
             visible : visible,
  
         };
@@ -154,18 +168,18 @@ function Display(){
             ctx.fillStyle = 'black';
             ctx.font = "15px Arial";
             ctx.fillText(`${truck.name} : ${truck.work_code}`, truck.x, truck.y-10);
-            if(truck.work_code==='in' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
+            if(truck.work_code==='unload' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
                 ctx.font = "15px Arial";
                 ctx.fillText(`반입 대기시간: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
                 ctx.fillText(`반입장: ${truck.unload_block}`, truck.x, truck.y - 50); // truck's unload wait time
              
             }
-            else if(truck.work_code==='out' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
+            else if(truck.work_code==='load' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
                 ctx.font = "15px Arial";
                 ctx.fillText(`반출 대기시간: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
                 ctx.fillText(`반출장: ${truck.load_block}`, truck.x, truck.y - 50); // truck's unload wait time
             }
-            else if(truck.work_code==='in_out' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
+            else if(truck.work_code==='both' && mousePos.x >= truck.x && mousePos.x <= truck.x + truck.width && mousePos.y >= truck.y && mousePos.y <= truck.y + truck.height){
                 ctx.font = "15px Arial";
                 ctx.fillText(`반출 대기시간: ${truck.load_wait_time/1000}m`, truck.x, truck.y - 30); // truck's unload wait time
                 ctx.fillText(`반입 대기시간: ${truck.unload_wait_time/1000}m`, truck.x, truck.y - 50); // truck's unload wait time
@@ -272,53 +286,63 @@ function Display(){
                 loadBlockElement.textContent = `${truck.load_block} : `;
 
                 if(truck.unload_block ==='A'){
+                    setBlockAp(truck.unload_progress_truck_count);
                     setBlockA(truck.unload_count);
                     setBlockAt(truck.unload_wait_time/1000);
                 }
                 if(truck.unload_block ==='B'){
+                    setBlockBp(truck.unload_progress_truck_count);                    
                     setBlockB(truck.unload_count);
                     setBlockBt(truck.unload_wait_time/1000);
                 }
                 if(truck.unload_block ==='C'){
+                    setBlockCp(truck.unload_progress_truck_count);
                     setBlockC(truck.unload_count);
                     setBlockCt(truck.unload_wait_time/1000);
                 }
                 if(truck.unload_block ==='D'){
+                    setBlockDp(truck.unload_progress_truck_count);
                     setBlockD(truck.unload_count);
                     setBlockDt(truck.unload_wait_time/1000);
                 }
                 if(truck.unload_block ==='E'){
+                    setBlockEp(truck.unload_progress_truck_count);
                     setBlockE(truck.unload_count);
                     setBlockEt(truck.unload_wait_time/1000);
                 }
 
                 if(truck.load_block ==='Q'){
+                    setBlockQp(truck.load_progress_truck_count);
                     setBlockQ(truck.load_count);
                     setBlockQt(truck.load_wait_time/1000);
                 }
                 if(truck.load_block ==='W'){
+                    setBlockWp(truck.load_progress_truck_count);
                     setBlockW(truck.load_count);
                     setBlockWt(truck.load_wait_time/1000);
                 }
                 if(truck.load_block ==='X'){
+                    setBlockXp(truck.load_progress_truck_count);
                     setBlockX(truck.load_count);
                     setBlockXt(truck.load_wait_time/1000);
                 }
                 if(truck.load_block ==='Y'){
+                    setBlockYp(truck.load_progress_truck_count);
                     setBlockY(truck.load_count);
                     setBlockYt(truck.load_wait_time/1000);
                 }
                 if(truck.load_block ==='Z'){
+                    setBlockZp(truck.load_progress_truck_count);
                     setBlockZ(truck.load_count);
                     setBlockZt(truck.load_wait_time/1000);
                 }
 
 
-                if (truck.work_code === 'in') {
+                if (truck.work_code === 'unload') {
  
                     if (truck.state === 0) {
                         if (truck.x < 400 - truck.width) {
-                            truck.x += truck.speed*3.2/truck.entry_to_unload*1000;
+                            truck.x += truck.speed*3.5/truck.entry_to_unload*1000;
                         }
                         else {
                             truck.state = 1;
@@ -328,13 +352,13 @@ function Display(){
                         truck.delay += 1;
                         // 5초 설정
                         if (truck.delay > truck.arrive_to_complete_unload*50/1000) {
-                            truck.x += 80;
+                            truck.x += 50;
                             truck.state = 2;
                         }
                     }
                     else if (truck.state === 2) {
                         if (truck.x < canvas.width - truck.width) {
-                            truck.x += truck.speed*3.2/truck.complete_to_exit_unload*1000;
+                            truck.x += truck.speed*3.5/truck.complete_to_exit_unload*1000;
                         }
                         else {
                             truck.visible = false;
@@ -346,12 +370,12 @@ function Display(){
                     
                 }
 
-                if(truck.work_code === 'out'){
+                if(truck.work_code === 'load'){
                     if (truck.state ===0){
                         if (truck.x < 200 - truck.width) {
                             //계산 잘못됨 다시 해보기
                             //truck.x += (truck.speed*truck.entry_to_spot/(400 - truck.width));
-                            truck.x += truck.speed*4.7/truck.entry_to_load*1000;
+                            truck.x += truck.speed*5.0/truck.entry_to_load*1000;
                         }
                         else{
                             truck.state =5;
@@ -360,7 +384,7 @@ function Display(){
                     else if (truck.state ===5){
                         if(truck.y < 300- truck.height){
                             //truck.y += (truck.speed*truck.entry_to_spot/(400 - truck.width));
-                            truck.y +=  truck.speed*4.7/truck.entry_to_load*1000;
+                            truck.y +=  truck.speed*5.0/truck.entry_to_load*1000;
                         }
                         else{
                             truck.state =6;
@@ -369,7 +393,7 @@ function Display(){
                     else if ( truck.state ===6){
                         if (truck.x < 400 - truck.width) {
                             //entry_to_spot 도 서버에서 계산해서 넘어와야 할 듯, 여기서 하니까 제대로 작동 안함
-                            truck.x +=  truck.speed*4.7/truck.entry_to_load*1000;
+                            truck.x +=  truck.speed*5.0/truck.entry_to_load*1000;
                             //truck.x += truck.speed;
             
                         }
@@ -381,13 +405,13 @@ function Display(){
                         truck.delay += 1;
                         // 5초 설정
                         if(truck.delay>truck.arrive_to_complete_load*50/1000){
-                            truck.x +=80;
+                            truck.x +=50;
                             truck.state=4;
                         }
                     }
                     else if (truck.state ===4){
-                        if(truck.x<680-truck.width){
-                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
+                        if(truck.x<650-truck.width){
+                            truck.x += truck.speed*5.0/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 3;
@@ -395,7 +419,7 @@ function Display(){
                     }
                     else if(truck.state ===3){
                         if(truck.y>150-truck.height){
-                            truck.y-= truck.speed*4.7/truck.complete_to_exit_load*1000;
+                            truck.y-= truck.speed*5.0/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 2;
@@ -403,7 +427,7 @@ function Display(){
                     }
                     else if (truck.state ===2){
                         if(truck.x < canvas.width - truck.width){
-                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
+                            truck.x += truck.speed*5.0/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.visible = false;
@@ -414,12 +438,12 @@ function Display(){
                     }
                 }
 
-                if(truck.work_code === 'in_out'){
+                if(truck.work_code === 'both'){
                     // 속도 계산해야 함
                     if (truck.state ===0){
                         // 초당 100px 이동중
                         if (truck.x < 400 - truck.width) {
-                            truck.x += truck.speed*3.2/truck.entry_to_unload*1000;
+                            truck.x += truck.speed*3.5/truck.entry_to_unload*1000;
                         }
                         else{
                             truck.state =1;
@@ -438,7 +462,7 @@ function Display(){
                         truck.delay += 1;
                         // 5초 설정 250번의 호출(20밀리세컨드 기준)
                         if(truck.delay>truck.arrive_to_complete_unload*50/1000){
-                            truck.x +=80;
+                            truck.x +=50;
                             truck.state=5;
                             truck.delay=0;
                         }
@@ -451,8 +475,8 @@ function Display(){
                         }
                     }
                     else if (truck.state ===4){
-                        if(truck.x<680-truck.width){
-                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
+                        if(truck.x<650-truck.width){
+                            truck.x += truck.speed*5.0/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 3;
@@ -460,7 +484,7 @@ function Display(){
                     }
                     else if(truck.state ===3){
                         if(truck.y>150-truck.height){
-                            truck.y-=truck.speed*4.7/truck.complete_to_exit_load*1000;
+                            truck.y-=truck.speed*5.0/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.state = 2;
@@ -468,7 +492,7 @@ function Display(){
                     }
                     else if (truck.state ===2){
                         if(truck.x < canvas.width - truck.width){
-                            truck.x += truck.speed*4.7/truck.complete_to_exit_load*1000;
+                            truck.x += truck.speed*5.0/truck.complete_to_exit_load*1000;
                         }
                         else{
                             truck.visible = false;
@@ -503,14 +527,16 @@ function Display(){
                       truckData.unload_wait_time, truckData.load_wait_time, truckData.entry_to_unload,
                        truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
                       truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,
-                      truckData.unload_block, truckData.load_block, truckData.entry_count, truckData.exit_count, color, truckData.visible);
+                      truckData.unload_block, truckData.load_block, truckData.entry_count, truckData.exit_count, color,
+                      truckData.unload_progress_truck_count, truckData.load_progress_truck_count, truckData.visible);
             }, truckData.entryTime);
         });
     };
 
     return (
         <div>
-            <h1>컨테이너 야드 상황</h1>
+            <h1>컨테이너 야드 현황</h1>
+            <h2>목표 : Queue 최적화</h2>
             <canvas ref={canvasRef} width={800} height={600}
             onMouseMove={e=>{
                 var rect = e.target.getBoundingClientRect();
@@ -532,21 +558,23 @@ function Display(){
                     
                     <span id='unload_block'>unload_block : </span>
                     <span id='unload_count'>unload_count</span>
-                    <p id='unload'>blockA : {blockA}대, {blockAt}</p>
-                    <p id='unload'>blockB : {blockB}대, {blockBt}</p>
-                    <p id='unload'>blockC : {blockC}대, {blockCt}</p>
-                    <p id='unload'>blockD : {blockD}대, {blockDt}</p>
-                    <p id='unload'>blockE : {blockE}대, {blockEt}</p>
+                    <p id='unload'>block : 작업 | 대기 | 대기시간</p>
+                    <p id='unload'>blockA : {blockAp}대, {blockA}대, {blockAt}</p>
+                    <p id='unload'>blockB : {blockBp}대, {blockB}대, {blockBt}</p>
+                    <p id='unload'>blockC : {blockCp}대, {blockC}대, {blockCt}</p>
+                    <p id='unload'>blockD : {blockDp}대, {blockD}대, {blockDt}</p>
+                    <p id='unload'>blockE : {blockEp}대, {blockE}대, {blockEt}</p>
                 </div>
                 <div id='load5'>
                     <p className='loadP'>반출장 대기차량 : <span>{blocktotal}</span></p>
                     <span id='load_block'>load_block : </span>
                     <span id='load_count'>load_count</span>
-                    <p id='load'>blockQ : {blockQ}대, {blockQt}</p>
-                    <p id='load'>blockW : {blockW}대, {blockWt}</p>
-                    <p id='load'>blockX : {blockX}대, {blockXt}</p>
-                    <p id='load'>blockY : {blockY}대, {blockYt}</p>
-                    <p id='load'>blockZ : {blockZ}대, {blockZt}</p>
+                    <p id='unload'>block : 작업 | 대기 | 대기시간</p>
+                    <p id='load'>blockQ : {blockQp}대, {blockQ}대, {blockQt}</p>
+                    <p id='load'>blockW : {blockWp}대, {blockW}대, {blockWt}</p>
+                    <p id='load'>blockX : {blockXp}대, {blockX}대, {blockXt}</p>
+                    <p id='load'>blockY : {blockYp}대, {blockY}대, {blockYt}</p>
+                    <p id='load'>blockZ : {blockZp}대, {blockZ}대, {blockZt}</p>
                 </div>
         
 
