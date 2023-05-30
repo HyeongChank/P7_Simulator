@@ -238,10 +238,70 @@ function Display(){
                 x : 350,
                 y : canvas.height - 500,
                 width : 100,
-                height : 50
+                height : 50,
+                depth: 20 
             }
         }
         const in_container = createIn_Container();
+        const drawIn_Container = (in_container, ctx) => {
+            ctx.beginPath();
+            ctx.rect(in_container.x, in_container.y, in_container.width, in_container.height); 
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        
+            // Now draw the 3D effects
+            ctx.beginPath();
+            ctx.moveTo(in_container.x, in_container.y);
+            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth); 
+            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+            ctx.lineTo(in_container.x, in_container.y + in_container.height);
+            ctx.closePath();
+            ctx.stroke();
+        
+            ctx.beginPath();
+            ctx.moveTo(in_container.x, in_container.y + in_container.height);
+            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+            ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+            ctx.closePath();
+            ctx.stroke();
+            // Drawing the top part of the 3D box
+            ctx.beginPath();
+            ctx.moveTo(in_container.x, in_container.y);
+            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+            ctx.lineTo(in_container.x + in_container.width, in_container.y);
+            ctx.closePath();
+            ctx.stroke();
+
+            
+            ctx.beginPath();
+            ctx.moveTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+            ctx.lineTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth);
+            ctx.lineTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth + in_container.height);
+            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth + in_container.height);
+            ctx.lineTo(in_container.x - in_container.depth - in_container.depth + in_container.width, in_container.y - in_container.depth - in_container.depth + in_container.height);
+            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+            ctx.lineTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth);
+            ctx.lineTo(in_container.x - in_container.depth - in_container.depth + in_container.width, in_container.y - in_container.depth - in_container.depth);
+            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+
 
         const createOut_Container = () => {
             const canvas = canvasRef.current;
@@ -266,6 +326,11 @@ function Display(){
             drawExit(Exit, ctx);
             drawPort(port, ctx);
             drawIn_Container(in_container, ctx);
+            
+
+
+
+
             drawOut_Container(out_container, ctx);
             
             let updatedTrucks = trucks.map(truck => {
