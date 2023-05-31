@@ -45,43 +45,64 @@ class Truck:
         assigned_load_spot = None
         min_unload = float('inf')
         min_load = float('inf')
-        
+        # min_unload_spots=[]
+        # min_load_spots=[]
         select_operation = random.choice(self.operation)
         if select_operation == 'unload':
             
             ## 대기차량이 가장 적은 블록으로 할당(최적화)
             for spot, resource in self.unload_spot.items():
-                if len(resource.queue)  < min_unload:
-                    min_unload = len(resource.queue)
-                    assigned_unload_spot = spot
+                if (len(resource.queue)+resource.count)  < min_unload:
+                    min_unload = (len(resource.queue)+resource.count)
+                    min_unload_spots = [spot]
+                elif (len(resource.queue)+resource.count) == min_unload:
+                    min_unload_spots.append(spot)
             
             for spot, resource in self.load_spot.items():
-                if len(resource.queue)  < min_load:
-                    min_load = len(resource.queue)
-                    assigned_load_spot = spot
+                if (len(resource.queue)+resource.count)  < min_load:
+                    min_load = (len(resource.queue)+resource.count)
+                    min_load_spots = [spot]
+                elif (len(resource.queue)+resource.count) == min_load:
+                    min_load_spots.append(spot)
+            assigned_unload_spot = random.choice(min_unload_spots)
+            assigned_load_spot = random.choice(min_load_spots)
             print(f"트럭 {self.name}이(가) {assigned_unload_spot} 블록으로 배정되습니다.")
+            
         if select_operation == 'load':
             for spot, resource in self.unload_spot.items():
-                if len(resource.queue)  < min_unload:
-                    min_unload = len(resource.queue)
-                    assigned_unload_spot = spot
+                if (len(resource.queue)+resource.count)  < min_unload:
+                    min_unload = (len(resource.queue)+resource.count)
+                    min_unload_spots = [spot]
+                elif (len(resource.queue)+resource.count) == min_unload:
+                    min_unload_spots.append(spot)
             
             for spot, resource in self.load_spot.items():
-                if len(resource.queue)  < min_load:
-                    min_load = len(resource.queue)
-                    assigned_load_spot = spot
+                if (len(resource.queue)+resource.count)  < min_load:
+                    min_load = (len(resource.queue)+resource.count)
+                    min_load_spots = [spot]
+                elif (len(resource.queue)+resource.count) == min_load:
+                    min_load_spots.append(spot)
+            assigned_unload_spot = random.choice(min_unload_spots)
+            assigned_load_spot = random.choice(min_load_spots)
 
             print(f"트럭 {self.name}이(가) {assigned_load_spot} 블록으로 배정되습니다.")
+            
         if select_operation == 'both':
             for spot, resource in self.unload_spot.items():
-                if len(resource.queue)  < min_unload:
-                    min_unload = len(resource.queue)
-                    assigned_unload_spot = spot
+                if (len(resource.queue)+resource.count)  < min_unload:
+                    min_unload = (len(resource.queue)+resource.count)
+                    min_unload_spots = [spot]
+                elif (len(resource.queue)+resource.count) == min_unload:
+                    min_unload_spots.append(spot)
             
             for spot, resource in self.load_spot.items():
-                if len(resource.queue)  < min_load:
-                    min_load = len(resource.queue)
-                    assigned_load_spot = spot
+                if (len(resource.queue)+resource.count)  < min_load:
+                    min_load = (len(resource.queue)+resource.count)
+                    min_load_spots = [spot]
+                elif (len(resource.queue)+resource.count) == min_load:
+                    min_load_spots.append(spot)
+            assigned_unload_spot = random.choice(min_unload_spots)
+            assigned_load_spot = random.choice(min_load_spots)
             
             print(f"트럭 {self.name}이(가) {assigned_unload_spot} 와 {assigned_load_spot} 블록으로 배정되습니다.")
 
@@ -288,7 +309,7 @@ exit_count =0
 # 트럭 대수
 arrival_interval =0
 for i in range(400):
-    arrival_time = random.randint(1,4)
+    arrival_time = random.randint(2,4)
     arrival_interval += arrival_time
     Truck(env, i+1, arrival_interval, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed, operation
           , unload_spot, load_spot, end_wait_start_unload_work, end_wait_start_load_work)
