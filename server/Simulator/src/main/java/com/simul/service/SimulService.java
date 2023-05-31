@@ -7,16 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import com.simul.controller.SimulController;
 import com.simul.domain.Simulator;
+import com.simul.persistence.SimulRepository;
 
 @Service
 public class SimulService {
 	
-//	@Autowired
+	@Autowired
+	SimulRepository sr;
 //	SimulController sc;
 	
     public List<Simulator> readCsvFile() throws IOException {
@@ -83,7 +86,7 @@ public class SimulService {
             	
             	
             	int entry_to_unload = arrive_unload_spot - entryTime;
-            	int entry_to_load = arrive_load_spot - entryTime;
+        		int entry_to_load = arrive_load_spot - entryTime;
             	int arrive_to_complete_unload = complete_unload_work - arrive_unload_spot;
             	int arrive_to_complete_load = complete_load_work - arrive_load_spot;
             	int complete_to_exit_unload = out_time - complete_unload_work;
@@ -110,5 +113,15 @@ public class SimulService {
         }
          return sm;
     }
+
+	public ResponseEntity<String> insertSimul(ResponseEntity<String> response) {
+		System.out.println("service");
+		List<Simulator> smlist = new ArrayList<>();
+//		for(Simulator sm : response) {
+//			smlist.add(sm);
+//		}
+//		System.out.println(response);
+		return response;
+	}
 
 }

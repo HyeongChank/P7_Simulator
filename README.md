@@ -15,3 +15,7 @@
 <img width="200" src="https://github.com/HyeongChank/P7_Simulator/assets/122770625/5ad11f0e-2cde-49e7-8fe0-5cda92f9bf12.gif"/>
 
 <img width="200" src="https://github.com/HyeongChank/P7_Simulator/assets/122770625/6448b5f8-81ff-43ac-9c23-463cd9c26abe.png"/>
+
+
+## Todo
+- simul 서버 연결 해야 함 / 1. 플라스크에서 보내는 데이터를 db에 들어갈(스프링의 simul 객체) 데이터와 동일하게 만들어야 하고  2. 스프링에서 ResponseEntity<String> 로 받은 데이터를 list로 변환해야 함(플라스크로부터 바로 list로 받을 수 있는 방법이 있으면 가장 적합)  3. front 육면체 제대로 그려서 3개씩 만 하고 속도 계산 정확히 하기
