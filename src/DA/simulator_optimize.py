@@ -3,7 +3,7 @@ import random
 import csv
 
 class Truck:
-    def __init__(self, env, name, arrival_time,unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed, operation, unload_spot, load_spot, end_wait_start_unload_work, end_wait_start_load_work):
+    def __init__(self, env, name, arrival_time,unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed, operation, unload_spot, load_spot, end_wait_start_unload_work, end_wait_start_load_work, visible):
         self.env = env
         self.name = name
         self.operation = operation
@@ -17,7 +17,7 @@ class Truck:
         self.unload_load_trucks_completed = unload_load_trucks_completed
         self.end_wait_start_unload_work = end_wait_start_unload_work
         self.end_wait_start_load_work = end_wait_start_load_work
-        
+        self.visible = visible
         # self.in_progress_trucks = []
         #분포에 따라 truck 도착
         self.action = env.process(self.truck_generate())
@@ -39,7 +39,7 @@ class Truck:
         print(entry_truck_count)
         print(f"트럭 {self.name}이(가) 입차했습니다. 시간: {env.now}")
         # 입차 차량수
-
+        self.visible = True
         # assigned 일단 부여해놓고 나중에 주석처리해야 함
         assigned_unload_spot = None
         assigned_load_spot = None
@@ -161,7 +161,7 @@ class Truck:
             print(f"트럭 {self.name}의 (반입) 총 터미널 내 소요시간: {waiting_time}")
 
             spot_wait_time = unload_spot_wait_time
-            new_data = [self.name, "unload", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, complete_load_work_time, self.end_wait_start_load_work, out_yard_time, waiting_time, select_operation, unload_spot_count, load_spot_count, self.unload_spot[assigned_unload_spot], self.load_spot[assigned_load_spot], entry_truck_count, exit_truck_count, spot_wait_time, unload_progress_truck_count, load_progress_truck_count]
+            new_data = [self.name, "unload", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, complete_load_work_time, self.end_wait_start_load_work, out_yard_time, waiting_time, select_operation, unload_spot_count, load_spot_count, self.unload_spot[assigned_unload_spot], self.load_spot[assigned_load_spot], entry_truck_count, exit_truck_count, spot_wait_time, unload_progress_truck_count, load_progress_truck_count, self.visible]
             unload_trucks_completed.append(new_data)
 
         elif select_operation == 'both':
@@ -225,7 +225,7 @@ class Truck:
             result_waiting.append(waiting_time)
             print(f"트럭 {self.name}의 입차~출차시간: {waiting_time}")
             spot_wait_time = unload_spot_wait_time + load_spot_wait_time
-            new_data = [self.name, "both", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, self.end_wait_start_load_work, complete_load_work_time, out_yard_time, waiting_time, select_operation, unload_spot_count, load_spot_count, self.unload_spot[assigned_unload_spot], self.load_spot[assigned_load_spot], entry_truck_count, exit_truck_count, spot_wait_time, unload_progress_truck_count, load_progress_truck_count]
+            new_data = [self.name, "both", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, self.end_wait_start_load_work, complete_load_work_time, out_yard_time, waiting_time, select_operation, unload_spot_count, load_spot_count, self.unload_spot[assigned_unload_spot], self.load_spot[assigned_load_spot], entry_truck_count, exit_truck_count, spot_wait_time, unload_progress_truck_count, load_progress_truck_count, self.visible]
             unload_load_trucks_completed.append(new_data)
 
         # else:
@@ -273,7 +273,7 @@ class Truck:
 
             print(f"트럭 {self.name}의 입차~출차시간: {waiting_time}")
             spot_wait_time = load_spot_wait_time
-            new_data = [self.name, "load", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, self.end_wait_start_load_work, complete_load_work_time, out_yard_time, waiting_time, select_operation, unload_spot_count, load_spot_count, self.unload_spot[assigned_unload_spot], self.load_spot[assigned_load_spot], entry_truck_count, exit_truck_count, spot_wait_time, unload_progress_truck_count, load_progress_truck_count]
+            new_data = [self.name, "load", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, self.end_wait_start_load_work, complete_load_work_time, out_yard_time, waiting_time, select_operation, unload_spot_count, load_spot_count, self.unload_spot[assigned_unload_spot], self.load_spot[assigned_load_spot], entry_truck_count, exit_truck_count, spot_wait_time, unload_progress_truck_count, load_progress_truck_count, self.visible]
             load_trucks_completed.append(new_data)
         # self.in_progress_trucks.remove(self.name)
         
@@ -306,13 +306,14 @@ end_wait_start_unload_work = 0
 end_wait_start_load_work = 0
 entry_count = 0
 exit_count =0
+visible = True
 # 트럭 대수
 arrival_interval =0
 for i in range(400):
     arrival_time = random.randint(2,4)
     arrival_interval += arrival_time
     Truck(env, i+1, arrival_interval, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed, operation
-          , unload_spot, load_spot, end_wait_start_unload_work, end_wait_start_load_work)
+          , unload_spot, load_spot, end_wait_start_unload_work, end_wait_start_load_work, visible)
 
 ### 파일에 저장되는 데이터 개수와 관련됨
 env.run(until=1440)  # 시뮬레이션 시간 (분 단위)
@@ -327,19 +328,20 @@ csv_filename = "data/truck_simulation_results.csv"
 def save_results_to_csv(filename, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed):
     with open(filename, "w", newline="") as file:
         writer = csv.writer(file)
-        writer.writerow(["Truck", "Operation", "entry_Time", "arrive_unload_spot", "start_unload_work", "complete_unload_work", "arrive_load_spot", "start_load_work", "complete_load_work", "exit_Time", "waiting_Time", "op", "unload_spot_truck_count", "load_spot_truck_count", "unload_block", "load_block", 'entry_count', 'exit_count', 'spot_wait_time', 'unload_progress_truck_count', 'load_progress_truck_count'])  # entry_count(16)
-
+        writer.writerow(["number", "code", "entryTime", "arrive_unload_spot", "start_unload_work", "complete_unload_work", "arrive_load_spot", "start_load_work", "complete_load_work", "out_time", "work_time", "op", "unload_count", "load_count", "unload_block", "load_block", 'entry_count', 'exit_count', 'spot_wait_time', 'unload_progress_truck_count', 'load_progress_truck_count', 'visible'])  # entry_count(16)
+        #                     1       2         3            4                          5                   6                       7                   8                   9               10              11       12       13             14             15           16             17              18              19          20                              21                                    
         # 반입 작업 완료 트럭 기록
         for truck in unload_trucks_completed:
-            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12], truck[13], truck[14], truck[15], truck[16], truck[17], truck[18], truck[19], truck[20]])
+            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12], truck[13], truck[14], truck[15], truck[16], truck[17], truck[18], truck[19], truck[20], truck[21]])
+            print(truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12], truck[13], truck[14], truck[15], truck[16], truck[17], truck[18], truck[19], truck[20], truck[21])
 
         # 반출 작업 완료 트럭 기록
         for truck in load_trucks_completed:
-            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12] , truck[13], truck[14], truck[15], truck[16], truck[17], truck[18], truck[19], truck[20]])
+            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12] , truck[13], truck[14], truck[15], truck[16], truck[17], truck[18], truck[19], truck[20], truck[21]])
 
         # 반입+반출 작업 완료 트럭 기록
         for truck in unload_load_trucks_completed:
-            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12] , truck[13], truck[14], truck[15], truck[16], truck[17], truck[18], truck[19], truck[20]])
+            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12] , truck[13], truck[14], truck[15], truck[16], truck[17], truck[18], truck[19], truck[20], truck[21]])
 
         env.run(until=1441)  # 시뮬레이션 시간 (분 단위)
 

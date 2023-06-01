@@ -46,7 +46,7 @@ public class SimulService {
             	int entryTime = Integer.parseInt(entryTime_before)*1000;
             	String out_time_before = fields[9];
             	int out_time = Integer.parseInt(out_time_before)*1000;
-                String block = fields[11];
+                
                 String unload_count_before = fields[12];
                 int unload_count = Integer.parseInt(unload_count_before);
                 String load_count_before = fields[13];
@@ -59,6 +59,8 @@ public class SimulService {
                 int entry_count = Integer.parseInt(entry_count_before);
                 String exit_count_before = fields[17];
                 int exit_count = Integer.parseInt(exit_count_before);
+                String spot_wait_time_before = fields[18];
+                int spot_wait_time = Integer.parseInt(spot_wait_time_before);
                 String unload_progress_truck_count_before = fields[19];
                 int unload_progress_truck_count = Integer.parseInt(unload_progress_truck_count_before);
                 String load_progress_truck_count_before = fields[20];
@@ -69,22 +71,27 @@ public class SimulService {
                 int start_unload_work = Integer.parseInt(start_unload_work_before) *1000;
                 String arrive_unload_spot_before = fields[3];
                 int arrive_unload_spot = Integer.parseInt(arrive_unload_spot_before)*1000;
-                int unload_wait_time = start_unload_work - arrive_unload_spot;
+                
                 
                 String start_load_work_before = fields[7];
                 int start_load_work = Integer.parseInt(start_load_work_before)*1000;
                 String arrive_load_spot_before = fields[6];
                 int arrive_load_spot = Integer.parseInt(arrive_load_spot_before)*1000;
-                int load_wait_time = start_load_work - arrive_load_spot;
-            	int total_wait_time = unload_wait_time + load_wait_time;
+                
+            	
             	boolean visible = true;
             	String complete_unload_work_before = fields[5];
             	int complete_unload_work = Integer.parseInt(complete_unload_work_before)*1000;
             	String complete_load_work_before = fields[8];
             	int complete_load_work = Integer.parseInt(complete_load_work_before)*1000;
             	
+            	String work_time_before = fields[10];
+            	int work_time = Integer.parseInt(work_time_before)*1000;
+            	String op = fields[11];
             	
-            	
+            	int unload_wait_time = start_unload_work - arrive_unload_spot;
+            	int load_wait_time = start_load_work - arrive_load_spot;
+
             	int entry_to_unload = arrive_unload_spot - entryTime;
         		int entry_to_load = arrive_load_spot - entryTime;
             	int arrive_to_complete_unload = complete_unload_work - arrive_unload_spot;
@@ -96,12 +103,11 @@ public class SimulService {
             	
             	    
             	    
-            	Simulator smr = new Simulator(number, code, entryTime, arrive_unload_spot, start_unload_work, 
+            	Simulator smr = new Simulator(number, code, entryTime, arrive_unload_spot, start_unload_work,
             			complete_unload_work, arrive_load_spot, start_load_work, complete_load_work, out_time,
-            			block, unload_count, load_count, yard_truck_count,unload_wait_time, load_wait_time,
-            			total_wait_time, entry_to_unload, entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
-            			complete_to_exit_unload, complete_to_exit_load, unload_to_load, unload_block, load_block,
-            			entry_count, exit_count, unload_progress_truck_count, load_progress_truck_count, visible);
+            			work_time, op, unload_count, load_count, unload_block, load_block,
+            			entry_count, exit_count, spot_wait_time, yard_truck_count, unload_progress_truck_count,
+            			load_progress_truck_count, visible);
             	sm.add(smr);
             	
             }

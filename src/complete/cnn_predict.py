@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense
 from sklearn.model_selection import train_test_split
@@ -98,7 +99,7 @@ def operate():
         model.compile(loss='mean_squared_error', optimizer='adam')
 
         # 모델 훈련
-        model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_test, y_test))
+        model.fit(X_train, y_train, epochs=250, batch_size=10, validation_data=(X_test, y_test))
 
         # 모델 예측
         predictions = model.predict(X_test)
@@ -173,6 +174,9 @@ def operate():
     #     # plt.show()
     #     print(predictions)
     #     print(len(predictions))
+        with open('models/cnn_model_time.pkl', 'wb') as f:
+            pickle.dump(model, f)
+        print("cnn_model을 저장하였습니다.")
         return time_group, predict_group, actual_group
 
     data = load()

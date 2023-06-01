@@ -1,5 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from DA import simulator_sort2
+# from complete import process_count_model
+# from complete import process_model
 # from DA import main
 # from DA import Queue_LSTM
 # from complete import cnn_predict
@@ -13,27 +15,23 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     
-# @app.route('/api/congest2', methods=['GET', 'POST'])
-# def congestion():
+# @app.route('/api/cnn_time_predict', methods=['GET', 'POST'])
+# def cnn_prediction():
 #     if request.method == 'POST':
-#         new_data = request.get_json()
-#         print('json 전달 받은 데이터', new_data)
-#         new_data_df = pd.DataFrame(new_data)
-#         waitingTime, congest_level = main.commit_model(new_data_df)
+#         print('******************request in*********************')
+#         time_group, predict_group, actual_group = process_model.operate()
         
-#         return jsonify({'congest_level': congest_level.tolist()}, {'waiting_time': waitingTime.tolist()})
+#         return jsonify({'time': time_group, 'predict_group': predict_group, 'actual_group': actual_group})
 #     else:
 #         return 'error'
 
-# @app.route('/api/predict', methods=['GET', 'POST'])
-# def prediction():
+# @app.route('/api/cnn_count_predict', methods=['GET', 'POST'])
+# def cnn_count_prediction():
 #     if request.method == 'POST':
-#         # new_data = request.get_json()
-#         # print('json 전달 받은 데이터', new_data)
-#         # new_data_df = pd.DataFrame(new_data)
-
-#         predicted_data_unload, predicted_data_load = Queue_LSTM.postdata()
-#         return jsonify({'predicted_data_unload': predicted_data_unload}, {'predicted_data_load': predicted_data_load})
+#         print('******************request in*********************')
+#         time_group, predict_group, actual_group = process_count_model.operate()
+        
+#         return jsonify({'time': time_group, 'predict_group': predict_group, 'actual_group': actual_group})
 #     else:
 #         return 'error'
     
@@ -54,17 +52,6 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 #         return 'error'
     
 
-# @app.route('/api/cnn_predict', methods=['GET', 'POST'])
-# def cnn_prediction():
-#     if request.method == 'POST':
-        
-#         time_group, predict_group, actual_group = cnn_predict.operate()
-        
-#         return jsonify({'time': time_group, 'predict_group': predict_group, 'actual_group': actual_group})
-#     else:
-#         return 'error'
-
-
 # @app.route('/api/lstm_predict', methods=['GET', 'POST'])
 # def lstm_prediction():
 #     if request.method == 'POST':
@@ -77,6 +64,9 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 #     else:
 #         return 'error'
     
+
+
+
 @app.route('/api/simul_predict', methods=['GET', 'POST'])
 def simul_prediction():
     if request.method == 'POST':
@@ -88,6 +78,7 @@ def simul_prediction():
         return jsonify({'json_output': json_output})
     else:
         return 'error'
+
 
 
 
