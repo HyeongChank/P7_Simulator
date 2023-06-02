@@ -33,21 +33,23 @@ public class Simulator {
     
     
     private int yard_truck_count;
-    private int unload_wait_time;
-    private int load_wait_time;
+   
     
+    
+    
+     
     private int entry_to_unload;
     private int entry_to_load;
     private int arrive_to_complete_unload;
     private int arrive_to_complete_load;
     private int complete_to_exit_unload;
     private int complete_to_exit_load;
-    
     private int unload_to_load;
-   
+    private int unload_wait_time;
+    private int load_wait_time;
     private int unload_progress_truck_count;
     private int load_progress_truck_count;
-    
+
     private boolean visible;
 
     public Simulator() {

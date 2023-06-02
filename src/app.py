@@ -84,4 +84,4 @@ def simul_prediction():
 
 if __name__ == '__main__':
     # host, port를 설정하고 여기로 요청을 하게 하면 됨
-    app.run(host='10.125.121.220', port=5003, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

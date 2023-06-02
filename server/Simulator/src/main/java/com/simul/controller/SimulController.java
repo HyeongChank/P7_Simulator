@@ -34,17 +34,17 @@ public class SimulController {
 	@Autowired
 	SimulService ssv;
 
-//	@GetMapping("/api/truckData")
-//	public List<Simulator> truckDataSend(){
-//		
-//		return ssv.outData();
-//	}
-	
 	@GetMapping("/api/truckData")
-	public List<Simulator> truck_csv_data() throws IOException {
-		List<Simulator>sm = ssv.readCsvFile();
-		return sm;
+	public List<Simulator> truckDataSend(){
+		
+		return ssv.outData();
 	}
+	
+//	@GetMapping("/api/truckData")
+//	public List<Simulator> truck_csv_data() throws IOException {
+//		List<Simulator>sm = ssv.readCsvFile();
+//		return sm;
+//	}
 	
 	
 //	{
@@ -80,7 +80,7 @@ public class SimulController {
 		System.out.println("success");
 		
 		 // 플라스크 API 엔드포인트 설정
-        String flaskApiUrl = "http://10.125.121.220:5003/api/simul_predict";
+        String flaskApiUrl = "http://211.48.158.7:5000/api/simul_predict";
         RestTemplate restTemplate = new RestTemplate();
         Map<String, List<Simulator>> mapsimul = new HashMap<>();
         HttpHeaders headers = new HttpHeaders();

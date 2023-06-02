@@ -141,6 +141,7 @@ def operate():
     animation_filename = "images/test_animation.gif"
     termani.save(animation_filename, writer="pillow")
     print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
+    print(json_data)
     #plt.show()
     return json_data
 

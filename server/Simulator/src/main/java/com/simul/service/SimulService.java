@@ -24,8 +24,8 @@ public class SimulService {
 //	SimulController sc;
 	
     public List<Simulator> readCsvFile() throws IOException {
-//		String filePath = "C:/git clone/P7_simulation/P7_Simulator/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
-		String filePath = "D:/김형찬/Congest_project/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+		String filePath = "C:/git clone/P7_simulation/P7_Simulator/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+//		String filePath = "D:/김형찬/Congest_project/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
 		List<Simulator> sm = new ArrayList<>();
         BufferedReader reader = null;
         boolean isFirstLine = true;
@@ -122,12 +122,41 @@ public class SimulService {
         }
          return sm;
     }
+    int unload_wait_time = 0;
+    int load_wait_time = 0;
 
+    int entry_to_unload = 0;
+    int entry_to_load = 0;
+    int arrive_to_complete_unload = 0;
+    int arrive_to_complete_load = 0;
+    int complete_to_exit_unload = 0;
+    int complete_to_exit_load = 0;
+    int unload_to_load = 0;
 	public ResponseEntity<String> insertSimul(List<Simulator> smlist) {
+		
 		System.out.println("service");
 		for(int i=0 ; i< smlist.size(); i++) {
-			System.out.println(smlist.get(i));
-			sr.save(smlist.get(i));
+			Simulator sm = smlist.get(i);
+			System.out.println(sm);
+			unload_wait_time = smlist.get(i).getStart_unload_work() - smlist.get(i).getArrive_unload_spot();
+			load_wait_time = smlist.get(i).getStart_load_work() - smlist.get(i).getArrive_load_spot();
+			entry_to_unload = smlist.get(i).getArrive_unload_spot() - smlist.get(i).getEntryTime();
+			entry_to_load = smlist.get(i).getArrive_load_spot() - smlist.get(i).getEntryTime();
+			arrive_to_complete_unload = smlist.get(i).getComplete_unload_work() - smlist.get(i).getArrive_unload_spot();
+			arrive_to_complete_load = smlist.get(i).getComplete_load_work() - smlist.get(i).getArrive_load_spot();
+			complete_to_exit_unload = smlist.get(i).getOut_time() - smlist.get(i).getComplete_unload_work();
+			complete_to_exit_load = smlist.get(i).getOut_time() - smlist.get(i).getComplete_load_work();
+			unload_to_load = smlist.get(i).getArrive_load_spot() - smlist.get(i).getComplete_unload_work();
+			sm.setUnload_wait_time(unload_wait_time);
+			sm.setLoad_wait_time(load_wait_time);
+			sm.setEntry_to_unload(entry_to_unload);
+			sm.setEntry_to_load(entry_to_load);
+			sm.setArrive_to_complete_unload(arrive_to_complete_unload);
+			sm.setArrive_to_complete_load(arrive_to_complete_load);
+			sm.setComplete_to_exit_unload(complete_to_exit_unload);
+			sm.setComplete_to_exit_load(complete_to_exit_load);
+			sm.setUnload_to_load(unload_to_load);
+			sr.save(sm);
 		}
 
 //		System.out.println(response);
@@ -135,9 +164,13 @@ public class SimulService {
 	}
 
 	public List<Simulator> outData() {
-		List<Simulator> lsm = new ArrayList<>();
-		
-		return (List<Simulator>) sr.findAll();
+		List<Simulator> lsm = sr.findAll();
+		System.out.println(lsm.size());
+		for(Simulator sm : lsm) {
+			System.out.println(sm);
+		}
+		System.out.println("end");
+		return lsm;
 	}
 
 }
