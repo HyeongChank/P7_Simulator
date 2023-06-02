@@ -77,13 +77,107 @@ function Display(){
         ctx.font = '20px Arial'; 
         ctx.fillText('Port', port.x, port.y); 
     }
-    const drawIn_Container = (in_container, ctx) => {
+    const drawIn_Container1 = (in_container, ctx) => {
+        ctx.fillStyle = 'green';
+        ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
+        ctx.fillStyle = 'black'; 
+        ctx.font = '20px Arial'; 
+        ctx.fillText('unload_work', in_container.x, in_container.y); 
+
+        // Now draw the 3D effects
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth); 
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x, in_container.y + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+    
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+        // Drawing the top part of the 3D box
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    const drawIn_Container2 = (in_container, ctx) => {
         ctx.fillStyle = 'red';
         ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
         ctx.fillStyle = 'black'; 
         ctx.font = '20px Arial'; 
         ctx.fillText('unload_work', in_container.x, in_container.y); 
+
+        // Now draw the 3D effects
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth); 
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x, in_container.y + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+    
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+        // Drawing the top part of the 3D box
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y);
+        ctx.closePath();
+        ctx.stroke();
     }
+    const drawIn_Container3 = (in_container, ctx) => {
+        ctx.fillStyle = 'orange';
+        ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
+        ctx.fillStyle = 'black'; 
+        ctx.font = '20px Arial'; 
+        ctx.fillText('unload_work', in_container.x, in_container.y); 
+
+        // Now draw the 3D effects
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth); 
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x, in_container.y + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+    
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+        // Drawing the top part of the 3D box
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+
+
+
+
     const drawOut_Container = (out_container, ctx) => {
         ctx.fillStyle = 'red';
         ctx.fillRect(out_container.x, out_container.y, out_container.width, out_container.height);
@@ -98,6 +192,7 @@ function Display(){
     const createTruck = (number, code, entryTime, arrive_unload_spot,
         start_unload_work, complete_unload_work, arrive_load_spot,
          start_load_work, complete_load_work, out_time,
+         work_time, op,
          unload_count, load_count,
           unload_wait_time, load_wait_time, entry_to_unload,
            entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
@@ -242,67 +337,16 @@ function Display(){
                 depth: 20 
             }
         }
-        const in_container = createIn_Container();
-        const drawIn_Container = (in_container, ctx) => {
-            ctx.beginPath();
-            ctx.rect(in_container.x, in_container.y, in_container.width, in_container.height); 
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-        
-            // Now draw the 3D effects
-            ctx.beginPath();
-            ctx.moveTo(in_container.x, in_container.y);
-            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth); 
-            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
-            ctx.lineTo(in_container.x, in_container.y + in_container.height);
-            ctx.closePath();
-            ctx.stroke();
-        
-            ctx.beginPath();
-            ctx.moveTo(in_container.x, in_container.y + in_container.height);
-            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
-            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
-            ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
-            ctx.closePath();
-            ctx.stroke();
-            // Drawing the top part of the 3D box
-            ctx.beginPath();
-            ctx.moveTo(in_container.x, in_container.y);
-            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
-            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
-            ctx.lineTo(in_container.x + in_container.width, in_container.y);
-            ctx.closePath();
-            ctx.stroke();
-
-            
-            ctx.beginPath();
-            ctx.moveTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
-            ctx.lineTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth);
-            ctx.lineTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth + in_container.height);
-            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
-            ctx.closePath();
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.moveTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth + in_container.height);
-            ctx.lineTo(in_container.x - in_container.depth - in_container.depth + in_container.width, in_container.y - in_container.depth - in_container.depth + in_container.height);
-            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
-            ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
-            ctx.closePath();
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.moveTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
-            ctx.lineTo(in_container.x - in_container.depth - in_container.depth, in_container.y - in_container.depth - in_container.depth);
-            ctx.lineTo(in_container.x - in_container.depth - in_container.depth + in_container.width, in_container.y - in_container.depth - in_container.depth);
-            ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
-            ctx.closePath();
-            ctx.stroke();
+        const createIn_ContainerWithOffset = (offsetX, offsetY) => {
+            const in_container = createIn_Container();
+            in_container.x += offsetX; // Add the offset to the x position
+            in_container.y += offsetY; // Add the offset to the x position
+            return in_container;
         }
-
-
-
+        const in_container1 = createIn_Container();
+        const in_container2 = createIn_ContainerWithOffset(20, 20);
+        const in_container3 = createIn_ContainerWithOffset(40,40);
+ 
         const createOut_Container = () => {
             const canvas = canvasRef.current;
             return {
@@ -325,8 +369,10 @@ function Display(){
             drawEntry(Entry, ctx);
             drawExit(Exit, ctx);
             drawPort(port, ctx);
-            drawIn_Container(in_container, ctx);
-            
+            //drawIn_Container(in_container, ctx);
+            drawIn_Container1(in_container1, ctx);
+            drawIn_Container2(in_container2, ctx);
+            drawIn_Container3(in_container3, ctx);
 
 
 
@@ -588,6 +634,7 @@ function Display(){
                 createTruck(truckData.number, truckData.code, truckData.entryTime, truckData.arrive_unload_spot,
                     truckData.start_unload_work, truckData.complete_unload_work, truckData.arrive_load_spot,
                      truckData.start_load_work, truckData.complete_load_work, truckData.out_time,
+                     truckData.work_time, truckData.op,
                      truckData.unload_count, truckData.load_count,
                       truckData.unload_wait_time, truckData.load_wait_time, truckData.entry_to_unload,
                        truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
@@ -652,4 +699,3 @@ function Display(){
 }
 
 export default Display
-

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class SimulService {
 //	SimulController sc;
 	
     public List<Simulator> readCsvFile() throws IOException {
-		String filePath = "C:/git clone/P7_simulation/P7_Simulator/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
-		//String filePath = "D:/김형찬/Congest_project/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+//		String filePath = "C:/git clone/P7_simulation/P7_Simulator/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
+		String filePath = "D:/김형찬/Congest_project/data/sorted_truck_simulation_results.csv"; // 실제 CSV 파일 경로로 수정
 		List<Simulator> sm = new ArrayList<>();
         BufferedReader reader = null;
         boolean isFirstLine = true;
@@ -106,8 +107,10 @@ public class SimulService {
             	Simulator smr = new Simulator(number, code, entryTime, arrive_unload_spot, start_unload_work,
             			complete_unload_work, arrive_load_spot, start_load_work, complete_load_work, out_time,
             			work_time, op, unload_count, load_count, unload_block, load_block,
-            			entry_count, exit_count, spot_wait_time, yard_truck_count, unload_progress_truck_count,
-            			load_progress_truck_count, visible);
+            			entry_count, exit_count, spot_wait_time, yard_truck_count, unload_wait_time,
+            			load_wait_time, entry_to_unload, entry_to_load, arrive_to_complete_unload,
+            			arrive_to_complete_load, complete_to_exit_unload, complete_to_exit_load, unload_to_load,
+            			unload_progress_truck_count, load_progress_truck_count, visible);
             	sm.add(smr);
             	
             }
@@ -120,14 +123,21 @@ public class SimulService {
          return sm;
     }
 
-	public ResponseEntity<String> insertSimul(ResponseEntity<String> response) {
+	public ResponseEntity<String> insertSimul(List<Simulator> smlist) {
 		System.out.println("service");
-		List<Simulator> smlist = new ArrayList<>();
-//		for(Simulator sm : response) {
-//			smlist.add(sm);
-//		}
+		for(int i=0 ; i< smlist.size(); i++) {
+			System.out.println(smlist.get(i));
+			sr.save(smlist.get(i));
+		}
+
 //		System.out.println(response);
-		return response;
+		return ResponseEntity.ok().body("success");
+	}
+
+	public List<Simulator> outData() {
+		List<Simulator> lsm = new ArrayList<>();
+		
+		return (List<Simulator>) sr.findAll();
 	}
 
 }

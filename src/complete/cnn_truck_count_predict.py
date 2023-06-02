@@ -35,18 +35,19 @@ def operate():
         data_cbd_data_common_df = pd.merge(data, cbd_data, on='컨테이너번호')
         #print(data_cbd_data_common_df)
 
-        return data_cbd_data_common_df
+        return data
 
     def preprocessing(common_df):
         # 데이터 전처리
         common_df['작업코드'] = common_df['작업코드'].replace({'VU': 1, 'VL': 2, 'GR': 3, 'GD': 4, 'TM':5,'TS':6})
         common_df['장비번호'] = common_df['장비번호'].replace({'Y02': 1})
-        common_df['풀(F)공(M)'] = common_df['풀(F)공(M)'].replace({'M':1, 'F':2})
-        common_df['수출/수입'] = common_df['수출/수입'].replace({'X':1,'I':2,'S':3,'M':4})
+        # common_df['풀(F)공(M)'] = common_df['풀(F)공(M)'].replace({'M':1, 'F':2})
+        # common_df['수출/수입'] = common_df['수출/수입'].replace({'X':1,'I':2,'S':3,'M':4})
         
         # 외부트럭에 1 넣기
         common_df['야드트럭(번호)'] = common_df['야드트럭(번호)'].fillna(1)
         # 구내이적, 임의이적 제외
+        print('common_df',common_df)
         common_df = common_df[~common_df['작업코드'].isin([5, 6])]
 
         print('common_df',common_df)
@@ -58,11 +59,9 @@ def operate():
         #print(common_df['작업생성시간'])
         #print('작업완료시간',common_df['작업완료시간'].dtype)
         common_df['작업+대기시간'] = common_df['작업완료시간'] -common_df['작업생성시간']
-        print(common_df[['작업생성시간','작업완료시간']])
-   
 
         common_df = common_df.sort_values(by='작업생성시간')
-        # common_df = common_df.tail(1000)  # 마지막 300개 행만 선택
+        common_df = common_df.tail(300)  # 마지막 300개 행만 선택
         ## 리셋 안하면 오류남
         common_df = common_df.reset_index(drop=True)  # 인덱스를 리셋
         # common_df = common_df[-300:]
@@ -87,16 +86,14 @@ def operate():
         #print('common_df',common_df.info())
 
 
-        plt.figure(figsize=(10, 6)) # 그래프 사이즈 지정
-        plt.plot(common_df.index, common_df['작업+대기차량']) # 인덱스를 x축으로, '대기차량'을 y축으로 하는 선 그래프 생성
-        plt.xlabel('Index') # x축 레이블 지정
-        plt.ylabel('작업+대기차량') # y축 레이블 지정
-        plt.title('작업+대기차량 선 그래프') # 그래프 제목 지정
-        plt.show() # 그래프 출력
+        # plt.figure(figsize=(10, 6)) # 그래프 사이즈 지정
+        # plt.plot(common_df.index, common_df['작업+대기차량']) # 인덱스를 x축으로, '대기차량'을 y축으로 하는 선 그래프 생성
+        # plt.xlabel('Index') # x축 레이블 지정
+        # plt.ylabel('작업+대기차량') # y축 레이블 지정
+        # plt.title('작업+대기차량 선 그래프') # 그래프 제목 지정
+        # plt.show() # 그래프 출력
 
-
-
-        common_df['풀(F)공(M)'] = common_df['풀(F)공(M)'].astype('int64')
+        # common_df['풀(F)공(M)'] = common_df['풀(F)공(M)'].astype('int64')
         common_df = common_df.dropna(subset=['작업+대기시간'])
 
         ######################## x 축에 시간 넣기 위한 작업#######################
@@ -104,9 +101,7 @@ def operate():
         common_df['작업생성시간'] = common_df['작업생성시간'].astype('int64') // 10**9
         #########################################################################
         # common_df['작업+대기시간'] = common_df['작업+대기시간'].dt.total_seconds() /60.0
-        
-        common_df['풀(F)공(M)'] = common_df['풀(F)공(M)'].astype('int64')
-        #print('common_df',common_df.info())
+
         common_df = common_df.dropna(subset=['작업+대기시간'])
         common_df_complete = common_df
         return common_df_complete
@@ -114,7 +109,7 @@ def operate():
     def make_model(common_df):
         
        # 데이터 준비
-        X = common_df[['작업생성시간','작업코드','항차_x','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호', '풀(F)공(M)', '수출/수입']]
+        X = common_df[['작업생성시간','작업코드','항차','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호']]
         y = common_df['작업+대기차량']
 
         # 데이터 전처리
@@ -136,7 +131,7 @@ def operate():
         model.compile(loss='mean_squared_error', optimizer='adam')
 
         # 모델 훈련
-        model.fit(X_train, y_train, epochs=250, batch_size=32, validation_data=(X_test, y_test))
+        model.fit(X_train, y_train, epochs=5, batch_size=32, validation_data=(X_test, y_test))
 
         # 모델 예측
         predictions = model.predict(X_test)
@@ -144,15 +139,14 @@ def operate():
 
         # predictions 배열의 각 요소를 반올림하여 정수로 변환
         predictions_rounded = np.round(predictions).astype(int)
-        print(predictions)
 
         X_test_df = pd.DataFrame(X_test)
         X_test_with_predictions = X_test_df.copy()
         X_test_with_predictions['예측값'] = predictions
-        print(predictions.dtype)
-        print(len(predictions))
-        print(len(X_test))
-        print(X_test.dtypes)
+        # print(predictions.dtype)
+        # print(len(predictions))
+        # print(len(X_test))
+        # print(X_test.dtypes)
 
         # X_test_with_predictions = X_test.copy()
         # X_test_with_predictions['예측값'] = predictions
@@ -177,13 +171,13 @@ def operate():
         
         # 10분 단위 그룹화(작업생성시간 열은 인덱스가 됨)
         grouped_df = X_test_inverse_df.groupby(pd.Grouper(key='작업생성시간', freq='10min')).mean()
-        print(grouped_df)
+        grouped_df = grouped_df.fillna(grouped_df.ffill().add(grouped_df.bfill()).div(2))
+        grouped_df = grouped_df.fillna(grouped_df.mean())
+
         time_group = grouped_df.index.tolist()
-        print(time_group)
         predict_group = grouped_df['예측값'].tolist()
-        print(predict_group)
         actual_group = grouped_df['실제값'].tolist()
-        print(actual_group)
+
     #     # 결과 출력
     #     for i in range(len(predictions)):
     #         print('실제값:', y_test.values[i], '예측값:', predictions[i][0])
@@ -221,7 +215,7 @@ def operate():
 
     data = load()
     common_data = preprocessing(data)
-    make_model(common_data)
+
     time_group, predict_group, actual_group = make_model(common_data)
     return time_group, predict_group, actual_group
 

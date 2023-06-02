@@ -33,17 +33,17 @@ public class Simulator {
     
     
     private int yard_truck_count;
-//    private int unload_wait_time;
-//    private int load_wait_time;
-//    
-//    private int entry_to_unload;
-//    private int entry_to_load;
-//    private int arrive_to_complete_unload;
-//    private int arrive_to_complete_load;
-//    private int complete_to_exit_unload;
-//    private int complete_to_exit_load;
-//    
-//    private int unload_to_load;
+    private int unload_wait_time;
+    private int load_wait_time;
+    
+    private int entry_to_unload;
+    private int entry_to_load;
+    private int arrive_to_complete_unload;
+    private int arrive_to_complete_load;
+    private int complete_to_exit_unload;
+    private int complete_to_exit_load;
+    
+    private int unload_to_load;
    
     private int unload_progress_truck_count;
     private int load_progress_truck_count;
@@ -53,6 +53,50 @@ public class Simulator {
     public Simulator() {
     	
     }
+    
+
+	public Simulator(Long number, String code, int entryTime, int arrive_unload_spot, int start_unload_work,
+			int complete_unload_work, int arrive_load_spot, int start_load_work, int complete_load_work, int out_time,
+			int work_time, String op, int unload_count, int load_count, String unload_block, String load_block,
+			int entry_count, int exit_count, int spot_wait_time, int yard_truck_count, int unload_wait_time,
+			int load_wait_time, int entry_to_unload, int entry_to_load, int arrive_to_complete_unload,
+			int arrive_to_complete_load, int complete_to_exit_unload, int complete_to_exit_load, int unload_to_load,
+			int unload_progress_truck_count, int load_progress_truck_count, boolean visible) {
+		super();
+		this.number = number;
+		this.code = code;
+		this.entryTime = entryTime;
+		this.arrive_unload_spot = arrive_unload_spot;
+		this.start_unload_work = start_unload_work;
+		this.complete_unload_work = complete_unload_work;
+		this.arrive_load_spot = arrive_load_spot;
+		this.start_load_work = start_load_work;
+		this.complete_load_work = complete_load_work;
+		this.out_time = out_time;
+		this.work_time = work_time;
+		this.op = op;
+		this.unload_count = unload_count;
+		this.load_count = load_count;
+		this.unload_block = unload_block;
+		this.load_block = load_block;
+		this.entry_count = entry_count;
+		this.exit_count = exit_count;
+		this.spot_wait_time = spot_wait_time;
+		this.yard_truck_count = yard_truck_count;
+		this.unload_wait_time = unload_wait_time;
+		this.load_wait_time = load_wait_time;
+		this.entry_to_unload = entry_to_unload;
+		this.entry_to_load = entry_to_load;
+		this.arrive_to_complete_unload = arrive_to_complete_unload;
+		this.arrive_to_complete_load = arrive_to_complete_load;
+		this.complete_to_exit_unload = complete_to_exit_unload;
+		this.complete_to_exit_load = complete_to_exit_load;
+		this.unload_to_load = unload_to_load;
+		this.unload_progress_truck_count = unload_progress_truck_count;
+		this.load_progress_truck_count = load_progress_truck_count;
+		this.visible = visible;
+	}
+
 
 	public Simulator(Long number, String code, int entryTime, int arrive_unload_spot, int start_unload_work,
 			int complete_unload_work, int arrive_load_spot, int start_load_work, int complete_load_work, int out_time,
@@ -268,6 +312,99 @@ public class Simulator {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+
+	
+	
+	
+	public int getUnload_wait_time() {
+		return unload_wait_time;
+	}
+
+
+	public void setUnload_wait_time(int unload_wait_time) {
+		this.unload_wait_time = unload_wait_time;
+	}
+
+
+	public int getLoad_wait_time() {
+		return load_wait_time;
+	}
+
+
+	public void setLoad_wait_time(int load_wait_time) {
+		this.load_wait_time = load_wait_time;
+	}
+
+
+	public int getEntry_to_unload() {
+		return entry_to_unload;
+	}
+
+
+	public void setEntry_to_unload(int entry_to_unload) {
+		this.entry_to_unload = entry_to_unload;
+	}
+
+
+	public int getEntry_to_load() {
+		return entry_to_load;
+	}
+
+
+	public void setEntry_to_load(int entry_to_load) {
+		this.entry_to_load = entry_to_load;
+	}
+
+
+	public int getArrive_to_complete_unload() {
+		return arrive_to_complete_unload;
+	}
+
+
+	public void setArrive_to_complete_unload(int arrive_to_complete_unload) {
+		this.arrive_to_complete_unload = arrive_to_complete_unload;
+	}
+
+
+	public int getArrive_to_complete_load() {
+		return arrive_to_complete_load;
+	}
+
+
+	public void setArrive_to_complete_load(int arrive_to_complete_load) {
+		this.arrive_to_complete_load = arrive_to_complete_load;
+	}
+
+
+	public int getComplete_to_exit_unload() {
+		return complete_to_exit_unload;
+	}
+
+
+	public void setComplete_to_exit_unload(int complete_to_exit_unload) {
+		this.complete_to_exit_unload = complete_to_exit_unload;
+	}
+
+
+	public int getComplete_to_exit_load() {
+		return complete_to_exit_load;
+	}
+
+
+	public void setComplete_to_exit_load(int complete_to_exit_load) {
+		this.complete_to_exit_load = complete_to_exit_load;
+	}
+
+
+	public int getUnload_to_load() {
+		return unload_to_load;
+	}
+
+
+	public void setUnload_to_load(int unload_to_load) {
+		this.unload_to_load = unload_to_load;
+	}
+
 
 	@Override
 	public String toString() {
