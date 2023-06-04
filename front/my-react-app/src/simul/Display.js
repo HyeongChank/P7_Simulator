@@ -48,7 +48,10 @@ function Display(){
                 }
                 return response.json();
             })
-            .then(data => setTrucksData(data))
+            .then(data => {
+                console.log(data);
+                setTrucksData(data);
+            })
             .catch(error => {
                 console.error('There has been a problem with your fetch operation: ', error);
             });
@@ -84,7 +87,7 @@ function Display(){
         ctx.font = '20px Arial'; 
         ctx.fillText('unload_work', in_container.x, in_container.y); 
 
-        // Now draw the 3D effects
+        // Draw the 3D effects
         ctx.beginPath();
         ctx.moveTo(in_container.x, in_container.y);
         ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth); 
@@ -92,7 +95,7 @@ function Display(){
         ctx.lineTo(in_container.x, in_container.y + in_container.height);
         ctx.closePath();
         ctx.stroke();
-    
+
         ctx.beginPath();
         ctx.moveTo(in_container.x, in_container.y + in_container.height);
         ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
@@ -100,12 +103,36 @@ function Display(){
         ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
         ctx.closePath();
         ctx.stroke();
-        // Drawing the top part of the 3D box
+
+        ctx.beginPath();
+        ctx.moveTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(in_container.x, in_container.y);
-        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
-        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
         ctx.lineTo(in_container.x + in_container.width, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(in_container.x + in_container.width, in_container.y);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
         ctx.closePath();
         ctx.stroke();
     }
@@ -148,7 +175,7 @@ function Display(){
         ctx.font = '20px Arial'; 
         ctx.fillText('unload_work', in_container.x, in_container.y); 
 
-        // Now draw the 3D effects
+       // Draw the 3D effects
         ctx.beginPath();
         ctx.moveTo(in_container.x, in_container.y);
         ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth); 
@@ -156,7 +183,7 @@ function Display(){
         ctx.lineTo(in_container.x, in_container.y + in_container.height);
         ctx.closePath();
         ctx.stroke();
-    
+
         ctx.beginPath();
         ctx.moveTo(in_container.x, in_container.y + in_container.height);
         ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
@@ -164,12 +191,36 @@ function Display(){
         ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
         ctx.closePath();
         ctx.stroke();
-        // Drawing the top part of the 3D box
+
+        ctx.beginPath();
+        ctx.moveTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth + in_container.height);
+        ctx.closePath();
+        ctx.stroke();
+
         ctx.beginPath();
         ctx.moveTo(in_container.x, in_container.y);
-        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
-        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
         ctx.lineTo(in_container.x + in_container.width, in_container.y);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
+        ctx.lineTo(in_container.x - in_container.depth, in_container.y - in_container.depth);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(in_container.x, in_container.y);
+        ctx.lineTo(in_container.x, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(in_container.x + in_container.width, in_container.y);
+        ctx.lineTo(in_container.x + in_container.width, in_container.y + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth + in_container.height);
+        ctx.lineTo(in_container.x - in_container.depth + in_container.width, in_container.y - in_container.depth);
         ctx.closePath();
         ctx.stroke();
     }
@@ -178,13 +229,13 @@ function Display(){
 
 
 
-    const drawOut_Container = (out_container, ctx) => {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(out_container.x, out_container.y, out_container.width, out_container.height);
-        ctx.fillStyle = 'black'; 
-        ctx.font = '20px Arial'; 
-        ctx.fillText('load_work', out_container.x, out_container.y); 
-    }
+    // const drawOut_Container = (out_container, ctx) => {
+    //     ctx.fillStyle = 'red';
+    //     ctx.fillRect(out_container.x, out_container.y, out_container.width, out_container.height);
+    //     ctx.fillStyle = 'black'; 
+    //     ctx.font = '20px Arial'; 
+    //     ctx.fillText('load_work', out_container.x, out_container.y); 
+    // }
     const out_count = () =>{
         setOutcount(outcount +1)
     }
@@ -217,7 +268,7 @@ function Display(){
             arrive_unload_spot : arrive_unload_spot,
             start_unload_work: start_unload_work,
             complete_unload_work:complete_unload_work,
-            color:getRandomColor(),
+            color:getRandomColor(code, unload_block, load_block),
             arrive_load_spot : arrive_load_spot,
             start_load_work : start_load_work,
             complete_load_work : complete_load_work,
@@ -247,7 +298,32 @@ function Display(){
 
         setTrucks(trucks => [...trucks, truck]);
     }
-    function getRandomColor() {
+    function getRandomColor(code, unload_block, load_block) {
+        if(code =='unload'){
+            if(unload_block == 'A'){
+                return 'skyblue'
+            }
+            else if(unload_block =='B'){
+                return 'green'
+            }
+            else{
+                return 'blue'
+            }
+        }
+        else if(code=='load'){
+            if(load_block == 'Q'){
+                return 'brown'
+            }
+            else if(load_block == 'W'){
+                return 'orange'
+            }
+            else{
+                return 'red'
+            }
+        }
+        else{
+            return 'black'
+        }
         const r = Math.floor(Math.random() * 256); // 랜덤한 빨간색 채널값
         const g = Math.floor(Math.random() * 256); // 랜덤한 초록색 채널값
         const b = Math.floor(Math.random() * 256); // 랜덤한 파란색 채널값
@@ -330,8 +406,8 @@ function Display(){
         const createIn_Container = ()=> {
             const canvas = canvasRef.current;
             return {
-                x : 350,
-                y : canvas.height - 500,
+                x : 330,
+                y : canvas.height - 520,
                 width : 100,
                 height : 50,
                 depth: 20 
@@ -350,14 +426,24 @@ function Display(){
         const createOut_Container = () => {
             const canvas = canvasRef.current;
             return {
-                x : 350,
-                y : canvas.height - 350,
+                x : 330,
+                y : canvas.height - 370,
                 width : 100,
-                height : 50
+                height : 50,
+                depth: 20
             }
         }
-        const out_container = createOut_Container();
+        const createOut_ContainerWithOffset = (offsetX, offsetY) => {
+            const out_container = createOut_Container();
+            out_container.x += offsetX; // Add the offset to the x position
+            out_container.y += offsetY; // Add the offset to the x position
+            return out_container;
+        }
+        const out_container1 = createOut_Container();
+        const out_container2 = createOut_ContainerWithOffset(20, 20);
+        const out_container3 = createOut_ContainerWithOffset(40,40);
 
+ 
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
@@ -374,11 +460,11 @@ function Display(){
             drawIn_Container2(in_container2, ctx);
             drawIn_Container3(in_container3, ctx);
 
+            drawIn_Container1(out_container1, ctx);
+            drawIn_Container2(out_container2, ctx);
+            drawIn_Container3(out_container3, ctx);
 
 
-
-            drawOut_Container(out_container, ctx);
-            
             let updatedTrucks = trucks.map(truck => {
                 setEntryt(truck.entryTime);
                 setBlockuntotal(blockA+blockB+blockC+blockD+blockE);

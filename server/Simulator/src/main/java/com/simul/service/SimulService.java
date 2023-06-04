@@ -138,6 +138,7 @@ public class SimulService {
 		for(int i=0 ; i< smlist.size(); i++) {
 			Simulator sm = smlist.get(i);
 			System.out.println(sm);
+			
 			unload_wait_time = smlist.get(i).getStart_unload_work() - smlist.get(i).getArrive_unload_spot();
 			load_wait_time = smlist.get(i).getStart_load_work() - smlist.get(i).getArrive_load_spot();
 			entry_to_unload = smlist.get(i).getArrive_unload_spot() - smlist.get(i).getEntryTime();
@@ -147,15 +148,15 @@ public class SimulService {
 			complete_to_exit_unload = smlist.get(i).getOut_time() - smlist.get(i).getComplete_unload_work();
 			complete_to_exit_load = smlist.get(i).getOut_time() - smlist.get(i).getComplete_load_work();
 			unload_to_load = smlist.get(i).getArrive_load_spot() - smlist.get(i).getComplete_unload_work();
-			sm.setUnload_wait_time(unload_wait_time);
-			sm.setLoad_wait_time(load_wait_time);
-			sm.setEntry_to_unload(entry_to_unload);
-			sm.setEntry_to_load(entry_to_load);
-			sm.setArrive_to_complete_unload(arrive_to_complete_unload);
-			sm.setArrive_to_complete_load(arrive_to_complete_load);
-			sm.setComplete_to_exit_unload(complete_to_exit_unload);
-			sm.setComplete_to_exit_load(complete_to_exit_load);
-			sm.setUnload_to_load(unload_to_load);
+			sm.setUnload_wait_time(unload_wait_time*1000);
+			sm.setLoad_wait_time(load_wait_time*1000);
+			sm.setEntry_to_unload(entry_to_unload*1000);
+			sm.setEntry_to_load(entry_to_load*1000);
+			sm.setArrive_to_complete_unload(arrive_to_complete_unload*1000);
+			sm.setArrive_to_complete_load(arrive_to_complete_load*1000);
+			sm.setComplete_to_exit_unload(complete_to_exit_unload*1000);
+			sm.setComplete_to_exit_load(complete_to_exit_load*1000);
+			sm.setUnload_to_load(unload_to_load*1000);
 			sr.save(sm);
 		}
 
@@ -164,10 +165,19 @@ public class SimulService {
 	}
 
 	public List<Simulator> outData() {
-		List<Simulator> lsm = sr.findAll();
+		List<Simulator> lsm = (List<Simulator>) sr.findAll();
 		System.out.println(lsm.size());
 		for(Simulator sm : lsm) {
 			System.out.println(sm);
+			sm.setEntryTime(sm.getEntryTime()*1000);
+			sm.setOut_time(sm.getOut_time()*1000);
+			sm.setStart_unload_work(sm.getStart_unload_work()*1000);
+			sm.setStart_load_work(sm.getStart_load_work()*1000);
+			sm.setArrive_unload_spot(sm.getArrive_unload_spot()*1000);
+			sm.setArrive_load_spot(sm.getArrive_load_spot()*1000);
+			sm.setComplete_unload_work(sm.getComplete_unload_work()*1000);
+			sm.setComplete_load_work(sm.getComplete_load_work()*1000);
+			sm.setWork_time(sm.getWork_time()*1000);
 		}
 		System.out.println("end");
 		return lsm;

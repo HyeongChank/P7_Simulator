@@ -32,7 +32,7 @@ public class Simulator {
     private int spot_wait_time;
     
     
-    private int yard_truck_count;
+    private int in_yard_count;
    
     
     
@@ -60,7 +60,7 @@ public class Simulator {
 	public Simulator(Long number, String code, int entryTime, int arrive_unload_spot, int start_unload_work,
 			int complete_unload_work, int arrive_load_spot, int start_load_work, int complete_load_work, int out_time,
 			int work_time, String op, int unload_count, int load_count, String unload_block, String load_block,
-			int entry_count, int exit_count, int spot_wait_time, int yard_truck_count, int unload_wait_time,
+			int entry_count, int exit_count, int spot_wait_time, int in_yard_count, int unload_wait_time,
 			int load_wait_time, int entry_to_unload, int entry_to_load, int arrive_to_complete_unload,
 			int arrive_to_complete_load, int complete_to_exit_unload, int complete_to_exit_load, int unload_to_load,
 			int unload_progress_truck_count, int load_progress_truck_count, boolean visible) {
@@ -84,7 +84,7 @@ public class Simulator {
 		this.entry_count = entry_count;
 		this.exit_count = exit_count;
 		this.spot_wait_time = spot_wait_time;
-		this.yard_truck_count = yard_truck_count;
+		this.in_yard_count = in_yard_count;
 		this.unload_wait_time = unload_wait_time;
 		this.load_wait_time = load_wait_time;
 		this.entry_to_unload = entry_to_unload;
@@ -103,7 +103,7 @@ public class Simulator {
 	public Simulator(Long number, String code, int entryTime, int arrive_unload_spot, int start_unload_work,
 			int complete_unload_work, int arrive_load_spot, int start_load_work, int complete_load_work, int out_time,
 			int work_time, String op, int unload_count, int load_count, String unload_block, String load_block,
-			int entry_count, int exit_count, int spot_wait_time, int yard_truck_count, int unload_progress_truck_count,
+			int entry_count, int exit_count, int spot_wait_time, int in_yard_count, int unload_progress_truck_count,
 			int load_progress_truck_count, boolean visible) {
 		super();
 		this.number = number;
@@ -125,7 +125,7 @@ public class Simulator {
 		this.entry_count = entry_count;
 		this.exit_count = exit_count;
 		this.spot_wait_time = spot_wait_time;
-		this.yard_truck_count = yard_truck_count;
+		this.in_yard_count = in_yard_count;
 		this.unload_progress_truck_count = unload_progress_truck_count;
 		this.load_progress_truck_count = load_progress_truck_count;
 		this.visible = visible;
@@ -283,12 +283,12 @@ public class Simulator {
 		this.spot_wait_time = spot_wait_time;
 	}
 
-	public int getYard_truck_count() {
-		return yard_truck_count;
+	public int getIn_yard_count() {
+		return in_yard_count;
 	}
 
-	public void setYard_truck_count(int yard_truck_count) {
-		this.yard_truck_count = yard_truck_count;
+	public void setIn_yard_count(int in_yard_count) {
+		this.in_yard_count = in_yard_count;
 	}
 
 	public int getUnload_progress_truck_count() {
@@ -417,7 +417,7 @@ public class Simulator {
 				+ ", work_time=" + work_time + ", op=" + op + ", unload_count=" + unload_count + ", load_count="
 				+ load_count + ", unload_block=" + unload_block + ", load_block=" + load_block + ", entry_count="
 				+ entry_count + ", exit_count=" + exit_count + ", spot_wait_time=" + spot_wait_time
-				+ ", yard_truck_count=" + yard_truck_count + ", unload_progress_truck_count="
+				+ ", yard_truck_count=" + in_yard_count + ", unload_progress_truck_count="
 				+ unload_progress_truck_count + ", load_progress_truck_count=" + load_progress_truck_count
 				+ ", visible=" + visible + "]";
 	}
