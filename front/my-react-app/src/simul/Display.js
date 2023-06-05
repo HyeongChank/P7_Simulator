@@ -3,6 +3,7 @@ import './simul.css'
 function Display(){
     const [mousePos, setMousePos] = useState({x:0, y:0});
     const [trucksData, setTrucksData] = useState([]);
+
     const [blockA, setBlockA] = useState();
     const [blockB, setBlockB] = useState();
     const [blockC, setBlockC] = useState();
