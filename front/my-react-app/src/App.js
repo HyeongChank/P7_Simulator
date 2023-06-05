@@ -1,6 +1,6 @@
 import './App.css';
-import FetchTruckData2 from './simul/FetchTruckData2';
 import Display from './simul/Display';
+
 
 
 
@@ -12,6 +12,7 @@ function App() {
     <div className="App">
      {/* <FetchTruckData2/> */}
      <Display/>
+     {/* <LineChart/> */}
      </div>
   );
 };
