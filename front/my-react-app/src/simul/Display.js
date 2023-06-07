@@ -301,22 +301,22 @@ function Display(){
         setTrucks(trucks => [...trucks, truck]);
     }
     function getRandomColor(code, unload_block, load_block) {
-        if(code =='unload'){
-            if(unload_block == 'A'){
+        if(code ==='unload'){
+            if(unload_block === 'A'){
                 return 'skyblue'
             }
-            else if(unload_block =='B'){
+            else if(unload_block ==='B'){
                 return 'green'
             }
             else{
                 return 'blue'
             }
         }
-        else if(code=='load'){
-            if(load_block == 'Q'){
+        else if(code==='load'){
+            if(load_block === 'Q'){
                 return 'brown'
             }
-            else if(load_block == 'W'){
+            else if(load_block === 'W'){
                 return 'orange'
             }
             else{
@@ -326,10 +326,10 @@ function Display(){
         else{
             return 'black'
         }
-        const r = Math.floor(Math.random() * 256); // 랜덤한 빨간색 채널값
-        const g = Math.floor(Math.random() * 256); // 랜덤한 초록색 채널값
-        const b = Math.floor(Math.random() * 256); // 랜덤한 파란색 채널값
-        return `rgb(${r},${g},${b})`;
+        // const r = Math.floor(Math.random() * 256); // 랜덤한 빨간색 채널값
+        // const g = Math.floor(Math.random() * 256); // 랜덤한 초록색 채널값
+        // const b = Math.floor(Math.random() * 256); // 랜덤한 파란색 채널값
+        // return `rgb(${r},${g},${b})`;
 
     }
     const drawTruck = (truck, ctx) => {
@@ -735,56 +735,61 @@ function Display(){
 
     return (
         <div>
+        
             <h1>컨테이너 야드 현황</h1>
             <h2>목표 : Queue 최적화</h2>
-
-            <div id='canv'>
-            <canvas ref={canvasRef} width={800} height={600}
-            onMouseMove={e=>{
-                var rect = e.target.getBoundingClientRect();
-                setMousePos({x:e.clientX - rect.left, y:e.clientY - rect.top});
-            }}  />
-            </div>
             <button onClick={handleClick}>Start</button>
-
-            <div id='dashb'>
-                <div id='dashboard'>
-                    <div id= 'entry_exit_ds'>
-                        <p>입차(대) : <span id='entry_count'> 0</span></p>
-                        <p>입차시간(초) : {entryt/1000}</p>
-                        <span>출차(대) : </span>
-                        <span id='exit_count'>{outcount}</span>
-                        {/* <span id='exit_count'>출차 : 0</span> */}
-                    </div>
-                    <div id='unload5'>
-                        <p className='unloadP'>반입장 대기차량 : <span>{blockuntotal}</span></p>
-                        
-                        
-                        <span id='unload_block'>unload_block : </span>
-                        <span id='unload_count'>unload_count</span>
-                        <p id='unload'>block : 작업 | 대기 | 대기시간</p>
-                        <p id='unload'>blockA : {blockAp}대, {blockA}대, {blockAt}</p>
-                        <p id='unload'>blockB : {blockBp}대, {blockB}대, {blockBt}</p>
-                        <p id='unload'>blockC : {blockCp}대, {blockC}대, {blockCt}</p>
-                        <p id='unload'>blockD : {blockDp}대, {blockD}대, {blockDt}</p>
-                        <p id='unload'>blockE : {blockEp}대, {blockE}대, {blockEt}</p>
-                    </div>
-                    <div id='load5'>
-                        <p className='loadP'>반출장 대기차량 : <span>{blocktotal}</span></p>
-                        <span id='load_block'>load_block : </span>
-                        <span id='load_count'>load_count</span>
-                        <p id='unload'>block : 작업 | 대기 | 대기시간</p>
-                        <p id='load'>blockQ : {blockQp}대, {blockQ}대, {blockQt}</p>
-                        <p id='load'>blockW : {blockWp}대, {blockW}대, {blockWt}</p>
-                        <p id='load'>blockX : {blockXp}대, {blockX}대, {blockXt}</p>
-                        <p id='load'>blockY : {blockYp}대, {blockY}대, {blockYt}</p>
-                        <p id='load'>blockZ : {blockZp}대, {blockZ}대, {blockZt}</p>
-                    </div>
-            
+            <div className='tot'>
+                <div id='canv'>
+                <canvas ref={canvasRef} width={800} height={600}
+                onMouseMove={e=>{
+                    var rect = e.target.getBoundingClientRect();
+                    setMousePos({x:e.clientX - rect.left, y:e.clientY - rect.top});
+                }}  />
                 </div>
-            </div>
-            <div id='chartsim'>
-                <MyChartComponent/>
+                
+                <div id='etc'>
+                    <div id='dashb'>
+                        <div id='dashboard'>
+                            <div id= 'entry_exit_ds'>
+                                <p>입차(대) : <span id='entry_count'> 0</span></p>
+                                <p>입차시간(초) : {entryt/1000}</p>
+                                <span>출차(대) : </span>
+                                <span id='exit_count'>{outcount}</span>
+                                {/* <span id='exit_count'>출차 : 0</span> */}
+                            </div>
+                            <div id='unload5'>
+                                <p className='unloadP'>반입장 대기차량 : <span>{blockuntotal}</span></p>
+                                
+                                
+                                <span id='unload_block'>unload_block : </span>
+                                <span id='unload_count'>unload_count</span>
+                                <p id='unload'>block : 작업 | 대기 | 대기시간</p>
+                                <p id='unload'>blockA : {blockAp}대, {blockA}대, {blockAt}</p>
+                                <p id='unload'>blockB : {blockBp}대, {blockB}대, {blockBt}</p>
+                                <p id='unload'>blockC : {blockCp}대, {blockC}대, {blockCt}</p>
+                                <p id='unload'>blockD : {blockDp}대, {blockD}대, {blockDt}</p>
+                                <p id='unload'>blockE : {blockEp}대, {blockE}대, {blockEt}</p>
+                            </div>
+                            <div id='load5'>
+                                <p className='loadP'>반출장 대기차량 : <span>{blocktotal}</span></p>
+                                <span id='load_block'>load_block : </span>
+                                <span id='load_count'>load_count</span>
+                                <p id='unload'>block : 작업 | 대기 | 대기시간</p>
+                                <p id='load'>blockQ : {blockQp}대, {blockQ}대, {blockQt}</p>
+                                <p id='load'>blockW : {blockWp}대, {blockW}대, {blockWt}</p>
+                                <p id='load'>blockX : {blockXp}대, {blockX}대, {blockXt}</p>
+                                <p id='load'>blockY : {blockYp}대, {blockY}대, {blockYt}</p>
+                                <p id='load'>blockZ : {blockZp}대, {blockZ}대, {blockZt}</p>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    <div id='chartsim'>
+                        <p>예측시간</p>
+                        <MyChartComponent/>
+                    </div>
+                </div>
             </div>
         </div>
     );

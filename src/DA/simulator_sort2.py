@@ -69,10 +69,11 @@ def operate():
     sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','out_time','work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'entry_count', 'exit_count', 'spot_wait_time','unload_progress_truck_count', 'load_progress_truck_count','visible', 'in_yard_count'])
     # print(sorted_data_with_In_yard_truck_volume)        1      2      3                  4                5                       6                       7               8                    9                 10         11      12    13               14               15             16              17           18        19                20                                21                         22          23      
     # 정렬된 데이터를 CSV 파일로 저장
-
-    headers = data[0]
-    rows = data[1:]
+    print(sorted_data_with_In_yard_truck_volume)
+    headers = sorted_data_with_In_yard_truck_volume[0]
+    rows = sorted_data_with_In_yard_truck_volume[1:]
     json_data = [dict(zip(headers, row)) for row in rows]
+    print(json_data)
     # json_output = json.dumps(json_data, ensure_ascii=False)
 
 
