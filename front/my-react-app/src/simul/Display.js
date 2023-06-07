@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom'
 import './simul.css'
 import MyChartComponent from './MyChartComponent';
 function Display(){
@@ -42,6 +43,7 @@ function Display(){
     const [blockZp, setBlockZp] = useState();
     const [outcount, setOutcount] = useState(0);
     const [truckcount, setTruckcount] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:8081/api/truckData')
@@ -739,11 +741,14 @@ function Display(){
         });
     };
 
+    const mainpageGo = () =>{
+        navigate('/');
+    }
     return (
         <div>
         
-            <h1>컨테이너 야드 현황</h1>
-            <h2>목표 : Queue 최적화</h2>
+            
+            <button onClick={mainpageGo}>Mainpage 이동</button>
             <button onClick={handleClick}>Start</button>
             <div className='tot'>
                 <div id='canv'>
