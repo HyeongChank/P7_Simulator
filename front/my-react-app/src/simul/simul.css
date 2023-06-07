@@ -13,7 +13,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
+    background-color: green;
+    width: 400px;
+    height: 300px;
+    font-size: 10px;
 
 }
 #dashboard{
@@ -23,13 +27,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 400px;
-    height: 300px;
-    font-size: 10px;
+
 
 }
 #chartsim{
-    width: 400px;
+    width: 360px;
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -37,28 +39,37 @@
     justify-content: center;
 }
 #entry_exit_ds{
-    width: 250px;
-    height: 350px;
+    width: 120px;
+    height: 250px;
+    /* border: 1px solid black; */
+
     /* background-color: rgba(255, 255, 255, 0.322); */
 }
+.entryP{
+    height: 30px;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+}
 #unload5{
-    width: 250px;
+    width: 120px;
+    height: 250px;
     border-left: 1px solid black;
     /* background-color: rgba(255, 255, 0, 0.322); */
     
 }
 .unloadP{
     border-bottom: 1px solid black;
-    padding-bottom: 15px;
     font-weight: bold;
+    height: 30px;
 }
 #load5{
-    width: 250px;
+    width: 120px;
+    height: 250px;
     border-left: 1px solid black;
     background-color: rgba(255, 255, 0, 0.322);
 }
 .loadP{
     border-bottom: 1px solid black;
-    padding-bottom: 15px;
     font-weight: bold;
+    height: 30px;
 }

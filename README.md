@@ -12,7 +12,7 @@
 ## 내용
 - cnn모델 요청 시 index_time(10분 단위), actual_time, predict_time 값 전송
     - 입력값 : 없음
-
+- simulator 데이터 생성 : simulator_sort2.py
 ------
 <img width="200" src="https://github.com/HyeongChank/P7_Simulator/assets/122770625/7074be29-84d9-4b16-8526-a5448c99bc81.gif"/>
 

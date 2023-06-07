@@ -40,10 +40,11 @@ function Display(){
     const [blockXp, setBlockXp] = useState();
     const [blockYp, setBlockYp] = useState();
     const [blockZp, setBlockZp] = useState();
-
     const [outcount, setOutcount] = useState(0);
+    const [truckcount, setTruckcount] = useState();
+
     useEffect(() => {
-        fetch('http://localhost:8080/api/truckData')
+        fetch('http://localhost:8081/api/truckData')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -51,7 +52,7 @@ function Display(){
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setTrucksData(data);
             })
             .catch(error => {
@@ -246,7 +247,7 @@ function Display(){
         start_unload_work, complete_unload_work, arrive_load_spot,
          start_load_work, complete_load_work, out_time,
          work_time, op,
-         unload_count, load_count,
+         unload_count, load_count, in_yard_count,
           unload_wait_time, load_wait_time, entry_to_unload,
            entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
           complete_to_exit_unload, complete_to_exit_load, unload_to_load,
@@ -276,6 +277,7 @@ function Display(){
             complete_load_work : complete_load_work,
             unload_count:unload_count,
             load_count:load_count,
+            in_yard_count:in_yard_count,
             entry_to_unload:entry_to_unload,
             entry_to_load:entry_to_load,
             arrive_to_complete_unload:arrive_to_complete_unload,
@@ -333,8 +335,11 @@ function Display(){
 
     }
     const drawTruck = (truck, ctx) => {
-
-
+        // 현재는 truckcount 에 in_yard_count가 들어가고 있음. 예측치도 구해서 chart 페이지에 실제값, 예측값이 전달되고 그려지도록 해야 함
+        // 예측 모델을 써서 만들어야 함
+        setTruckcount(truck.in_yard_count)
+        console.log(truckcount)
+        
         if (truck.visible) {
             ctx.fillStyle = truck.color;
             ctx.fillRect(truck.x, truck.y, truck.width, truck.height);
@@ -468,6 +473,7 @@ function Display(){
 
 
             let updatedTrucks = trucks.map(truck => {
+                
                 setEntryt(truck.entryTime);
                 setBlockuntotal(blockA+blockB+blockC+blockD+blockE);
                 setBlocktotal(blockQ+blockW+blockX+blockY+blockZ);
@@ -723,7 +729,7 @@ function Display(){
                     truckData.start_unload_work, truckData.complete_unload_work, truckData.arrive_load_spot,
                      truckData.start_load_work, truckData.complete_load_work, truckData.out_time,
                      truckData.work_time, truckData.op,
-                     truckData.unload_count, truckData.load_count,
+                     truckData.unload_count, truckData.load_count, truckData.in_yard_count,
                       truckData.unload_wait_time, truckData.load_wait_time, truckData.entry_to_unload,
                        truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
                       truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,
@@ -752,6 +758,7 @@ function Display(){
                     <div id='dashb'>
                         <div id='dashboard'>
                             <div id= 'entry_exit_ds'>
+                                <p className='entryP'> 총 </p>
                                 <p>입차(대) : <span id='entry_count'> 0</span></p>
                                 <p>입차시간(초) : {entryt/1000}</p>
                                 <span>출차(대) : </span>
@@ -786,8 +793,8 @@ function Display(){
                         </div>
                     </div>
                     <div id='chartsim'>
-                        <p>예측시간</p>
-                        <MyChartComponent/>
+                        <p>야드 내 트럭 수(대)</p>
+                        <MyChartComponent data = {trucksData} truckcount={truckcount}/>
                     </div>
                 </div>
             </div>
