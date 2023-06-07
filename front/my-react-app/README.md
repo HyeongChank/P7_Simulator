@@ -1,5 +1,14 @@
 ## 현황
 - chart 화면에 그리고, 입차시간에 맞게 재랜더링되는 것까지 완료
+- 메인페이지, 시뮬페이지 구분(BrowserRouter로 Routes 무조건 감싸야 함)
+    <div className="App">
+      <BrowserRouter>
+      <Routes>
+        <Route path = "/" element = {<Mainpage/>}/>
+        <Route path = "/display" element = {<Display/>}/>
+      </Routes>
+      </BrowserRouter>
+     </div>
 
 ## 실행방법
 - 서버 켜고, 플라스크 켜고 시뮬 데이터 db에 넣기
@@ -9,3 +18,5 @@
 - 현재는 truckcount 에 in_yard_count가 들어가고 있음. 예측치도 구해서 chart 페이지에 실제값, 예측값이 전달되고 그려지도록 해야 함
 - 예측 모델을 써서 만들어야 함
 - 애초에 데이터 db에 넣을 때 예측값 구해서 추가로 넣기
+
+## 
