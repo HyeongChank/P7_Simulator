@@ -52,8 +52,15 @@ public class SimulService {
                 int unload_count = Integer.parseInt(unload_count_before);
                 String load_count_before = fields[13];
                 int load_count = Integer.parseInt(load_count_before);
-                String yard_truck_count_before = fields[18];
-                int yard_truck_count = Integer.parseInt(yard_truck_count_before);  
+                String yard_truck_count_before = fields[22];
+                int in_yard_count = Integer.parseInt(yard_truck_count_before);
+                String prediction_before = fields[23];
+                int prediction = Integer.parseInt(prediction_before);
+                String realdata_before = fields[24];
+                int realdata = Integer.parseInt(realdata_before);
+                
+                
+                
                 String unload_block = fields[14];
                 String load_block = fields[15];
                 String entry_count_before = fields[16];
@@ -107,7 +114,7 @@ public class SimulService {
             	Simulator smr = new Simulator(number, code, entryTime, arrive_unload_spot, start_unload_work,
             			complete_unload_work, arrive_load_spot, start_load_work, complete_load_work, out_time,
             			work_time, op, unload_count, load_count, unload_block, load_block,
-            			entry_count, exit_count, spot_wait_time, yard_truck_count, unload_wait_time,
+            			entry_count, exit_count, spot_wait_time, in_yard_count, prediction, realdata, unload_wait_time,
             			load_wait_time, entry_to_unload, entry_to_load, arrive_to_complete_unload,
             			arrive_to_complete_load, complete_to_exit_unload, complete_to_exit_load, unload_to_load,
             			unload_progress_truck_count, load_progress_truck_count, visible);
@@ -148,6 +155,7 @@ public class SimulService {
 			complete_to_exit_unload = smlist.get(i).getOut_time() - smlist.get(i).getComplete_unload_work();
 			complete_to_exit_load = smlist.get(i).getOut_time() - smlist.get(i).getComplete_load_work();
 			unload_to_load = smlist.get(i).getArrive_load_spot() - smlist.get(i).getComplete_unload_work();
+			
 			sm.setUnload_wait_time(unload_wait_time*1000);
 			sm.setLoad_wait_time(load_wait_time*1000);
 			sm.setEntry_to_unload(entry_to_unload*1000);
@@ -157,6 +165,7 @@ public class SimulService {
 			sm.setComplete_to_exit_unload(complete_to_exit_unload*1000);
 			sm.setComplete_to_exit_load(complete_to_exit_load*1000);
 			sm.setUnload_to_load(unload_to_load*1000);
+
 			sr.save(sm);
 		}
 

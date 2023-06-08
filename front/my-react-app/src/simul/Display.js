@@ -43,6 +43,8 @@ function Display(){
     const [blockZp, setBlockZp] = useState();
     const [outcount, setOutcount] = useState(0);
     const [truckcount, setTruckcount] = useState();
+    const [prediction, setPrediction] = useState();
+    const [realdata, setRealdata] = useState();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -254,7 +256,8 @@ function Display(){
            entry_to_load, arrive_to_complete_unload, arrive_to_complete_load,
           complete_to_exit_unload, complete_to_exit_load, unload_to_load,
           unload_block, load_block, entry_count, exit_count, color,
-          unload_progress_truck_count, load_progress_truck_count, visible) => {
+          unload_progress_truck_count, load_progress_truck_count, visible,
+          prediction, realdata) => {
         
         const canvas = canvasRef.current;
        
@@ -299,6 +302,8 @@ function Display(){
             unload_progress_truck_count:unload_progress_truck_count,
             load_progress_truck_count:load_progress_truck_count,
             visible : visible,
+            prediction:prediction,
+            realdata:realdata
  
         };
 
@@ -340,6 +345,10 @@ function Display(){
         // 현재는 truckcount 에 in_yard_count가 들어가고 있음. 예측치도 구해서 chart 페이지에 실제값, 예측값이 전달되고 그려지도록 해야 함
         // 예측 모델을 써서 만들어야 함
         setTruckcount(truck.in_yard_count)
+        setPrediction(truck.prediction)
+        setRealdata(truck.realdata)
+        console.log(prediction)
+        console.log(realdata)
         console.log(truckcount)
         
         if (truck.visible) {
@@ -736,7 +745,8 @@ function Display(){
                        truckData.entry_to_load, truckData.arrive_to_complete_unload, truckData.arrive_to_complete_load,
                       truckData.complete_to_exit_unload, truckData.complete_to_exit_load, truckData.unload_to_load,
                       truckData.unload_block, truckData.load_block, truckData.entry_count, truckData.exit_count, color,
-                      truckData.unload_progress_truck_count, truckData.load_progress_truck_count, truckData.visible);
+                      truckData.unload_progress_truck_count, truckData.load_progress_truck_count, truckData.visible,
+                      truckData.prediction, truckData.realdata);
             }, truckData.entryTime);
         });
     };
@@ -800,7 +810,7 @@ function Display(){
                     <div id='chartsim'>
                         <p>야드 내 트럭 수(대)</p>
                         <div id='ct'>
-                          <MyChartComponent data = {trucksData} truckcount={truckcount}/>
+                          <MyChartComponent data = {trucksData} truckcount={truckcount} prediction={prediction}/>
                         </div>
                     </div>
                 </div>

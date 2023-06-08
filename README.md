@@ -35,3 +35,42 @@ pip freeze > requirements.txt
 # 신경 써야 함)
 X_train, X_test = X[:train_size, :, :], X[train_size:, :, :]
 y_train, y_test = y[:train_size, :], y[train_size:, :]
+
+
+## 실행방법 내부
+- 1. 플라스크 켜고, 스프링 서버 켜고 postman으로 post, http://localhost:8081/api/simul_predict,
+ json  	{
+	    "json_output": [
+	        {
+	            "arrive_load_spot": "0",
+	            "arrive_unload_spot": "22",
+	            "code": "unload",
+	            "complete_load_work": "0",
+	            "complete_unload_work": "34",
+	            "entryTime": "17",
+	            "entry_count": "5",
+	            "exit_count": "1",
+	            "load_block": "X",
+	            "load_count": "0",
+	            "load_progress_truck_count": "0",
+	            "number": "5",
+                "prediction":"10",
+                "realdata":"10",
+	            "op": "unload",
+	            "out_time": "39",
+	            "spot_wait_time": "0",
+	            "start_load_work": "0",
+	            "start_unload_work": "22",
+	            "unload_block": "B",
+	            "unload_count": "0",
+	            "unload_progress_truck_count": "0",
+	            "visible": "True",
+	            "work_time": "22"
+	        }
+	    ]
+	}
+
+    전송
+- db 들어왔는지 확인
+- 리액트 npm start
+- 화면 확인 

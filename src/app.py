@@ -7,6 +7,7 @@ from DA import simulator_sort2
 # from complete import cnn_predict
 # from complete import lstm_retrain
 # from complete import randomForest_predict
+from DA import simulator_post_server
 import json
 import requests
 from flask_cors import CORS
@@ -71,7 +72,7 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 def simul_prediction():
     if request.method == 'POST':
         print('**********request in')
-        json_output = simulator_sort2.operate()
+        json_output = simulator_post_server.operate()
         # Convert float32 to native Python float
         
         
