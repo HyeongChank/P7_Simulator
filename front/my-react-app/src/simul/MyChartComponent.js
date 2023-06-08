@@ -61,7 +61,7 @@ const MyChartComponent = ({data, truckcount}) => {
   }}, [truckcount]);
 
   return (
-    <canvas ref={chartRef} style={{width: '100%', maxWidth: '600px'}}></canvas> // 생성한 ref를 캔버스에 연결
+    <canvas id='cv' ref={chartRef} ></canvas> // 생성한 ref를 캔버스에 연결
   );
 }
 

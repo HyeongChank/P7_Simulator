@@ -26,3 +26,12 @@
 
 
 pip freeze > requirements.txt
+
+
+ input_shape 는 (시퀀스의 길이(시간 스텝의 수), 특성의 수)가 들어가야 함
+    model.add(keras.layers.LSTM(units=64, input_shape=(X_train.shape[1], X_train.shape[2])))
+
+# 시간 순서를 유지하면서 데이터 분할(분할할 때, X_train, y_train 값 같게 분할 해야하고 차원
+# 신경 써야 함)
+X_train, X_test = X[:train_size, :, :], X[train_size:, :, :]
+y_train, y_test = y[:train_size, :], y[train_size:, :]

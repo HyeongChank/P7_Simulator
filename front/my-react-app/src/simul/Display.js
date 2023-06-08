@@ -799,7 +799,9 @@ function Display(){
                     </div>
                     <div id='chartsim'>
                         <p>야드 내 트럭 수(대)</p>
-                        <MyChartComponent data = {trucksData} truckcount={truckcount}/>
+                        <div id='ct'>
+                          <MyChartComponent data = {trucksData} truckcount={truckcount}/>
+                        </div>
                     </div>
                 </div>
             </div>

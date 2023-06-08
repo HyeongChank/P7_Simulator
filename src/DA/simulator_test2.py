@@ -1,250 +1,154 @@
 import simpy 
 import random
 import csv
+import numpy as np
+import csv
+import json
+from datetime import datetime, timedelta
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+from matplotlib import font_manager, rc
+# 한글 폰트 설정
+font_path = "C:/Windows/Fonts/malgun.ttf"  # 한글 폰트 경로
+font_name = font_manager.FontProperties(fname=font_path).get_name()
+rc('font', family=font_name)
+# Truck,Operation,entry_Time,arrive_unload_spot,start_unload_work,complete_unload_work,arrive_load_spot,start_load_work,complete_load_work,exit_Time,waiting_Time,block
+## 데이터 정렬해서 다시 저장
+def operate():
+    file_path = 'data/truck_simulation_results.csv'
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        data = list(reader)
 
-class Truck:
-    def __init__(self, env, name, arrival_time, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed, block, unload_spot, load_spot, end_wait_start_unload_work, end_wait_start_load_work):
-        self.env = env
-        self.name = name
-        self.block = block
-        # 각 장소마다의 대기차량 구하기 위해 세분화(arrive, completed)
-        self.unload_spot = unload_spot
-        self.load_spot = load_spot
-        self.unload_trucks_completed = unload_trucks_completed
-        self.load_trucks_completed = load_trucks_completed
-        self.arrival_time = arrival_time
-        self.unload_load_trucks_completed = unload_load_trucks_completed
-        self.end_wait_start_unload_work = end_wait_start_unload_work
-        self.end_wait_start_load_work = end_wait_start_load_work
-        # self.in_progress_trucks = []
-        #분포에 따라 customer 도착
-        self.action = env.process(self.truck_generate())
+    header = data[0]
+    data_rows = data[1:]
+    sorted_data = sorted(data_rows, key =lambda row: int(row[0]))
+    # print(sorted_data)
 
-    def truck_generate(self):
-        yield env.timeout(self.arrival_time)
-   
-        print(f"트럭 {self.name}이(가) 입차했습니다. 시간: {env.now}")
-        
-        select_block = random.choice(self.block)
-        print(f"트럭 {self.name}이(가) {select_block} 블록으로 배정되습니다.")
+    out_times_list = [int(row[9]) for row in sorted_data]
 
-        in_yard_time = env.now
-        ## 차량대수 계산 위해 wating_times 딕셔너리 생성
-        waiting_times[self.name] = in_yard_time
-        self.env.process(self.in_out_work(waiting_times, select_block))
-        # self.in_progress_trucks.append(self.name)
+    in_times_list = [int(row[2]) for row in sorted_data]
+
+    # 블록 구분(반입, 반출장)
+    index_times_list = [int(row[0]) for row in sorted_data]
+    unload_block_list = [row[14] for row in sorted_data]
+    unload_block_list_unique = list(set(unload_block_list))
+    unload_block_dict = dict(zip(unload_block_list_unique, ['A','B','C','D','E']))
+    unload_block_list = [unload_block_dict[val] for val in unload_block_list]
+
+    print(unload_block_dict)
+    load_block_list = [row[15] for row in sorted_data]
+    load_block_list_unique = list(set(load_block_list))
+    load_block_dict = dict(zip(load_block_list_unique, ['Q','W','X','Y','Z']))
+    load_block_list = [load_block_dict[val] for val in load_block_list]
+
+    sorted_data_with_In_yard_truck_volume = []
+
+    for row in sorted_data:
+        in_time = row[2]
+        index_time = row[0]
+        int_in_time = int(in_time)
+        int_index_time = int(index_time)
+    
+        # 현재 트럭보다 먼저 들어온 트럭 대수 구하기
+        in_time_value1 = list(filter(lambda y : y<int_index_time, index_times_list))
+        # 현재 시간보다 출차를 빨리한 차량 대수
+        in_time_value2 = list(filter(lambda x: x< int_in_time, out_times_list))
+        # 현재 터미널 내 트럭 대수 = 총 트럭 - 출차 대수(본인 트럭 제외)
+        In_yard_truck_volume = len(in_time_value1)-len(in_time_value2)
+        # print(In_yard_truck_volume)
+        unload_count = row[12]
+        load_count = row[13]
+        row[14] = unload_block_dict[row[14]]
+        row[15] = load_block_dict[row[15]]
+    
+        new_row = row + [In_yard_truck_volume]
+        sorted_data_with_In_yard_truck_volume.append(new_row)
 
 
-    def in_out_work(self, waiting_times, select_block):
-        select_num = random.randint(1,10)
-        if select_num <= 4:
-            entry_to_unload_move = 5
-            yield env.timeout(entry_to_unload_move)
-            print(f"트럭 {self.name}이 반입장소에 도착했습니다. 시간: {env.now}")
-            arrive_unload_spot_time = env.now
-            ## capacity 에 따라 앞차가 작업 중일 시 뒤에 온 차는 대기!! 앞 차 작업완료시 뒤 차 작업 시작
-            with self.unload_spot.request() as req:
-                
-                yield req
-                self.end_wait_start_unload_work = env.now
-                print(f"트럭 {self.name}이 반입장소에서 작업시작하는 시간 : {self.end_wait_start_unload_work}")
-                unload_spot_wait_time = self.end_wait_start_unload_work- arrive_unload_spot_time
-                print(f"현재 반입장소에서 대기 중인 차량의 수: {len(self.unload_spot.queue)}")
-                #
-                unload_spot_count = len(self.unload_spot.queue)
-                load_spot_count = len(self.load_spot.queue)
-                #
-                print(f"트럭 {self.name}이 반입장소에서 대기하는 시간 : {unload_spot_wait_time}")
-                # 작업 시간
-                in_work_time = random.randint(10,25)
-                yield env.timeout(in_work_time)
-                print(f"트럭 {self.name}이(가) 반입을 완료했습니다. 시간: {env.now}")
-                complete_unload_work_time = env.now
-                ##
-                # arrive_load_spot_time = env.now
-                # complete_load_work_time = env.now
-                # self.end_wait_start_load_work = env.now
-            # exit gate 까지 이동
-            out_before_wait_time = random.randint(2,5)
-            yield env.timeout(out_before_wait_time)
-            print(f"트럭 {self.name}이(가) 출차했습니다. 시간: {env.now}")
-            out_yard_time = env.now
-
-            # 트럭번호를 통해 딕셔너리로 저장한 입차시간을 출차시간에서 빼서 총 대기시간 산출(out, in 저장해서 차감)
-            in_yard_time = waiting_times[self.name]
-            print('key', in_yard_time)
-            waiting_time = out_yard_time- in_yard_time
-            result_waiting.append(waiting_time)
-            print(f"트럭 {self.name}의 (반입) 총 터미널 내 소요시간: {waiting_time}")
-            new_data = [self.name, "in", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, self.end_wait_start_load_work, complete_load_work_time, out_yard_time, waiting_time, select_block, unload_spot_count, load_spot_count]
-            unload_trucks_completed.append(new_data)
-
-        elif select_num <= 7:
-            entry_to_unload_move = 5
-            yield env.timeout(entry_to_unload_move)
-            print(f"트럭 {self.name}이 반입장소에 도착했습니다. 시간: {env.now}")
-            arrive_unload_spot_time = env.now
-
-            ## capacity 에 따라 앞차가 작업 중일 시 뒤에 온 차는 대기!! 앞 차 작업완료시 뒤 차 작업 시작
-            with self.unload_spot.request() as req:
-                yield req
-                self.end_wait_start_unload_work = env.now
-                print(f"트럭 {self.name}이 반입장소에서 작업시작하는 시간 : {self.end_wait_start_unload_work}")
-                unload_spot_wait_time = self.end_wait_start_unload_work- arrive_unload_spot_time
-                print(f"현재 반입장소에서 대기 중인 차량의 수: {len(self.unload_spot.queue)}")
-                #
-                unload_spot_count = len(self.unload_spot.queue)
-                load_spot_count = len(self.load_spot.queue)
-                #
-                print(f"트럭 {self.name}이 반입장소에서 대기하는 시간 : {unload_spot_wait_time}")
-                # 반입 작업 시간
-                in_work_time = random.randint(10,25)
-                yield env.timeout(in_work_time)
-        
-                print(f"트럭 {self.name}이(가) 반입을 완료했습니다. 시간: {env.now}")
-                complete_unload_work_time = env.now
-
-            # 반출 작업장 이동
-            unload_to_load_move = 5
-            yield env.timeout(unload_to_load_move)
-            print(f"트럭 {self.name}이 반출 장소에 도착했습니다. 시간: {env.now}")
-            arrive_load_spot_time = env.now
-
-            with self.load_spot.request() as req:
-                yield req
-
-                self.end_wait_start_load_work = env.now
-                print(f"트럭 {self.name}이 반출장소에서 작업시작하는 시간 : {self.end_wait_start_load_work}")
-                load_spot_wait_time = self.end_wait_start_load_work- arrive_load_spot_time
-                print(f"현재 반출장소에서 대기 중인 차량의 수: {len(self.load_spot.queue)}")
-                #
-                unload_spot_count = len(self.unload_spot.queue)
-                load_spot_count = len(self.load_spot.queue)
-                #
-                print(f"트럭 {self.name}이 반출장소에서 대기하는 시간 : {load_spot_wait_time}")                
-                # 반출 작업 시간
-                out_work_time = random.randint(5,15)
-                yield env.timeout(out_work_time)
-                print(f"트럭 {self.name}이(가) 반출 작업을 완료했습니다. 시간: {env.now}")
-                complete_load_work_time = env.now
-
-            # exit gate 까지 이동
-            out_before_wait_time = random.randint(2,5)
-            yield env.timeout(out_before_wait_time)
-            print(f"트럭 {self.name}이(가) 출차했습니다. 시간: {env.now}")
-            out_yard_time = env.now
-            print(out_yard_time)
-
-            in_yard_time = waiting_times[self.name]
-            print('key', in_yard_time)
-            waiting_time = out_yard_time- in_yard_time
-            result_waiting.append(waiting_time)
-            print(f"트럭 {self.name}의 반입, 출차 대기시간: {waiting_time}")
-            new_data = [self.name, "in_out", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, self.end_wait_start_load_work, complete_load_work_time, out_yard_time, waiting_time, select_block, unload_spot_count, load_spot_count]
-            unload_load_trucks_completed.append(new_data)
-
-        else:
-            ##
-            # arrive_unload_spot_time = env.now
-            # complete_unload_work_time = env.now
-            # self.end_wait_start_unload_work = env.now
-            # 반출 작업장 이동
-            entry_to_load_move = 5
-            yield env.timeout(entry_to_load_move)
-            print(f"트럭 {self.name}이 반출장소에 도착했습니다. 시간: {env.now}")
-            arrive_load_spot_time = env.now
-
-            ## 앞 차 있을 시 대기
-            with self.load_spot.request() as req:
-                yield req
-                self.end_wait_start_load_work = env.now
-                print(f"트럭 {self.name}이 반출장소에서 작업시작하는 시간 : {self.end_wait_start_load_work}")
-                load_spot_wait_time = self.end_wait_start_load_work- arrive_load_spot_time
-                print(f"현재 반출장소에서 대기 중인 차량의 수: {len(self.load_spot.queue)}")
-                #
-                unload_spot_count = len(self.unload_spot.queue)
-                load_spot_count = len(self.load_spot.queue)
-                #
-                print(f"트럭 {self.name}이 반출장소에서 대기하는 시간 : {load_spot_wait_time}") 
-                # 반출 작업
-                out_work_time = random.randint(5,15)
-                yield env.timeout(out_work_time)
-                print(f"트럭 {self.name}이(가) 반출 작업을 완료했습니다. 시간: {env.now}")
-                complete_load_work_time = env.now
-
-            # exit gate 이동
-            out_before_wait_time = random.randint(2,5)
-            yield env.timeout(out_before_wait_time)
-            print(f"트럭 {self.name}이(가) 출차했습니다. 시간: {env.now}")
-            out_yard_time = env.now
-
-            in_yard_time = waiting_times[self.name]
-            print('key', in_yard_time)
-            waiting_time = out_yard_time- in_yard_time
-            result_waiting.append(waiting_time)
-            
-            print(f"트럭 {self.name}의 반출만 대기시간: {waiting_time}")
-            new_data = [self.name, "out", in_yard_time, arrive_unload_spot_time, self.end_wait_start_unload_work, complete_unload_work_time, arrive_load_spot_time, self.end_wait_start_load_work, complete_load_work_time, out_yard_time, waiting_time, select_block, unload_spot_count, load_spot_count]
-            load_trucks_completed.append(new_data)
-        # self.in_progress_trucks.remove(self.name)
-        
-
-env = simpy.Environment()
-unload_spot = simpy.Resource(env, capacity=1)
-load_spot = simpy.Resource(env, capacity=1)
-arrival_interval = random.randint(3,8)  # 트럭 도착 주기 (분 단위)
-unload_trucks_completed = []
-load_trucks_completed = []
-waiting_times = {}
-result_waiting = []
-unload_load_trucks_completed = []
-block = ['A','B','C']
-end_wait_start_unload_work = 0
-end_wait_start_load_work = 0
-# 트럭 대수
-arrival_interval =0
-for i in range(200):
-    arrival_time = random.randint(3,8)
-    arrival_interval += arrival_time
-    Truck(env, i+1, arrival_interval, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed, block, unload_spot, load_spot, end_wait_start_unload_work, end_wait_start_load_work)
-
-### 파일에 저장되는 데이터 개수와 관련됨
-env.run(until=1440)  # 시뮬레이션 시간 (분 단위)
-
-print(f"반입 작업을 완료한 트럭 수: {len(unload_trucks_completed)}")
-print(f"반출 작업을 완료한 트럭 수: {len(load_trucks_completed)}")
-
-# 결과를 저장할 CSV 파일 이름
-csv_filename = "data/truck_simulation_results.csv"
-
-    # CSV 파일에 결과를 기록하는 함수
-def save_results_to_csv(filename, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed):
-    with open(filename, "w", newline="") as file:
+    sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','out_time','work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'entry_count', 'exit_count', 'spot_wait_time','unload_progress_truck_count', 'load_progress_truck_count','visible', 'in_yard_count'])
+    # print(sorted_data_with_In_yard_truck_volume)        1      2      3                  4                5                       6                       7               8                    9                 10         11      12    13               14               15             16              17           18        19                20                                21                         22          23      
+    
+    # 정렬된 데이터를 CSV 파일로 저장
+    sorted_file_path = 'data/sorted_truck_simulation_results.csv'
+    with open(sorted_file_path, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Truck", "Operation", "entry_Time", "arrive_unload_spot", "start_unload_work", "complete_unload_work", "arrive_load_spot", "start_load_work","complete_load_work","exit_Time", "waiting_Time", "block", "unload_spot_truck_count", "load_spot_truck_count"])  # 헤더 라인 작성
+        writer.writerows(sorted_data_with_In_yard_truck_volume)
 
-        # 반입 작업 완료 트럭 기록
-        for truck in unload_trucks_completed:
-            
-            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12] , truck[13]])
+    print("데이터를 첫 번째 트럭 열을 기준으로 오름차순으로 정렬하여 저장했습니다.")
 
-        # 반출 작업 완료 트럭 기록
-        for truck in load_trucks_completed:
-        
-            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12] , truck[13]])
+#### 서버에 전송할 json 형식#################################
+    print(sorted_data_with_In_yard_truck_volume)
+    headers = sorted_data_with_In_yard_truck_volume[0]
+    rows = sorted_data_with_In_yard_truck_volume[1:]
+    json_data = [dict(zip(headers, row)) for row in rows]
+    print(json_data)
+    # json_output = json.dumps(json_data, ensure_ascii=False)
+############################################################
 
-        # 반입+반출 작업 완료 트럭 기록
-        for truck in unload_load_trucks_completed:
-        
-            writer.writerow([truck[0], truck[1], truck[2], truck[3], truck[4], truck[5], truck[6], truck[7], truck[8], truck[9], truck[10], truck[11], truck[12] , truck[13]])
 
-        env.run(until=1441)  # 시뮬레이션 시간 (분 단위)
 
-        print(f"반입 작업을 완료한 트럭 수: {len(unload_trucks_completed)}")
-        print(f"반출 작업을 완료한 트럭 수: {len(load_trucks_completed)}")
-        print(f"반출 작업을 완료한 트럭 수: {len(unload_load_trucks_completed)}")
+    ## 애니메이션 구현 부분
+    file_path = 'data/sorted_truck_simulation_results.csv'
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        data = list(reader)
+    header = data[0]
+    data_rows = data[1:]
+    in_time_out = []
+    unload_waiting_time = []
+    unload_waiting_count = []
+    load_waiting_time = []
+    load_waiting_count = []
+    In_yard_truck_volume_entry_time = []
+    spot_wait_time = 0
+    for row in data_rows:
+        # 별도 계산 값들
+        in_time_out.append(int(row[2]))
+        unload_waiting_time.append(int(row[5])-int(row[4]))
+        load_waiting_time.append(int(row[8])-int(row[7]))
+        unload_waiting_count.append(int(row[12]))
+        load_waiting_count.append(int(row[13]))
+        spot_wait_time += int(row[18])
+        # wait_time_all = int(row[5])-int(row[4])
+        # print(row(5))
+        # print(int(row(4)))
+        # waiting_time.append(wait_time_all)
+    print('총 대기시간', spot_wait_time)
+    terminalgraph = plt.figure()
+    term = plt.axes()
+    term.set_xlim(0, max(in_time_out))
+    term.set_ylim(0, 50)
 
-# 결과를 CSV 파일로 저장
-save_results_to_csv(csv_filename, unload_trucks_completed, load_trucks_completed, unload_load_trucks_completed)
+    x = np.array(in_time_out)
+    y1 = np.array(unload_waiting_time)
+    y11 = np.array(unload_waiting_count)
+    y2 = np.array(load_waiting_time)
+    y22 = np.array(load_waiting_count)
 
-print(f"결과를 '{csv_filename}' 파일로 저장했습니다.")
+    line1, = term.plot([],[], label='반입 대기시간')
+    line11, = term.plot([],[], label='반입 대기차량 수')
+    line2, = term.plot([],[], label='반출 대기시간')
+    line22, = term.plot([],[], label='반출 대기차량 수')
+
+    term.legend()
+
+    def update(num, x, y1,y11,y2,y22, line1,line11, line2, line22):
+        line1.set_data(x[:num], y1[:num])
+        line11.set_data(x[:num], y11[:num])
+        line2.set_data(x[:num], y2[:num])
+        line22.set_data(x[:num], y22[:num])
+
+        return line1, line2
+    termani = animation.FuncAnimation(terminalgraph, update, frames = len(x) +1, fargs=(x,y1,y11,y2,y22, line1,line11, line2, line22),
+                                    interval = 100, repeat = False)
+    animation_filename = "images/test_animation.gif"
+    termani.save(animation_filename, writer="pillow")
+    print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
+
+    #plt.show()
+    return json_data
+
+if __name__=='__main__':
+    json_data = operate()
+    print(json_data)
