@@ -57,7 +57,7 @@ const Mainpage = () =>{
 
         <div className='mainP' style = {{backgroundColor:bgcolor, backgroundImage:bgImage}}>
             <div>
-                <h1>컨테이너 <span id='terminal' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>터미널</span> 현황</h1>
+                <h1><span id='terminal' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>컨테이너 터미널 현황</span></h1>
                 <h2>목표 : 트럭 대기(Queue) 최적화</h2>
             </div>
             <button className="startBt" onClick={simulpageGo}>시작하기</button>

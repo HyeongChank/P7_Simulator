@@ -71,28 +71,28 @@ function Display(){
         ctx.fillRect(Entry.x, Entry.y, Entry.width, Entry.height);
         ctx.fillStyle = 'black'; 
         ctx.font = '20px Arial'; 
-        ctx.fillText('Entry gate', Entry.x, Entry.y);
+        ctx.fillText('Entry gate', Entry.x+5, Entry.y-5);
     }
     const drawExit = (Exit, ctx) => {
         ctx.fillStyle = 'blue';
         ctx.fillRect(Exit.x, Exit.y, Exit.width, Exit.height);
         ctx.fillStyle = 'black'; 
         ctx.font = '20px Arial'; 
-        ctx.fillText('Exit gate', Exit.x, Exit.y); 
+        ctx.fillText('Exit gate', Exit.x-60, Exit.y-5); 
     }
     const drawPort = (port, ctx) => {
         ctx.fillStyle = 'blue';
         ctx.fillRect(port.x, port.y, port.width, port.height);
         ctx.fillStyle = 'black'; 
         ctx.font = '20px Arial'; 
-        ctx.fillText('Port', port.x, port.y); 
+        ctx.fillText('Port', port.x+5, port.y-5); 
     }
     const drawIn_Container1 = (in_container, ctx) => {
         ctx.fillStyle = 'green';
         ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
         ctx.fillStyle = 'black'; 
         ctx.font = '20px Arial'; 
-        ctx.fillText('unload_work', in_container.x, in_container.y); 
+        ctx.fillText('block1', in_container.x, in_container.y-5); 
 
         // Draw the 3D effects
         ctx.beginPath();
@@ -148,7 +148,7 @@ function Display(){
         ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
         ctx.fillStyle = 'black'; 
         ctx.font = '20px Arial'; 
-        ctx.fillText('unload_work', in_container.x, in_container.y); 
+        ctx.fillText('block2', in_container.x, in_container.y-5); 
 
         // Now draw the 3D effects
         ctx.beginPath();
@@ -180,7 +180,7 @@ function Display(){
         ctx.fillRect(in_container.x, in_container.y, in_container.width, in_container.height);
         ctx.fillStyle = 'black'; 
         ctx.font = '20px Arial'; 
-        ctx.fillText('unload_work', in_container.x, in_container.y); 
+        ctx.fillText('block3', in_container.x, in_container.y-5); 
 
        // Draw the 3D effects
         ctx.beginPath();
@@ -757,9 +757,10 @@ function Display(){
     return (
         <div>
         
-            
-            <button onClick={mainpageGo}>Mainpage 이동</button>
-            <button onClick={handleClick}>Start</button>
+            <div className='menu'>
+                <button id='btmaingo' onClick={mainpageGo}>Mainpage 이동</button>
+                <button id='btstart' onClick={handleClick}>Start</button>
+            </div>
             <div className='tot'>
                 <div id='canv'>
                 <canvas ref={canvasRef} width={800} height={600}
@@ -771,7 +772,9 @@ function Display(){
                 
                 <div id='etc'>
                     <div id='dashb'>
+                    <p id='intitle'>컨테이너 야드 현황판</p>
                         <div id='dashboard'>
+                            
                             <div id= 'entry_exit_ds'>
                                 <p className='entryP'> 총 </p>
                                 <p>입차(대) : <span id='entry_count'> 0</span></p>
@@ -787,9 +790,9 @@ function Display(){
                                 <span id='unload_block'>unload_block : </span>
                                 <span id='unload_count'>unload_count</span>
                                 <p id='unload'>block : 작업 | 대기 | 대기시간</p>
-                                <p id='unload'>blockA : {blockAp}대, {blockA}대, {blockAt}</p>
-                                <p id='unload'>blockB : {blockBp}대, {blockB}대, {blockBt}</p>
-                                <p id='unload'>blockC : {blockCp}대, {blockC}대, {blockCt}</p>
+                                <p id='unload'>block1 : {blockAp}대, {blockA}대, {blockAt}</p>
+                                <p id='unload'>block2 : {blockBp}대, {blockB}대, {blockBt}</p>
+                                <p id='unload'>block3 : {blockCp}대, {blockC}대, {blockCt}</p>
                                 <p id='unload'>blockD : {blockDp}대, {blockD}대, {blockDt}</p>
                                 <p id='unload'>blockE : {blockEp}대, {blockE}대, {blockEt}</p>
                             </div>
@@ -798,9 +801,9 @@ function Display(){
                                 <span id='load_block'>load_block : </span>
                                 <span id='load_count'>load_count</span>
                                 <p id='unload'>block : 작업 | 대기 | 대기시간</p>
-                                <p id='load'>blockQ : {blockQp}대, {blockQ}대, {blockQt}</p>
-                                <p id='load'>blockW : {blockWp}대, {blockW}대, {blockWt}</p>
-                                <p id='load'>blockX : {blockXp}대, {blockX}대, {blockXt}</p>
+                                <p id='load'>block1 : {blockQp}대, {blockQ}대, {blockQt}</p>
+                                <p id='load'>block2 : {blockWp}대, {blockW}대, {blockWt}</p>
+                                <p id='load'>block3 : {blockXp}대, {blockX}대, {blockXt}</p>
                                 <p id='load'>blockY : {blockYp}대, {blockY}대, {blockYt}</p>
                                 <p id='load'>blockZ : {blockZp}대, {blockZ}대, {blockZt}</p>
                             </div>
@@ -808,7 +811,7 @@ function Display(){
                         </div>
                     </div>
                     <div id='chartsim'>
-                        <p>야드 내 트럭 수(대)</p>
+                        <p id='intitle'>야드 내 트럭 수(대)</p>
                         <div id='ct'>
                           <MyChartComponent data = {trucksData} truckcount={truckcount} prediction={prediction}/>
                         </div>
