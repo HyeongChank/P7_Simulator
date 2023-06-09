@@ -132,6 +132,7 @@ def operate():
         data['op'] = data['op'].replace({1:'unload', 2:'load', 3:'both'})
         sorted_file_path = 'data/predict_truck_simulation_results.csv'
         data.to_csv(sorted_file_path, index=False)
+        print("predict 저장됨")
 
             
         
