@@ -26,7 +26,7 @@ def operate():
 
     def load():
         # new_data 들어오면 기존 df 에 합치면 됨
-        data = pd.read_csv("./data/sorted_truck_simulation_results.csv", encoding='cp949')
+        data = pd.read_csv("data/sorted_truck_simulation_results.csv", encoding='cp949')
         print(data)
         print(data['in_yard_count'])
         return data

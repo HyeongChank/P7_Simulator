@@ -5,6 +5,7 @@ import numpy as np
 import csv
 import json
 from datetime import datetime, timedelta
+import simulator_optimize
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
@@ -148,5 +149,6 @@ def operate():
     return json_data
 
 if __name__=='__main__':
+    simulator_optimize.make_simul_data()
     json_data = operate()
     print(json_data)
