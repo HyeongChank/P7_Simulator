@@ -5,7 +5,6 @@ import numpy as np
 import csv
 import json
 from datetime import datetime, timedelta
-from DA import simulator_optimize
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
@@ -72,9 +71,9 @@ def operate():
     
 #### 서버에 전송할 json 형식#################################
     #print(sorted_data_with_In_yard_truck_volume)
-    # headers = sorted_data_with_In_yard_truck_volume[0]
-    # rows = sorted_data_with_In_yard_truck_volume[1:]
-    # json_data = [dict(zip(headers, row)) for row in rows]
+    headers = sorted_data_with_In_yard_truck_volume[0]
+    rows = sorted_data_with_In_yard_truck_volume[1:]
+    json_data = [dict(zip(headers, row)) for row in rows]
     #print(json_data)
     # json_output = json.dumps(json_data, ensure_ascii=False)
 ############################################################
@@ -146,9 +145,9 @@ def operate():
     print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
 
     #plt.show()
-    # return json_data
+    return json_data
 
 if __name__=='__main__':
-    operate()
-    # json_data = operate()
-    # print(json_data)
+    
+    json_data = operate()
+    print(json_data)

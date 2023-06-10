@@ -347,9 +347,7 @@ function Display(){
         setTruckcount(truck.in_yard_count)
         setPrediction(truck.prediction)
         setRealdata(truck.realdata)
-        console.log(prediction)
-        console.log(realdata)
-        console.log(truckcount)
+
         
         if (truck.visible) {
             ctx.fillStyle = truck.color;

@@ -3,14 +3,43 @@ import './simul.css'
 import { useState } from "react";
 import simulatorinput from './imageTerminal/simulatorinput.png'
 import canvasimage from './imageTerminal/canvasimage.png'
+import dashboard2 from './imageTerminal/dashboard2.png'
+import chart3 from './imageTerminal/chart3.png'
 
 const DescribePage = () =>{
     const navigate = useNavigate();
     const [trucknum, setTrucknum] = useState();
     const [processtime, setProcesstime] = useState();
     const [blocknum, setBlocknum] = useState();
-    const EnterQueuePage =()=>{
-        navigate('/display')
+    
+    const EnterQueuePage =async(event)=>{
+        event.preventDefault();
+
+        try{
+            const response = await fetch('http://localhost:8081/api/inputDataPost',{
+                method: 'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({
+                    trucknum: trucknum,
+                    processtime:processtime,
+                    blocknum:blocknum
+                }),
+            });
+            if(!response.ok){
+                throw new Error('postdata error');
+            }
+            // ResponseEntity 받을 때 text
+            const result = await response.text();
+            console.log(result);
+            if(result ==='success'){
+                navigate('/display')
+            }
+        }
+        catch(error){
+
+        }
     }
     const handleOnchange = (e) =>{
         if(e.target.name === "tn"){
@@ -46,7 +75,7 @@ const DescribePage = () =>{
                         <p id="describeIncont">- 컨테이너 터미널 블록별 대기차량 현황(DASHBOARD)</p>
                     </div>
                     <div className="desgif">
-                        cs
+                        <img id='img01' src={dashboard2} alt="dashboard image"/>
                     </div>
                 </div>
 
@@ -57,7 +86,7 @@ const DescribePage = () =>{
                         <p id="describeIncont">- 딥러닝 예측모델(LSTM, CNN) 사용</p>
                     </div>
                     <div className="desgif">
-                        cs
+                        <img id='img01' src={chart3} alt="chart image"/>
                     </div>
                 </div>
 
@@ -89,13 +118,14 @@ const DescribePage = () =>{
                         <span id="inputText">실행시간(초)</span>
                         <input id="inputTime" type="text" name="pt" onChange={handleOnchange}></input>        
                     </label>
+                    <div className="describeBt">
+                        <button id="queueGo" type="submit">Queue 시작</button>
+                    </div>
                 </form>
 
                 
             </div>
-            <div className="describeBt">
-                <button id="queueGo" onClick={EnterQueuePage}>Queue 시작</button>
-            </div>
+           
         </div>
     )
 }

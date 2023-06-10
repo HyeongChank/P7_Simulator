@@ -8,6 +8,7 @@ from flask import Flask, render_template, jsonify, request
 # from complete import lstm_retrain
 # from complete import randomForest_predict
 from DA import simulator_post_server
+from DA import test
 import json
 import requests
 from flask_cors import CORS
@@ -53,17 +54,20 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 #         return 'error'
     
 
-# @app.route('/api/lstm_predict', methods=['GET', 'POST'])
-# def lstm_prediction():
-#     if request.method == 'POST':
-#         new_data = request.get_json()
-#         prediction_list = lstm_retrain.operate(new_data)
-#         # Convert float32 to native Python float
-#         prediction_list = [float(i) for i in prediction_list]
+@app.route('/api/inputDataPost', methods=['GET', 'POST'])
+def inputDataPost():
+    if request.method == 'POST':
+        input_data = request.get_json()
+        trucknum = input_data['trucknum']
+        processtime = input_data['processtime']
+        blocknum = input_data['blocknum']
+        print(trucknum, processtime, blocknum)
+        test.make_simul_operate(trucknum, processtime, blocknum)
+        json_output = simulator_post_server.operate()
         
-#         return jsonify({'prediction_list': prediction_list})
-#     else:
-#         return 'error'
+        return jsonify({'json_output': json_output})
+    else:
+        return 'error'
     
 
 

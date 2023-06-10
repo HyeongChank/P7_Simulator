@@ -27,12 +27,10 @@ def operate():
     def load():
         # new_data 들어오면 기존 df 에 합치면 됨
         data = pd.read_csv("data/sorted_truck_simulation_results.csv", encoding='cp949')
-        # print(data)
-        # print(data['in_yard_count'])
         return data
         
     def preprocessing(data): 
-        print(data[['entryTime', 'work_time', 'spot_wait_time', 'entry_count', 'exit_count', 'op']])
+        #print(data[['entryTime', 'work_time', 'spot_wait_time', 'entry_count', 'exit_count', 'op']])
         data['op'] = data['op'].replace({'unload':1, 'load':2, 'both':3})
         return data
 
@@ -43,7 +41,7 @@ def operate():
         # 데이터 전처리
         X_data = df_in_model[['work_time', 'spot_wait_time', 'op']]
         y_data = df_in_model['in_yard_count'].values
-        print(y_data)
+        #print(y_data)
 
         X, y = [], []
         for i in range(df_in_model.shape[0] - lookback):
@@ -51,9 +49,6 @@ def operate():
             y.append(y_data[i+lookback])
         X = np.array(X)
         y = np.array(y)
-
-        print(X.shape)
-        print(y.shape)
 
         # 시계열이라 데이터를 랜덤하게 분할하지 않고 시간대에 따라 분할
         train_size = int(len(X) * 0.8)
@@ -102,33 +97,32 @@ def operate():
     #     y_test_real = scaler_y.inverse_transform(y_test_scaled)
    
         combined_pred = np.concatenate((y_train_pred_scaled, y_test_pred_scaled), axis=0)
-        print(combined_pred)
-        print(len(combined_pred))
+        #print(combined_pred)
+        #print(len(combined_pred))
         combined_real = np.concatenate((y_train, y_test), axis=0)
-        print(combined_real)
-        print(len(combined_real))
+        #print(combined_real)
+        #print(len(combined_real))
     #     # datetime 형식을 리스트로 바꾸면 유닉스타임 스탬프로 변경돼서 다른 방법 써야 함
     # #     # time = combined_time.tolist()
     #     datetime_list = combined_time.tolist()
         actual_values = combined_real.tolist()
         predict_values = combined_pred.tolist()
-        print(predict_values)
+        #print(predict_values)
         new_list = predict_values.copy()
         ## 이중리스트 단일리스트로 변경하는 방법
         new_list = [item for sublist in new_list for item in sublist]
         new_list = [0]*10 + new_list
-        print('new_list', new_list)
+        #print('new_list', new_list)
         new_list = [round(num) for num in new_list]
 
         new_actual_list = data['in_yard_count'][:10].tolist()
         new_actual_list_r = new_actual_list + actual_values        
-        print(len(new_list))
-        print(len(new_actual_list_r))
+        # print(len(new_list))
+        # print(len(new_actual_list_r))
         
         data['prediction'] = new_list
 
         data['realdata'] = new_actual_list_r
-        print(data.columns)
         data['op'] = data['op'].replace({1:'unload', 2:'load', 3:'both'})
         sorted_file_path = 'data/predict_truck_simulation_results.csv'
         data.to_csv(sorted_file_path, index=False)

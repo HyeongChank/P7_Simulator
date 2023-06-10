@@ -47,7 +47,7 @@
     /* background-color: rgba(0, 0, 0, 0.178); */
     border: 1px solid black;
     background-color: rgba(135, 207, 235, 0.151);
-    height: 230px;
+    height: 240px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -83,7 +83,7 @@
 }
 #entry_exit_ds{
     width: 180px;
-    height: 230px;
+    height: 240px;
     /* border: 1px solid black; */
 
     /* background-color: rgba(255, 255, 255, 0.322); */
@@ -98,7 +98,7 @@
 }
 #unload5{
     width: 180px;
-    height: 230px;
+    height: 240px;
     border-left: 1px solid black;
     /* background-color: rgba(255, 255, 0, 0.322); */
     
@@ -112,7 +112,7 @@
 }
 #load5{
     width: 180px;
-    height: 230px;
+    height: 240px;
     border-left: 1px solid black;
 
 }
@@ -170,11 +170,12 @@
 
 }
 #img01{
-    width: 100%;
+    width: 95%;
+    height: 95%;
 }
 .desText, .desgif{
     width: 48%;
-    height: 150px;
+    height: 180px;
     border: 1px solid black;
     margin: 1px;
 }

@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.simulator.predict.domain.Inputdata;
 import com.simulator.predict.domain.Simulator;
 import com.simulator.predict.service.SimulService;
 
@@ -80,18 +81,19 @@ public class SimulController {
 //	        }
 //	    ]
 //	}
-	@PostMapping("/api/simul_predict")
-	public ResponseEntity<?> insertSimul(@RequestBody Map<String, List<Simulator>> data){
-		System.out.println("success");
-		
-		 // 플라스크 API 엔드포인트 설정
-        String flaskApiUrl = "http://172.22.3.56:5000/api/simul_predict";
+	@PostMapping("/api/inputDataPost")
+	public ResponseEntity<?> receiveData(@RequestBody Inputdata inputdata){
+		System.out.println(inputdata);
+        // 플라스크 API 엔드포인트 설정
+        String flaskApiUrl = "http://121.175.195.251:5000/api/inputDataPost";
         RestTemplate restTemplate = new RestTemplate();
-        Map<String, List<Simulator>> mapsimul = new HashMap<>();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        HttpEntity<Map<String, List<Simulator>>> entity = new HttpEntity<>(mapsimul, headers);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        //headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        // Inputdata 객체를 JSON으로 변환하여 body에 넣음
+        HttpEntity<Inputdata> entity = new HttpEntity<>(inputdata, headers);
+
         ResponseEntity<Map<String, List<Simulator>>> response = restTemplate.exchange(
         		flaskApiUrl,
         		HttpMethod.POST,
@@ -100,9 +102,57 @@ public class SimulController {
         Map<String, List<Simulator>> simulBody = response.getBody();
         List<Simulator> simullist = simulBody.get("json_output");
         System.out.println(simullist.size());
+        
+        
+//        try {
+//            // POST 요청 보내기
+//            ResponseEntity<Map<String, List<Simulator>>> response = restTemplate.exchange(flaskApiUrl, HttpMethod.POST, entity, 
+//                    new ParameterizedTypeReference<Map<String, List<Simulator>>>() {});
+//            
+//            Map<String, List<Simulator>> resultData = response.getBody();
+//            System.out.println(resultData);
+//            // 플라스크로부터 받은 결과를 클라이언트에게 반환
+//            return new ResponseEntity<>(resultData, HttpStatus.OK);
+//        } catch (Exception e) {
+//            // 에러 처리
+//            e.printStackTrace();
+//            return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
 
         return ssv.insertSimul(simullist);
-	}
+    }
+
+
+
+
+
+
+
+
+	
+//	@PostMapping("/api/simul_predict")
+//	public ResponseEntity<?> insertSimul(@RequestBody Map<String, List<Simulator>> data){
+//		System.out.println("success");
+//		
+//		 // 플라스크 API 엔드포인트 설정
+//        String flaskApiUrl = "http://121.175.195.251:5000/api/simul_predict";
+//        RestTemplate restTemplate = new RestTemplate();
+//        Map<String, List<Simulator>> mapsimul = new HashMap<>();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//
+//        HttpEntity<Map<String, List<Simulator>>> entity = new HttpEntity<>(mapsimul, headers);
+//        ResponseEntity<Map<String, List<Simulator>>> response = restTemplate.exchange(
+//        		flaskApiUrl,
+//        		HttpMethod.POST,
+//        		entity,
+//        		new ParameterizedTypeReference<Map<String, List<Simulator>>>() {});
+//        Map<String, List<Simulator>> simulBody = response.getBody();
+//        List<Simulator> simullist = simulBody.get("json_output");
+//        System.out.println(simullist.size());
+//
+//        return ssv.insertSimul(simullist);
+//	}
 	
 	
 
