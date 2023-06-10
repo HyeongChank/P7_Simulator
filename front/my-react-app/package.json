@@ -21,6 +21,7 @@
     "react-live-clock": "^6.1.13",
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",
+    "react-spinners": "^0.13.8",
     "regenerator-runtime": "^0.13.11",
     "stylus-loader": "^3.0.2",
     "three": "^0.152.2",

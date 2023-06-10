@@ -5,17 +5,20 @@ import simulatorinput from './imageTerminal/simulatorinput.png'
 import canvasimage from './imageTerminal/canvasimage.png'
 import dashboard2 from './imageTerminal/dashboard2.png'
 import chart3 from './imageTerminal/chart3.png'
+import { ClipLoader } from 'react-spinners'
 
 const DescribePage = () =>{
     const navigate = useNavigate();
     const [trucknum, setTrucknum] = useState();
     const [processtime, setProcesstime] = useState();
     const [blocknum, setBlocknum] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     
     const EnterQueuePage =async(event)=>{
         event.preventDefault();
 
         try{
+            setIsLoading(true);
             const response = await fetch('http://localhost:8081/api/inputDataPost',{
                 method: 'POST',
                 headers:{
@@ -36,9 +39,10 @@ const DescribePage = () =>{
             if(result ==='success'){
                 navigate('/display')
             }
+            setIsLoading(false);
         }
         catch(error){
-
+            setIsLoading(false);
         }
     }
     const handleOnchange = (e) =>{
@@ -125,7 +129,7 @@ const DescribePage = () =>{
 
                 
             </div>
-           
+            {isLoading ? <ClipLoader size={100} color={'#123abc'} loading={isLoading} /> : null}
         </div>
     )
 }

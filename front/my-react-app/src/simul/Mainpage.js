@@ -60,7 +60,7 @@ const Mainpage = () =>{
                 <h1><span id='terminal' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>컨테이너 터미널 현황</span></h1>
                 <h2>목표 : 트럭 대기(Queue) 최적화</h2>
             </div>
-            <button className="startBt" onClick={simulpageGo}>시작하기</button>
+            <button className="startBt" onClick={simulpageGo}><span id='terminal' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>시작하기</span></button>
         </div>
 
     )
