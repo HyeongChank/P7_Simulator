@@ -5,7 +5,7 @@ import numpy as np
 import csv
 import json
 from datetime import datetime, timedelta
-import simulator_optimize
+from DA import simulator_optimize
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
@@ -37,7 +37,7 @@ def operate():
     unload_block_dict = dict(zip(unload_block_list_unique, ['A','B','C','D','E']))
     unload_block_list = [unload_block_dict[val] for val in unload_block_list]
 
-    print(unload_block_dict)
+    #print(unload_block_dict)
     load_block_list = [row[15] for row in sorted_data]
     load_block_list_unique = list(set(load_block_list))
     load_block_dict = dict(zip(load_block_list_unique, ['Q','W','X','Y','Z']))
@@ -71,11 +71,11 @@ def operate():
     # print(sorted_data_with_In_yard_truck_volume)        1      2      3                  4                5                       6                       7               8                    9                 10         11      12    13               14               15             16              17           18        19                20                                21                         22          23      
     
 #### 서버에 전송할 json 형식#################################
-    print(sorted_data_with_In_yard_truck_volume)
-    headers = sorted_data_with_In_yard_truck_volume[0]
-    rows = sorted_data_with_In_yard_truck_volume[1:]
-    json_data = [dict(zip(headers, row)) for row in rows]
-    print(json_data)
+    #print(sorted_data_with_In_yard_truck_volume)
+    # headers = sorted_data_with_In_yard_truck_volume[0]
+    # rows = sorted_data_with_In_yard_truck_volume[1:]
+    # json_data = [dict(zip(headers, row)) for row in rows]
+    #print(json_data)
     # json_output = json.dumps(json_data, ensure_ascii=False)
 ############################################################
     # 정렬된 데이터를 CSV 파일로 저장
@@ -146,9 +146,9 @@ def operate():
     print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
 
     #plt.show()
-    return json_data
+    # return json_data
 
 if __name__=='__main__':
-    simulator_optimize.make_simul_data()
-    json_data = operate()
-    print(json_data)
+    operate()
+    # json_data = operate()
+    # print(json_data)

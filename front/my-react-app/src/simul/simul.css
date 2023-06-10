@@ -149,3 +149,66 @@
     color: white;
     transition: 0.7s;
 }
+
+.describeOuter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.describeInner{
+    border: 1px solid black;
+    width: 90%;
+    height: auto;
+}
+
+.inner01{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+#img01{
+    width: 100%;
+}
+.desText, .desgif{
+    width: 48%;
+    height: 150px;
+    border: 1px solid black;
+    margin: 1px;
+}
+#describeInTitle{
+    font-size: 15px;
+    font-weight: bold;
+}
+#describeIncont{
+    font-size: 13px;
+}
+.inputSpace{
+    background-color: blue;
+    width: 90%;
+    height: 100px;
+    padding-top: 50px;
+    color: white;    
+}
+#inputText{
+    font-size: 13px;
+    color: white;
+    margin-left: 10px;
+}
+#inputTrucknum, #inputBlocknum, #inputTime{
+    width: 100px;
+}
+
+#queueGo{
+    width: 200px;
+    height: 100px;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 20px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+}

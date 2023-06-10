@@ -11,7 +11,7 @@ const Mainpage = () =>{
     const navigate = useNavigate();
     
     const simulpageGo = () =>{
-        navigate('/display');
+        navigate('/describe');
     }
 
     const getRandomColor=()=>{
@@ -56,7 +56,7 @@ const Mainpage = () =>{
     return(
 
         <div className='mainP' style = {{backgroundColor:bgcolor, backgroundImage:bgImage}}>
-            <div>
+            <div className='innterTitle'>
                 <h1><span id='terminal' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>컨테이너 터미널 현황</span></h1>
                 <h2>목표 : 트럭 대기(Queue) 최적화</h2>
             </div>

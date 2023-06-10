@@ -85,7 +85,7 @@ public class SimulController {
 		System.out.println("success");
 		
 		 // 플라스크 API 엔드포인트 설정
-        String flaskApiUrl = "http://121.175.195.251:5000/api/simul_predict";
+        String flaskApiUrl = "http://172.22.3.56:5000/api/simul_predict";
         RestTemplate restTemplate = new RestTemplate();
         Map<String, List<Simulator>> mapsimul = new HashMap<>();
         HttpHeaders headers = new HttpHeaders();

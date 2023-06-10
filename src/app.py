@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from DA import simulator_sort2
+
 # from complete import process_count_model
 # from complete import process_model
 # from DA import main
