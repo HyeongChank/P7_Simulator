@@ -85,7 +85,7 @@ public class SimulController {
 	public ResponseEntity<?> receiveData(@RequestBody Inputdata inputdata){
 		System.out.println(inputdata);
         // 플라스크 API 엔드포인트 설정
-        String flaskApiUrl = "http://121.175.195.251:5000/api/inputDataPost";
+        String flaskApiUrl = "http://10.125.121.220:5000/api/inputDataPost";
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();

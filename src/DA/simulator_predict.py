@@ -12,7 +12,6 @@ from tensorflow.keras.layers import Dense, LSTM
 from tensorflow.keras import backend as K
 import pickle
 from sklearn.model_selection import train_test_split
-import seaborn as sns
 from datetime import datetime
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
@@ -37,7 +36,7 @@ def operate():
 
     # 데이터 전처리
     def make_model(df_in_model):
-        lookback = 10
+        lookback = 30
         # 데이터 전처리
         X_data = df_in_model[['work_time', 'spot_wait_time', 'op']]
         y_data = df_in_model['in_yard_count'].values
@@ -76,8 +75,8 @@ def operate():
         # LSTM 모델 구성
         model = keras.Sequential()
         model.add(keras.layers.LSTM(units=64, input_shape=(lookback, X_train.shape[-1])))
-    #     model.add(keras.layers.Dense(units=64, activation='relu'))
-    #     model.add(keras.layers.Dense(units=32, activation='relu'))
+        model.add(keras.layers.Dense(units=64, activation='relu'))
+        model.add(keras.layers.Dense(units=32, activation='relu'))
         model.add(keras.layers.Dense(units=1))
 
         # 모델 컴파일
@@ -109,18 +108,23 @@ def operate():
         predict_values = combined_pred.tolist()
         #print(predict_values)
         new_list = predict_values.copy()
-        ## 이중리스트 단일리스트로 변경하는 방법
-        new_list = [item for sublist in new_list for item in sublist]
-        new_list = [0]*10 + new_list
-        #print('new_list', new_list)
-        new_list = [round(num) for num in new_list]
 
-        new_actual_list = data['in_yard_count'][:10].tolist()
+        ## 이중리스트 단일리스트로 변경하는 방법
+        ### 개수 오류 나서 일정한 값으로 되어있던 것을 lookback으로 수정함
+        new_list = [item for sublist in new_list for item in sublist]
+        new_list = [0]*lookback + new_list
+        #print('new_list', new_list)
+        # new_list = [round(num) for num in new_list]
+        new_list = [round(num,1) for num in new_list]
+
+        ### 개수 오류 나서 일정한 값으로 되어있던 것을 lookback으로 수정함
+        new_actual_list = data['in_yard_count'][:lookback].tolist()
         new_actual_list_r = new_actual_list + actual_values        
-        # print(len(new_list))
-        # print(len(new_actual_list_r))
-        
+        print(len(new_list))
+        print(len(new_actual_list_r))
+       
         data['prediction'] = new_list
+
 
         data['realdata'] = new_actual_list_r
         data['op'] = data['op'].replace({1:'unload', 2:'load', 3:'both'})

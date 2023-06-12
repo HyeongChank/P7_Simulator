@@ -33,7 +33,7 @@ public class Simulator {
     
     
     private int in_yard_count;
-    private int prediction;
+    private float prediction;
     private int realdata;
     
     
@@ -60,7 +60,7 @@ public class Simulator {
 	public Simulator(Long number, String code, int entryTime, int arrive_unload_spot, int start_unload_work,
 			int complete_unload_work, int arrive_load_spot, int start_load_work, int complete_load_work, int out_time,
 			int work_time, String op, int unload_count, int load_count, String unload_block, String load_block,
-			int entry_count, int exit_count, int spot_wait_time, int in_yard_count, int prediction, int realdata,
+			int entry_count, int exit_count, int spot_wait_time, int in_yard_count, float prediction, int realdata,
 			int entry_to_unload, int entry_to_load, int arrive_to_complete_unload, int arrive_to_complete_load,
 			int complete_to_exit_unload, int complete_to_exit_load, int unload_to_load, int unload_wait_time,
 			int load_wait_time, int unload_progress_truck_count, int load_progress_truck_count, boolean visible) {
@@ -261,11 +261,11 @@ public class Simulator {
 		this.in_yard_count = in_yard_count;
 	}
 
-	public int getPrediction() {
+	public float getPrediction() {
 		return prediction;
 	}
 
-	public void setPrediction(int prediction) {
+	public void setPrediction(float prediction) {
 		this.prediction = prediction;
 	}
 
