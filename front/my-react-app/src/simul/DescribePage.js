@@ -100,7 +100,8 @@ const DescribePage = () =>{
                         <p id="describeInTitle">시뮬레이션 화면3</p>
                         <div className="textleft">
                             <p id="describeIncont">- 컨테이너 터미널 내 차량수 예측(CHART)</p>
-                            <p id="describeIncont">- 딥러닝 예측모델(LSTM, CNN) 사용</p>
+                            <p id="describeIncont">- 딥러닝 모델(LSTM, CNN)을 통한 예측</p>
+                            <p id="describeIncont">- 모델 학습 동안 손실함수를 최소화하는 방향으로 요인 간의 가중치를 업데이트하여 예측치 산출</p>
                         </div>
                     </div>
                     <div className="desgif">
