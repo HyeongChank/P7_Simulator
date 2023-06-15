@@ -76,14 +76,14 @@ def operate():
         # LSTM 모델 구성
         model = keras.Sequential()
         model.add(keras.layers.LSTM(units=64, input_shape=(lookback, X_train.shape[-1])))
-    #     model.add(keras.layers.Dense(units=64, activation='relu'))
-    #     model.add(keras.layers.Dense(units=32, activation='relu'))
+        model.add(keras.layers.Dense(units=64, activation='relu'))
+        model.add(keras.layers.Dense(units=32, activation='relu'))
         model.add(keras.layers.Dense(units=1))
 
         # 모델 컴파일
         model.compile(loss='mean_squared_error', optimizer='adam')
         # 모델 학습
-        model.fit(X_train, y_train, epochs=50, batch_size=32)
+        model.fit(X_train, y_train, epochs=100, batch_size=32)
         # 모델 예측
         y_train_pred_scaled = model.predict(X_train)
         y_test_pred_scaled = model.predict(X_test)
@@ -107,7 +107,7 @@ def operate():
     #     datetime_list = combined_time.tolist()
         actual_values = combined_real.tolist()
         predict_values = combined_pred.tolist()
-        #print(predict_values)
+        print(predict_values)
         new_list = predict_values.copy()
         ## 이중리스트 단일리스트로 변경하는 방법
         new_list = [item for sublist in new_list for item in sublist]

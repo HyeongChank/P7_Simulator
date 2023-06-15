@@ -39,11 +39,12 @@ y_train, y_test = y[:train_size, :], y[train_size:, :]
 
 ## 실행방법 내부
 - simulator 데이터 생성 및 예측
-	- simulator_optimizer.py 실행
-	- simulator_sort2.py 실행
-	- simulator_predict.py 실행
+	- simulator_post.py 실행 시 아래 단계에 따라 실행됨
+		- simulator_optimizer.make_simul_data()
+		- simulator_sort2.operate()
+		- simulator_predict.operate()
 
-- 플라스크 켜고, 스프링 서버 켜고 postman으로 post, http://localhost:8081/api/simul_predict,
+<!-- - 플라스크 켜고, 스프링 서버 켜고 postman으로 post, http://localhost:8081/api/simul_predict,
 	- json  	{
 	    "json_output": [
 	        {
@@ -78,4 +79,4 @@ y_train, y_test = y[:train_size, :], y[train_size:, :]
 	- 전송
 	- db 들어왔는지 확인
 	- 리액트 npm start
-	- 화면 확인 
+	- 화면 확인  -->

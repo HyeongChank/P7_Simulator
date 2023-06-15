@@ -60,8 +60,8 @@ const DescribePage = () =>{
 
         <div className="describeOuter">
             <h1>Queue Predict Simulator</h1>
-            <h4>본 서비스는 컨테이너 야적장의 컨테이너 반출입 트럭의 Queue를 Simulation하여 차량수, 블록수, 시간에 따른 Queue를 확인할 수 있습니다.</h4>
-            <h4>또한, ~~~데이터를 이용하여 딥러닝한 예측모델의 결과값을 확인할 수 있습니다.</h4>
+            <h4>본 서비스는 컨테이너 야적장의 컨테이너 반출입 트럭의 Queue를 Simulaton하여 차량수, 블록수, 시간에 따른 Queue를 확인할 수 있습니다.</h4>
+            <h4>또한, 딥러닝 예측모델을 통한 Queue 결과값을 확인할 수 있습니다.</h4>
             <h3>내용</h3>
             <div className="describeInner">
                 <div className="inner01">
