@@ -55,7 +55,8 @@ public class SimulService {
                 String yard_truck_count_before = fields[22];
                 int in_yard_count = Integer.parseInt(yard_truck_count_before);
                 String prediction_before = fields[23];
-                int prediction = Integer.parseInt(prediction_before);
+//                int prediction = Integer.parseInt(prediction_before);
+                float prediction = Float.parseFloat(prediction_before);
                 String realdata_before = fields[24];
                 int realdata = Integer.parseInt(realdata_before);
                 

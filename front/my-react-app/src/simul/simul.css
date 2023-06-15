@@ -160,18 +160,28 @@
     border: 1px solid black;
     width: 90%;
     height: auto;
-}
 
+}
+.desText{
+    height: 100%;
+}
+.textleft{
+    text-align: left;
+    height: 80%;
+
+}
 .inner01{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    height: 25%;
 
 }
 #img01{
     width: 95%;
     height: 95%;
+
 }
 .desText, .desgif{
     width: 48%;
@@ -179,6 +189,7 @@
     border: 1px solid black;
     margin: 1px;
 }
+
 #describeInTitle{
     font-size: 15px;
     font-weight: bold;
