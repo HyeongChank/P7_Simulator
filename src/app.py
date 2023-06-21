@@ -1,12 +1,5 @@
 from flask import Flask, render_template, jsonify, request
 
-# from complete import process_count_model
-# from complete import process_model
-# from DA import main
-# from DA import Queue_LSTM
-# from complete import cnn_predict
-# from complete import lstm_retrain
-# from complete import randomForest_predict
 from DA import simulator_post_server
 from DA import test
 import json
@@ -15,44 +8,10 @@ from flask_cors import CORS
 import pandas as pd
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-    
-# @app.route('/api/cnn_time_predict', methods=['GET', 'POST'])
-# def cnn_prediction():
-#     if request.method == 'POST':
-#         print('******************request in*********************')
-#         time_group, predict_group, actual_group = process_model.operate()
-        
-#         return jsonify({'time': time_group, 'predict_group': predict_group, 'actual_group': actual_group})
-#     else:
-#         return 'error'
-
-# @app.route('/api/cnn_count_predict', methods=['GET', 'POST'])
-# def cnn_count_prediction():
-#     if request.method == 'POST':
-#         print('******************request in*********************')
-#         time_group, predict_group, actual_group = process_count_model.operate()
-        
-#         return jsonify({'time': time_group, 'predict_group': predict_group, 'actual_group': actual_group})
-#     else:
-#         return 'error'
-    
-
-# @app.route('/api/r_predict', methods=['GET', 'POST'])
-# def r_prediction():
-#     if request.method == 'POST':
-#         # new_data = request.get_json()
-#         # print('json 전달 받은 데이터', new_data)
-#         # new_data_df = pd.DataFrame(new_data)
-        
-#         grouped_df = randomForest_predict.operate()
-#         grouped_df_json = grouped_df.to_json(date_format='iso', orient='records')
-#         grouped_df_parsed = json.loads(grouped_df_json)
-#         grouped_df_clean = json.dumps(grouped_df_parsed, ensure_ascii=False)
-#         return jsonify({'grouped_df_json': grouped_df_clean})
-#     else:
-#         return 'error'
-    
+app.config.update(
+    CELERY_BROKER_URL='amqp://localhost//',
+    CELERY_RESULT_BACKEND='rpc://'
+)
 
 @app.route('/api/inputDataPost', methods=['GET', 'POST'])
 def inputDataPost():
@@ -69,8 +28,6 @@ def inputDataPost():
     else:
         return 'error'
     
-
-
 
 @app.route('/api/simul_predict', methods=['GET', 'POST'])
 def simul_prediction():
