@@ -486,18 +486,18 @@ function Display(){
                 setEntryt(truck.entryTime);
                 setBlockuntotal(blockA+blockB+blockC+blockD+blockE);
                 setBlocktotal(blockQ+blockW+blockX+blockY+blockZ);
-                const unloadCountElement = document.getElementById('unload_count');
-                const loadCountElement = document.getElementById('load_count');
-                const unloadBlockElement = document.getElementById('unload_block');
-                const loadBlockElement = document.getElementById('load_block');
+                // const unloadCountElement = document.getElementById('unload_count');
+                // const loadCountElement = document.getElementById('load_count');
+                // const unloadBlockElement = document.getElementById('unload_block');
+                // const loadBlockElement = document.getElementById('load_block');
                 const entryCountElement = document.getElementById('entry_count');
                 // const exitCountElement = document.getElementById('exit_count');
                 entryCountElement.textContent = `${truck.entry_count}`;
                 // exitCountElement.textContent = `${truck.exit_count}`;
-                unloadCountElement.textContent = `${truck.unload_count}`;
-                loadCountElement.textContent = `${truck.load_count}`;
-                unloadBlockElement.textContent = `${truck.unload_block} : `;
-                loadBlockElement.textContent = `${truck.load_block} : `;
+                //unloadCountElement.textContent = `${truck.unload_count}`;
+                //loadCountElement.textContent = `${truck.load_count}`;
+                //unloadBlockElement.textContent = `${truck.unload_block} : `;
+                //loadBlockElement.textContent = `${truck.load_block} : `;
 
                 if(truck.unload_block ==='A'){
                     setBlockAp(truck.unload_progress_truck_count);
@@ -774,14 +774,13 @@ function Display(){
                         <div id='dashboard'>
                             
                             <div id= 'entry_exit_ds'>
-                                <p className='entryP'> 총 </p>
-                                <p>입차(대) : <span id='entry_count'> 0</span></p>
-                                <p>입차시간(초) : {entryt/1000}</p>
+                                <p id='dashboardP'>입차(대) : <span id='entry_count'> 0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>입차시간(초) : {entryt/1000}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <span>출차(대) : </span>
                                 <span id='exit_count'>{outcount}</span>
-                                {/* <span id='exit_count'>출차 : 0</span> */}
+                                </p>
                             </div>
-                            <div id='unload5'>
+                            {/* <div id='unload5'>
                                 <p className='unloadP'>반입장 대기차량 : <span>{blockuntotal}</span></p>
                                 
                                 
@@ -804,8 +803,99 @@ function Display(){
                                 <p id='load'>block3 : {blockXp}대, {blockX}대, {blockXt}</p>
                                 <p id='load'>blockY : {blockYp}대, {blockY}대, {blockYt}</p>
                                 <p id='load'>blockZ : {blockZp}대, {blockZ}대, {blockZt}</p>
+                            </div> */}
+                            <div className='work_block'>
+                            <div className='unload_dashboard'>
+                                <p id='blockname'>반입장</p>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Block</th>
+                                        <th>작업(대)</th>
+                                        <th>대기(대)</th>
+                                        <th>대기시간</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Block1</td>
+                                        <td>{blockAp}</td>
+                                        <td>{blockA}</td>
+                                        <td>{blockAt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block2</td>
+                                        <td>{blockBp}</td>
+                                        <td>{blockB}</td>
+                                        <td>{blockBt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block3</td>
+                                        <td>{blockCp}</td>
+                                        <td>{blockC}</td>
+                                        <td>{blockCt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block4</td>
+                                        <td>{blockDp}</td>
+                                        <td>{blockD}</td>
+                                        <td>{blockDt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block5</td>
+                                        <td>{blockEp}</td>
+                                        <td>{blockE}</td>
+                                        <td>{blockEt}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                    
+                            <div className='load_dashboard'>
+                                <p id='blockname'>반출장</p>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Block</th>
+                                        <th>작업(대)</th>
+                                        <th>대기(대)</th>
+                                        <th>대기시간</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Block1</td>
+                                        <td>{blockQp}</td>
+                                        <td>{blockQ}</td>
+                                        <td>{blockQt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block2</td>
+                                        <td>{blockWp}</td>
+                                        <td>{blockW}</td>
+                                        <td>{blockWt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block3</td>
+                                        <td>{blockXp}</td>
+                                        <td>{blockX}</td>
+                                        <td>{blockXt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block4</td>
+                                        <td>{blockYp}</td>
+                                        <td>{blockY}</td>
+                                        <td>{blockYt}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Block5</td>
+                                        <td>{blockZp}</td>
+                                        <td>{blockZ}</td>
+                                        <td>{blockZt}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <div id='chartsim'>
