@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 
 from DA import simulator_post_server
-from DA import test
+from DA import simulator_optimize
 import json
 import requests
 from flask_cors import CORS
@@ -21,7 +21,7 @@ def inputDataPost():
         processtime = input_data['processtime']
         blocknum = input_data['blocknum']
         print(trucknum, processtime, blocknum)
-        test.make_simul_operate(trucknum, processtime, blocknum)
+        simulator_optimize.make_simul_operate(trucknum, processtime, blocknum)
         json_output = simulator_post_server.operate()
         
         return jsonify({'json_output': json_output})

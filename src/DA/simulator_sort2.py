@@ -66,7 +66,7 @@ def operate():
         sorted_data_with_In_yard_truck_volume.append(new_row)
 
 
-    sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','out_time','work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'entry_count', 'exit_count', 'spot_wait_time','unload_progress_truck_count', 'load_progress_truck_count','visible', 'in_yard_count'])
+    sorted_data_with_In_yard_truck_volume.insert(0,['number','code','entryTime','arrive_unload_spot', 'start_unload_work','complete_unload_work','arrive_load_spot','start_load_work','complete_load_work','out_time','work_time', 'op', 'unload_count','load_count','unload_block', 'load_block', 'entry_count', 'exit_count', 'spot_wait_time','unload_progress_truck_count', 'load_progress_truck_count','visible', 'container_status', 'container_size', 'in_yard_count'])
     # print(sorted_data_with_In_yard_truck_volume)        1      2      3                  4                5                       6                       7               8                    9                 10         11      12    13               14               15             16              17           18        19                20                                21                         22          23      
     
 #### 서버에 전송할 json 형식#################################
@@ -138,11 +138,11 @@ def operate():
         line22.set_data(x[:num], y22[:num])
 
         return line1, line2
-    termani = animation.FuncAnimation(terminalgraph, update, frames = len(x) +1, fargs=(x,y1,y11,y2,y22, line1,line11, line2, line22),
-                                    interval = 100, repeat = False)
-    animation_filename = "images/test_animation.gif"
-    termani.save(animation_filename, writer="pillow")
-    print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
+    # termani = animation.FuncAnimation(terminalgraph, update, frames = len(x) +1, fargs=(x,y1,y11,y2,y22, line1,line11, line2, line22),
+    #                                 interval = 100, repeat = False)
+    # animation_filename = "images/test_animation.gif"
+    # termani.save(animation_filename, writer="pillow")
+    # print(f"애니메이션을 '{animation_filename}' 파일로 저장했습니다.")
 
     #plt.show()
     return json_data
@@ -150,4 +150,4 @@ def operate():
 if __name__=='__main__':
     
     json_data = operate()
-    print(json_data)
+    #print(json_data)

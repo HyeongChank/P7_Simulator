@@ -31,14 +31,16 @@ def operate():
     def preprocessing(data): 
         #print(data[['entryTime', 'work_time', 'spot_wait_time', 'entry_count', 'exit_count', 'op']])
         data['op'] = data['op'].replace({'unload':1, 'load':2, 'both':3})
+        data['container_status'] =data['container_status'].replace({'fresh':1, 'short-term':2, 'long-term':3})
+        data['container_size'] = data['container_size'].replace({'small':1, 'medium':2, 'large':3})
         return data
 
 
     # 데이터 전처리
     def make_model(df_in_model):
-        lookback = 30
+        lookback = 50
         # 데이터 전처리
-        X_data = df_in_model[['work_time', 'spot_wait_time', 'op']]
+        X_data = df_in_model[['work_time', 'spot_wait_time', 'op', 'container_status', 'container_size']]
         y_data = df_in_model['in_yard_count'].values
         #print(y_data)
 
@@ -86,24 +88,38 @@ def operate():
         # 모델 예측
         y_train_pred_scaled = model.predict(X_train)
         y_test_pred_scaled = model.predict(X_test)
-        # print(y_train_pred_scaled)
-        # print(y_test_pred_scaled)
-    #     # 예측값을 원래의 스케일로 되돌리기
-    #     y_train_pred = scaler_y.inverse_transform(y_train_pred_scaled)
-    #     y_test_pred = scaler_y.inverse_transform(y_test_pred_scaled)
-    #     # 원래의 스케일로 되돌린 실제값
-    #     y_train_real = scaler_y.inverse_transform(y_train_scaled)
-    #     y_test_real = scaler_y.inverse_transform(y_test_scaled)
-   
+            # Mean Absolute Error (MAE)
+        mae_train = mean_absolute_error(y_train, y_train_pred_scaled)
+        mae_test = mean_absolute_error(y_test, y_test_pred_scaled)
+
+        print(f'Train MAE: {mae_train}, Test MAE: {mae_test}')
+
+        # Mean Squared Error (MSE)
+        mse_train = mean_squared_error(y_train, y_train_pred_scaled)
+        mse_test = mean_squared_error(y_test, y_test_pred_scaled)
+
+        print(f'Train MSE: {mse_train}, Test MSE: {mse_test}')
+
+        # Root Mean Squared Error (RMSE)
+        rmse_train = np.sqrt(mse_train)
+        rmse_test = np.sqrt(mse_test)
+
+        print(f'Train RMSE: {rmse_train}, Test RMSE: {rmse_test}')
+
+        # R^2 Score
+        r2_train = r2_score(y_train, y_train_pred_scaled)
+        r2_test = r2_score(y_test, y_test_pred_scaled)
+
+        print(f'Train R^2: {r2_train}, Test R^2: {r2_test}')
         combined_pred = np.concatenate((y_train_pred_scaled, y_test_pred_scaled), axis=0)
         #print(combined_pred)
         #print(len(combined_pred))
         combined_real = np.concatenate((y_train, y_test), axis=0)
         #print(combined_real)
         #print(len(combined_real))
-    #     # datetime 형식을 리스트로 바꾸면 유닉스타임 스탬프로 변경돼서 다른 방법 써야 함
-    # #     # time = combined_time.tolist()
-    #     datetime_list = combined_time.tolist()
+        # datetime 형식을 리스트로 바꾸면 유닉스타임 스탬프로 변경돼서 다른 방법 써야 함
+    #     # time = combined_time.tolist()
+        
         actual_values = combined_real.tolist()
         predict_values = combined_pred.tolist()
         print(predict_values)
@@ -163,19 +179,22 @@ def operate():
     #     r2_test = r2_score(y_test_real, y_test_pred)
 
     #     print(f'Train R^2: {r2_train}, Test R^2: {r2_test}')
-
-    #     # 그래프의 크기 설정
-    #     plt.figure(figsize=(14, 7))
-    #     plt.scatter(datetime_list, actual_values, color='blue', label='Actual values')
-    #     plt.scatter(datetime_list, predict_values, color='red', label='Predicted values')
-    #     plt.xlabel('Time')
-    #     plt.ylabel('Values')
-    #     plt.title('Scatter plot of actual and predicted values over time')
-    #     plt.legend()
-    #     graph_image_filename = "simul_graph.png"
-    #     plt.savefig(graph_image_filename)
-    #     print(f"그래프를 '{graph_image_filename}' 파일로 저장했습니다.")
-    #     # plt.show()
+        # x축으로 사용할 인덱스 생성
+        new_actual_list_r = new_actual_list_r[lookback:]
+        new_list = new_list[lookback:]
+        index_list = range(len(new_actual_list_r))
+        # 그래프의 크기 설정
+        plt.figure(figsize=(14, 7))
+        plt.scatter(index_list, new_actual_list_r, color='blue', label='Actual values')
+        plt.scatter(index_list, new_list, color='red', label='Predicted values')
+        plt.xlabel('Time')
+        plt.ylabel('Values')
+        plt.title('Scatter plot of actual and predicted values over time')
+        plt.legend()
+        graph_image_filename = "simul_graph.png"
+        plt.savefig(graph_image_filename)
+        print(f"그래프를 '{graph_image_filename}' 파일로 저장했습니다.")
+        # plt.show()
   
     #     # 모델 저장
     #     with open('./models/simul_model.pkl', 'wb') as f:

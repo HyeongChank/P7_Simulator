@@ -31,7 +31,8 @@ public class Simulator {
     
     private int spot_wait_time;
     
-    
+    private int container_status;
+    private int container_size;
     private int in_yard_count;
     private float prediction;
     private int realdata;
@@ -60,10 +61,11 @@ public class Simulator {
 	public Simulator(Long number, String code, int entryTime, int arrive_unload_spot, int start_unload_work,
 			int complete_unload_work, int arrive_load_spot, int start_load_work, int complete_load_work, int out_time,
 			int work_time, String op, int unload_count, int load_count, String unload_block, String load_block,
-			int entry_count, int exit_count, int spot_wait_time, int in_yard_count, float prediction, int realdata,
-			int entry_to_unload, int entry_to_load, int arrive_to_complete_unload, int arrive_to_complete_load,
-			int complete_to_exit_unload, int complete_to_exit_load, int unload_to_load, int unload_wait_time,
-			int load_wait_time, int unload_progress_truck_count, int load_progress_truck_count, boolean visible) {
+			int entry_count, int exit_count, int spot_wait_time, int container_status, int container_size,
+			int in_yard_count, float prediction, int realdata, int entry_to_unload, int entry_to_load,
+			int arrive_to_complete_unload, int arrive_to_complete_load, int complete_to_exit_unload,
+			int complete_to_exit_load, int unload_to_load, int unload_wait_time, int load_wait_time,
+			int unload_progress_truck_count, int load_progress_truck_count, boolean visible) {
 		super();
 		this.number = number;
 		this.code = code;
@@ -84,6 +86,8 @@ public class Simulator {
 		this.entry_count = entry_count;
 		this.exit_count = exit_count;
 		this.spot_wait_time = spot_wait_time;
+		this.container_status = container_status;
+		this.container_size = container_size;
 		this.in_yard_count = in_yard_count;
 		this.prediction = prediction;
 		this.realdata = realdata;
@@ -253,6 +257,22 @@ public class Simulator {
 		this.spot_wait_time = spot_wait_time;
 	}
 
+	public int getContainer_status() {
+		return container_status;
+	}
+
+	public void setContainer_status(int container_status) {
+		this.container_status = container_status;
+	}
+
+	public int getContainer_size() {
+		return container_size;
+	}
+
+	public void setContainer_size(int container_size) {
+		this.container_size = container_size;
+	}
+
 	public int getIn_yard_count() {
 		return in_yard_count;
 	}
@@ -381,7 +401,8 @@ public class Simulator {
 				+ start_load_work + ", complete_load_work=" + complete_load_work + ", out_time=" + out_time
 				+ ", work_time=" + work_time + ", op=" + op + ", unload_count=" + unload_count + ", load_count="
 				+ load_count + ", unload_block=" + unload_block + ", load_block=" + load_block + ", entry_count="
-				+ entry_count + ", exit_count=" + exit_count + ", spot_wait_time=" + spot_wait_time + ", in_yard_count="
+				+ entry_count + ", exit_count=" + exit_count + ", spot_wait_time=" + spot_wait_time
+				+ ", container_status=" + container_status + ", container_size=" + container_size + ", in_yard_count="
 				+ in_yard_count + ", prediction=" + prediction + ", realdata=" + realdata + ", entry_to_unload="
 				+ entry_to_unload + ", entry_to_load=" + entry_to_load + ", arrive_to_complete_unload="
 				+ arrive_to_complete_unload + ", arrive_to_complete_load=" + arrive_to_complete_load
@@ -391,7 +412,7 @@ public class Simulator {
 				+ unload_progress_truck_count + ", load_progress_truck_count=" + load_progress_truck_count
 				+ ", visible=" + visible + "]";
 	}
-    
+
 
 
 }
