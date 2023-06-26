@@ -74,17 +74,9 @@ def operate():
         # y_train_scaled = scaler_y.fit_transform(y_train)
         # y_test_scaled = scaler_y.transform(y_test)
 
-        # LSTM 모델 구성
-        model = keras.Sequential()
-        model.add(keras.layers.LSTM(units=64, input_shape=(lookback, X_train.shape[-1])))
-        model.add(keras.layers.Dense(units=64, activation='relu'))
-        model.add(keras.layers.Dense(units=32, activation='relu'))
-        model.add(keras.layers.Dense(units=1))
-
-        # 모델 컴파일
-        model.compile(loss='mean_squared_error', optimizer='adam')
-        # 모델 학습
-        model.fit(X_train, y_train, epochs=100, batch_size=32)
+         # 모델 로드
+        with open('D:/김형찬/Congest_project/models/lstm_simul_model.pkl', 'rb') as f:
+            model = pickle.load(f)
         # 모델 예측
         y_train_pred_scaled = model.predict(X_train)
         y_test_pred_scaled = model.predict(X_test)

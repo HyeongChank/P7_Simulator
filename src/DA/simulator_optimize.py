@@ -485,8 +485,8 @@ def make_simul_operate(trucknum, processtime, blocknum):
     print(f"결과를 '{csv_filename}' 파일로 저장했습니다.")
     
 if __name__=='__main__':
-    trucknum = 1000
-    processtime = 2880
+    trucknum = 10000
+    processtime = 28800
     blocknum = 5
     make_simul_operate(trucknum, processtime, blocknum)
 
