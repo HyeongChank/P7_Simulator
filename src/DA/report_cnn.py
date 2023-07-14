@@ -63,7 +63,7 @@ def operate():
         train_size = int(len(X) * 0.8)
 
         # 시간 순서를 유지하면서 데이터 분할
-        X_train, X_test = X[:train_size], X[train_size:]
+        X_train, X_test = X[:train_size, :], X[train_size:, :]
         y_train, y_test = y[:train_size], y[train_size:]
 
         # CNN 모델 생성
@@ -126,7 +126,6 @@ def operate():
         
         actual_values = combined_real.tolist()
         predict_values = combined_pred.tolist()
-        print(predict_values)
         new_list = predict_values.copy()
 
         ## 이중리스트 단일리스트로 변경하는 방법
@@ -154,8 +153,8 @@ def operate():
 
             
         # x축으로 사용할 인덱스 생성
-        new_actual_list_r = new_actual_list_r[lookback:]
-        new_list = new_list[lookback:]
+        new_actual_list_r = new_actual_list_r[-200:]
+        new_list = new_list[-200:]
         index_list = range(len(new_actual_list_r))
         # 그래프의 크기 설정
         plt.figure(figsize=(14, 7))
@@ -165,7 +164,7 @@ def operate():
         plt.ylabel('Values')
         plt.title('Scatter plot of actual and predicted values over time')
         plt.legend()
-        graph_image_filename = "cnnsimul_graph.png"
+        graph_image_filename = "cnnsimul_graph2.png"
         plt.savefig(graph_image_filename)
         print(f"그래프를 '{graph_image_filename}' 파일로 저장했습니다.")
         # plt.show()

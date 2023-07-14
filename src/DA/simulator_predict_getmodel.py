@@ -13,6 +13,7 @@ from tensorflow.keras import backend as K
 import pickle
 from sklearn.model_selection import train_test_split
 from datetime import datetime
+import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
 # 한글 폰트 설정
@@ -33,6 +34,8 @@ def operate():
         data['op'] = data['op'].replace({'unload':1, 'load':2, 'both':3})
         data['container_status'] =data['container_status'].replace({'fresh':1, 'short-term':2, 'long-term':3})
         data['container_size'] = data['container_size'].replace({'small':1, 'medium':2, 'large':3})
+        data['unload_block'] = data['unload_block'].replace({'A':1, 'B':2,'C':3, 'D':4, 'E':5})
+        data['load_block'] = data['load_block'].replace({'Q':1, 'W':2,'X':3, 'Y':4, 'Z':5})
         return data
 
 
@@ -40,10 +43,18 @@ def operate():
     def make_model(df_in_model):
         lookback = 50
         # 데이터 전처리
-        X_data = df_in_model[['work_time', 'spot_wait_time', 'op', 'container_status', 'container_size']]
+        X_data = df_in_model[['work_time', 'spot_wait_time', 'op', 'container_status', 'container_size','unload_block', 'load_block']]
         y_data = df_in_model['in_yard_count'].values
         #print(y_data)
+        # 상관관계 히트맵 그리기
+        correlation_matrix = df_in_model[['work_time', 'spot_wait_time', 'op', 'container_status', 'container_size','unload_block', 'load_block', 'in_yard_count']].corr()
 
+        sns.heatmap(correlation_matrix, annot=True)
+        plt.tight_layout()
+        graph_image_filename = "corelate_simul_graph.png"
+        plt.savefig(graph_image_filename)
+        print(f"그래프를 '{graph_image_filename}' 파일로 저장했습니다.")
+        plt.show()
         X, y = [], []
         for i in range(df_in_model.shape[0] - lookback):
             X.append(X_data[i:i+lookback].values)
@@ -75,7 +86,7 @@ def operate():
         # y_test_scaled = scaler_y.transform(y_test)
 
          # 모델 로드
-        with open('D:/김형찬/Congest_project/models/lstm_simul_model.pkl', 'rb') as f:
+        with open('models/lstm_simul_model.pkl', 'rb') as f:
             model = pickle.load(f)
         # 모델 예측
         y_train_pred_scaled = model.predict(X_train)

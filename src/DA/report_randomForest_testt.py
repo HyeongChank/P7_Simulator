@@ -45,7 +45,7 @@ def operate():
         X_train, X_test, y_train, y_test = train_test_split(X_data, y_data, test_size=0.2, random_state=42)
 
         # 랜덤 포레스트 모델 생성
-        model = RandomForestRegressor(n_estimators=100, max_depth=10, min_samples_split=2, min_samples_leaf=1, max_features='auto')
+        model = RandomForestRegressor(n_estimators=300, max_depth=10, min_samples_split=2, min_samples_leaf=1, max_features='auto')
 
         # 모델 학습
         model.fit(X_train, y_train)
@@ -76,7 +76,6 @@ def operate():
         
         actual_values = combined_real.tolist()
         predict_values = combined_pred.tolist()
-        print(predict_values)
         new_list = predict_values.copy()
 
     
@@ -91,9 +90,9 @@ def operate():
 
 
         index_list = range(len(actual_values))
-        index_list = index_list[:100]
-        actual_values = actual_values[:100]
-        predict_values = predict_values[:100]
+        index_list = index_list[-200:]
+        actual_values = actual_values[-200:]
+        predict_values = predict_values[-200:]
         # 그래프의 크기 설정
         plt.figure(figsize=(14, 7))
         plt.plot(index_list, actual_values, color='blue', label='Actual values')

@@ -6,10 +6,11 @@ from tensorflow import keras
 import csv
 from scipy.interpolate import interp1d
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+from tensorflow.keras.layers import MaxPooling1D
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, LSTM
-from tensorflow.keras import backend as K
+from tensorflow.keras.layers import Conv1D, Dense, Flatten
 import pickle
 from sklearn.model_selection import train_test_split
 from datetime import datetime
@@ -33,8 +34,6 @@ def operate():
         data['op'] = data['op'].replace({'unload':1, 'load':2, 'both':3})
         data['container_status'] =data['container_status'].replace({'fresh':1, 'short-term':2, 'long-term':3})
         data['container_size'] = data['container_size'].replace({'small':1, 'medium':2, 'large':3})
-        data['unload_block'] = data['unload_block'].replace({'A':1, 'B':2,'C':3, 'D':4, 'E':5})
-        data['load_block'] = data['load_block'].replace({'Q':1, 'W':2,'X':3, 'Y':4, 'Z':5})
         return data
 
 
@@ -42,7 +41,7 @@ def operate():
     def make_model(df_in_model):
         lookback = 50
         # 데이터 전처리
-        X_data = df_in_model[['work_time', 'spot_wait_time', 'op', 'container_status', 'container_size','unload_block', 'load_block']]
+        X_data = df_in_model[['work_time', 'spot_wait_time', 'op', 'container_status', 'container_size']]
         y_data = df_in_model['in_yard_count'].values
         #print(y_data)
 
@@ -76,17 +75,19 @@ def operate():
         # y_train_scaled = scaler_y.fit_transform(y_train)
         # y_test_scaled = scaler_y.transform(y_test)
 
-        # LSTM 모델 구성
-        model = keras.Sequential()
-        model.add(keras.layers.LSTM(units=64, input_shape=(lookback, X_train.shape[-1])))
-        model.add(keras.layers.Dense(units=64, activation='relu'))
-        model.add(keras.layers.Dense(units=32, activation='relu'))
-        model.add(keras.layers.Dense(units=1))
+        # CNN 모델 생성
+        model = Sequential()
+        model.add(Conv1D(64, 3, activation='relu', input_shape=(X_train.shape[1], X_train.shape[2])))
+        model.add(MaxPooling1D(2))
+        model.add(Flatten())
+        model.add(Dense(64, activation='relu'))
+        model.add(Dense(1))
 
         # 모델 컴파일
-        model.compile(loss='mean_squared_error', optimizer='adam')
+        model.compile(optimizer='adam', loss='mse')
+
         # 모델 학습
-        model.fit(X_train, y_train, epochs=100, batch_size=32)
+        model.fit(X_train, y_train, epochs=200, verbose=0)
         # 모델 예측
         y_train_pred_scaled = model.predict(X_train)
         y_test_pred_scaled = model.predict(X_test)
@@ -164,13 +165,13 @@ def operate():
         plt.ylabel('Values')
         plt.title('Scatter plot of actual and predicted values over time')
         plt.legend()
-        graph_image_filename = "lstm_simul_graph.png"
+        graph_image_filename = "cnnsimul_graph2.png"
         plt.savefig(graph_image_filename)
         print(f"그래프를 '{graph_image_filename}' 파일로 저장했습니다.")
         # plt.show()
   
         # 모델 저장
-        with open('./models/lstm_simul_model.pkl', 'wb') as f:
+        with open('./models/cnn_simul_model.pkl', 'wb') as f:
             pickle.dump(model, f)
         # return X_test_time_original, y_train_pred, y_test_pred
         
