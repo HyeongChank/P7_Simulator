@@ -2,7 +2,7 @@
 - 프로젝트명 : 컨테이너 야드 혼잡도 분석 및 대기시간 예측 웹서비스 개발
 - 대&nbsp;&nbsp;&nbsp;&nbsp;상 : 컨테이너 야드 운송사
 - 내&nbsp;&nbsp;&nbsp;&nbsp;용 : 이 프로젝트는 실제 부산항, 인천항의 데이터를 참고하여 컨테이너 야드 내 반출입 트럭의 대기열을 시뮬레이션하고, 해당 데이터를 분석하여 차량 대기에 영향을 미치는 요인을 찾습니다. 이를 기반으로 머신러닝, 딥러닝 모델을 개발하고 야드 내 혼잡도 및 대기차량 수를 예측합니다.
-
+- 보고서 : https://khc-developer.tistory.com/28
 ## 실행방법
 - git에서 다운로드
 - Front
@@ -20,6 +20,8 @@
 
 
 ------
+<img width="200" src="https://github.com/HyeongChank/P7_containeryard-congestion-solution/assets/122770625/a5739e60-d46c-424e-894a-7bf5c9a8f5ff.gif"/>
+
 <img width="200" src="https://github.com/HyeongChank/P7_Simulator/assets/122770625/7074be29-84d9-4b16-8526-a5448c99bc81.gif"/>
 
 <img width="200" src="https://github.com/HyeongChank/P7_Simulator/assets/122770625/5ad11f0e-2cde-49e7-8fe0-5cda92f9bf12.gif"/>
