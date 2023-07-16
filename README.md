@@ -22,6 +22,8 @@
 ------
 <img width="200" src="https://github.com/HyeongChank/P7_containeryard-congestion-solution/assets/122770625/a5739e60-d46c-424e-894a-7bf5c9a8f5ff.gif"/>
 
+<img width="200" src="https://github.com/HyeongChank/P7_containeryard-congestion-solution/assets/122770625/bdb2b269-1e02-401d-bcc3-8118577cd823.gif"/>
+
 <img width="200" src="https://github.com/HyeongChank/P7_Simulator/assets/122770625/7074be29-84d9-4b16-8526-a5448c99bc81.gif"/>
 
 <img width="200" src="https://github.com/HyeongChank/P7_Simulator/assets/122770625/5ad11f0e-2cde-49e7-8fe0-5cda92f9bf12.gif"/>
