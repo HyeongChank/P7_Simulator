@@ -1,4 +1,6 @@
 from flask import Flask, request
+import sys
+sys.path.append('C:/git clone/P7_simulation/P7_Simulator/src')
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from DA import crawling_congest

@@ -17,7 +17,7 @@ rc('font', family=font_name)
 def operate():
     def load():
         # new_data 들어오면 기존 df 에 합치면 됨
-        data = pd.read_excel("D:/김형찬/Congest_project/data/TSB_data2.xlsx", sheet_name='야드크레이인_작업이력2_추가데이터')
+        data = pd.read_excel("data/TSB_data.xlsx", sheet_name='야드크레이인_작업이력')
         #scd_data = pd.read_excel("data/TBS_data.xlsx", sheet_name='반출입_예정컨테이너')
         # cbd_data = pd.read_excel("data/TBS_data.xlsx", sheet_name='장치장_전')
         # cad_data = pd.read_excel("data/TBS_data.xlsx", sheet_name='장치장_후')
@@ -70,8 +70,8 @@ def operate():
 
     def make_model(common_df):
         # 특성과 목표 변수 설정
-        # X = common_df[['작업생성시간','작업코드','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호', '풀(F)공(M)']]
-        X = common_df[['작업코드','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호', '풀(F)공(M)']]
+        X = common_df[['작업생성시간','작업코드','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호', '풀(F)공(M)']]
+        # X = common_df[['작업코드','야드트럭(번호)','컨테이너(사이즈 코드)','장비번호', '풀(F)공(M)']]
         y = common_df['작업+대기시간']
         # 데이터를 훈련 세트와 테스트 세트로 분리
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -94,28 +94,27 @@ def operate():
     ###########################################################################
         # x 축에 시간 넣기 위한 작업
         # 예측값을 X_test에 추가
-        # X_test_with_predictions = X_test.copy()
-        # X_test_with_predictions['예측값'] = predictions
-
-      
-
-        # X_test_with_predictions['작업생성시간'] = pd.to_datetime(X_test_with_predictions['작업생성시간'], unit='s')
+        X_test_with_predictions = X_test.copy()
+        X_test_with_predictions['예측값'] = predictions
         
-        # # 작업생성시간 별로 정렬
-        # X_test_with_predictions.sort_values('작업생성시간', inplace=True)
-        # X_test_with_predictions= X_test_with_predictions[['작업생성시간', '예측값']]
-        # # 결과 출력
-        # print(X_test_with_predictions)
-        # # Unix timestamp를 datetime으로 변환
-        # grouped_df = X_test_with_predictions.groupby(pd.Grouper(key='작업생성시간', freq='10min')).max()
+        print(X_test_with_predictions)
+        X_test_with_predictions['작업생성시간'] = pd.to_datetime(X_test_with_predictions['작업생성시간'], unit='s')
+        
+        # 작업생성시간 별로 정렬
+        X_test_with_predictions.sort_values('작업생성시간', inplace=True)
+        X_test_with_predictions= X_test_with_predictions[['작업생성시간', '예측값']]
+        # 결과 출력
+        print(X_test_with_predictions)
+        # Unix timestamp를 datetime으로 변환
+        grouped_df = X_test_with_predictions.groupby(pd.Grouper(key='작업생성시간', freq='10min')).max()
 
 
-        # plt.figure(figsize=(10, 5))
-        # plt.plot(X_test_with_predictions['작업생성시간'], X_test_with_predictions['예측값'])
-        # plt.xlabel('작업생성시간')
-        # plt.ylabel('예측값')
-        # plt.title('예측값 시간별 추이')
-        # plt.show()
+        plt.figure(figsize=(10, 5))
+        plt.plot(X_test_with_predictions['작업생성시간'], X_test_with_predictions['예측값'])
+        plt.xlabel('작업생성시간')
+        plt.ylabel('예측값')
+        plt.title('예측값 시간별 추이')
+        plt.show()
         return grouped_df
 
 #############################################################################
@@ -136,8 +135,8 @@ def operate():
     predict_dic = {}
     entry_time = grouped_df['작업생성시간'].tolist()
 
-    # grouped_df['작업생성시간'] = pd.to_datetime(grouped_df['작업생성시간'], unit='ms')
-    # grouped_df_json = grouped_df.to_json(orient='records')
+    grouped_df['작업생성시간'] = pd.to_datetime(grouped_df['작업생성시간'], unit='ms')
+    grouped_df_json = grouped_df.to_json(orient='records')
     return grouped_df
 
 if __name__=='__main__':

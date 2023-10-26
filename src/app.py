@@ -1,7 +1,8 @@
 from flask import Flask, render_template, jsonify, request
-
-from DA import simulator_post_server
-from DA import simulator_optimize
+import sys
+sys.path.append('C:/git clone/P7_simulation/P7_Simulator/src')
+from DA.myp import simulator_post_server
+from DA.myp import simulator_optimize
 import json
 import requests
 from flask_cors import CORS

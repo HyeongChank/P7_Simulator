@@ -1,6 +1,6 @@
-from DA import simulator_optimize
-from DA import simulator_sort2
-from DA import simulator_predict
+from DA.myp import simulator_optimize
+from DA.myp import simulator_sort2
+from DA.myp import simulator_predict
 import csv
 import time
 

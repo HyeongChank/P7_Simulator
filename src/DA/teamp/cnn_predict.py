@@ -32,7 +32,7 @@ def operate():
         data_cad_data_common_df = pd.merge(data, cad_data, on='컨테이너번호')
         data_cbd_data_common_df = pd.merge(data, cbd_data, on='컨테이너번호')
 
-        return data_cbd_data_common_df
+        return data_cad_data_common_df
 
     def preprocessing(common_df):
         # 데이터 전처리
@@ -69,7 +69,7 @@ def operate():
 
         X_train_reshaped = X_train.values.reshape((X_train.shape[0], 1, X_train.shape[1]))
         X_test_reshaped = X_test.values.reshape((X_test.shape[0], 1, X_test.shape[1]))
-        print(X_train.shape())
+        
         # model = Sequential()
         # model.add(Conv1D(64, 3, activation='relu', input_shape=(X_train.shape[1], 8)))
         # model.add(MaxPooling1D(2))
